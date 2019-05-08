@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {ApiService} from './shared/api.service';
+import {ApiService} from '../shared/api.service';
 import {Observable} from 'rxjs';
-import {Category, CategoryViewModel} from '../model/category';
+import {Category, CategoryViewModel} from '../../model/category';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
