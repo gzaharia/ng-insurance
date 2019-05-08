@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="card mt-3">
+    <div class="card-header">
+      Calculator RCA
+    </div>
+
+<!--    <div class="card-body">
+      <form name="rcaForm">
+        <ul *ngFor="let category of categories">
+          <li>{{category.title}}</li>
+        </ul>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <div class="form-group">
+              <label class="form-text" for="VehicleOriginInput">Autovehicolul este înmatriculat în:</label>
+              <div id="VehicleOriginInput">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="VehicleOriginOption"
+                    id="RMOption"
+                  >
+                  <label class="form-check-label" for="RMOption">
+                    RM
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="VehicleOriginOption" id="OtherOption">
+                  <label class="form-check-label" for="OtherOption">
+                    Peste hotare
+                  </label>
+                </div>
+              </div>
+              <small class="form-text text-danger">Această opțiune este obligatorie!</small>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>-->
+
+    <table>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>{{category.title}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
