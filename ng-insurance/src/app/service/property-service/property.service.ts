@@ -9,10 +9,10 @@ import {PropertyViewModel} from '../../model/property/property-view-model';
   providedIn: 'root'
 })
 export class PropertyService {
-  private GET_PROPERTIES_URL = `${ApiService.BASE_URL}\\admin\\properties`;
-  private POST_PROPERTY_URL = `${ApiService.BASE_URL}\\admin\\properties\\add`;
-  private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\\admin\\properties\\`;
-  private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\admin\\properties\\`;
+  private GET_PROPERTIES_URL = `${ApiService.BASE_URL}\\properties`;
+  private POST_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\add`;
+  private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
+  private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
 
   constructor(private http: HttpClient) { }
 
