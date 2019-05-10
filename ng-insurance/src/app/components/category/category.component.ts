@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/service/category/category.service';
-import { Category } from 'src/app/category/category';
+import { Category } from 'src/app/model/category/category';
 import { CategoryViewModel } from "src/app/model/category/CategoryViewModel";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -14,7 +15,7 @@ export class CategoryComponent implements OnInit {
   categories : Category[];
   category : CategoryViewModel;
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private router : Router) { }
 
   myEvent(){
     console.log(this.title);
@@ -24,7 +25,7 @@ export class CategoryComponent implements OnInit {
   }
 
   edit(id){
-    console.log("edit : " + id);
+    this.router.navigateByUrl('admin/category/' + id);
   }
 
   delete(id){
