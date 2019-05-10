@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { NavbarComponent } from './login/navbar/navbar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 import { RcaComponent } from './components/rca/rca.component';
