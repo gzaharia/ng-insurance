@@ -1,3 +1,37 @@
-<p>
-  property works!
-</p>
+<div class="container">
+  {{ id }}
+  {{ title }}
+</div>
+
+<div class="container">
+  <div class="form-row align-items-center">
+    <div class="col-md">
+      <label class="sr-only" for="inlineFormInput">Name</label>
+      <input type="text" class="form-control mb-2" [(ngModel)]="title" id="inlineFormInput" placeholder="Jane Doe">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-2" (click)=myEvent()>Submit</button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row" *ngFor="let category of categories; let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
+
+    <div class="col-1">
+      {{ category.id }}
+    </div>
+    <div class="col-md">
+      <a >{{ category.title }}</a> 
+    </div>
+    <div class="col-auto">
+      <button class="edit" title="edit category"
+      (click)="edit(category.id)">edit</button>
+    </div>
+    <div class="col-auto">
+      <button class="delete" title="delete category"
+      (click)="delete(category.id)">del</button>
+    </div>
+  </div>
+</div>
+
+

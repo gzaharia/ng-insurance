@@ -20,7 +20,7 @@ const routes: Routes = [
     component: CategoryComponent
   },
   {
-    path: 'admin/category/{id}',
+    path: 'admin/category/:id',
     component: PropertyComponent
   },
   {

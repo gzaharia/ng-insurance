@@ -3,13 +3,16 @@ import {HttpClient} from '@angular/common/http';
 import {ApiService} from '../shared/api.service';
 import {Observable} from 'rxjs';
 import {Property} from '../../model/property/property';
-import {PropertyViewModel} from '../../model/property/property-view-model';
+import {PropertyViewModel} from '../../model/property/propertyViewModel';
+import { Category } from 'src/app/model/category/category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PropertyService {
+  
   private GET_PROPERTIES_URL = `${ApiService.BASE_URL}\\properties`;
+  private GET_PROPERTIES_BY_CATEGORY_URL = `${ApiService.BASE_URL}\\properties`;
   private POST_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\add`;
   private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
   private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
@@ -18,6 +21,10 @@ export class PropertyService {
 
   getAllProperties(): Observable<Property[]> {
     return this.http.get<Property[]>(this.GET_PROPERTIES_URL);
+  }
+
+  getAllPropertiesByCategory(category: Category): Observable<Property[]> {
+    return ;//this.http.get<Propery[]>();
   }
 
   postProperty(property: PropertyViewModel): Observable<any> {
