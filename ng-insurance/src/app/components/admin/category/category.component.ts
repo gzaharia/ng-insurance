@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Category } from 'src/app/model/category/category';
-import { CategoryViewModel } from "src/app/model/category/CategoryViewModel";
+import { CategoryViewModel } from 'src/app/model/category/CategoryViewModel';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,9 +19,9 @@ export class CategoryComponent implements OnInit {
 
   myEvent(){
     console.log(this.title);
-    this.category = {"title" : this.title};
+    this.category = {'title' : this.title};
     this.addNewCategory(this.category);
-    this.title ="";
+    this.title ='';
   }
 
   edit(id){
@@ -29,23 +29,23 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(id){
-    console.log("delete : " + id);
+    console.log('delete : ' + id);
   }
 
   ngOnInit() {
     this.getAllCategories();
   }
 
-  addNewCategory(category){
-    (this.categoryService.postCategory(category).subscribe(respon=>{
+  addNewCategory(category) {
+    this.categoryService.postCategory(category).subscribe(respon => {
       this.categories.push(respon);
-    }, 
-    error=>{
-      alert("could not save");
-    }));
+    },
+    error => {
+      alert('could not save');
+    });
   }
 
-  getAllCategories(){
+  getAllCategories() {
     this.categoryService.getAllCategories().subscribe(
       result => {
         this.categories = result;

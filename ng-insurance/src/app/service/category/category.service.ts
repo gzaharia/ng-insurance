@@ -11,7 +11,7 @@ import {HttpClient} from '@angular/common/http';
 export class CategoryService {
   private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
   private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\\`;
-  private POST_CATEGORY = `${ApiService.BASE_URL}\\categories\\add`;
+  private POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;
   private UPDATE_CATEGORY = `${ApiService.BASE_URL}\\categories\\`;
   private DELETE_CATEGORY = `${ApiService.BASE_URL}\\categories\\`;
 
@@ -26,10 +26,7 @@ export class CategoryService {
   }
 
   postCategory(category: CategoryViewModel): Observable<any> {
-    this.http.post(this.POST_CATEGORY, category).subscribe(respone => {
-      return console.log(respone);
-    });
-    return ;
+    return this.http.post(this.POST_CATEGORY, category);
   }
 
   updateCategory(id: number, category: CategoryViewModel): Observable<any> {
