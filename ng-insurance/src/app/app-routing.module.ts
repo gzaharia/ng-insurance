@@ -16,20 +16,20 @@ const routes: Routes = [
     component: RcaComponent
   },
   {
-    path:'admin/categories',
+    path: 'admin/categories',
     component: CategoryComponent
   },
   {
-    path:'admin.category/{id}/properties',
+    path: 'admin.category/{id}/properties',
     component: PropertyComponent
-  },
-  {
-    path:'**',
-    component: NotFoundComponent
   },
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];
 
