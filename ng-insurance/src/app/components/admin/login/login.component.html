@@ -1,0 +1,41 @@
+<form (ngSubmit)="f.form.valid && checkLogin()" #f="ngForm" novalidate>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+    <label for="exampleInputEmail1">Email address</label>
+    <input
+      name="username"
+      id="exampleInputEmail1"
+      [(ngModel)]="employee.username"
+      #username="ngModel" required
+      class="form-control"
+      placeholder="Username"
+    >
+    <small *ngIf="f.submitted && !username.valid"
+           id="emailHelp"
+           class="form-text text-muted"
+    >
+      We'll never share your email with anyone else.
+    </small>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+    <label for="exampleInputPassword1">Password</label>
+    <input
+      type="password"
+      id="exampleInputPassword1"
+      [(ngModel)]="employee.password"
+      #password="ngModel" required
+      name="passwd"
+      class="form-control"
+      placeholder="Password"
+    >
+    <small *ngIf="f.submitted && !password.valid"
+           class="form-text text-muted"
+    >
+      Password is required
+    </small>
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
