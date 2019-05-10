@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from '../shared/api.service';
 import {Observable} from 'rxjs';
-import {Category, CategoryViewModel} from '../../model/category';
+import {Category} from '../../model/category';
+import { CategoryViewModel } from "../../model/CategoryViewModel";
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -20,7 +21,10 @@ export class CategoryService {
   }
 
   postCategory(category: CategoryViewModel): Observable<any> {
-    return this.http.post(this.POST_CATEGORY, category);
+    this.http.post(this.POST_CATEGORY, category).subscribe(respone=>{
+      return console.log(respone);
+    });
+    return ;
   }
 
   updateCategory(id: number, category: CategoryViewModel): Observable<any> {

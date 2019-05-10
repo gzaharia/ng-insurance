@@ -7,12 +7,16 @@ import { RcaComponent } from './components/rca/rca.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoryComponent } from './components/category/category.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PropertyComponent } from './components/property/property.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RcaComponent,
-    CategoryComponent
+    CategoryComponent,
+    NotFoundComponent,
+    PropertyComponent
   ],
   imports: [
     BrowserModule,

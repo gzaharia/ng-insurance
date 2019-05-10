@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Category } from 'src/app/category/category';
+import { CategoryViewModel } from "src/app/model/CategoryViewModel";
 
 @Component({
   selector: 'app-category',
@@ -11,11 +12,14 @@ export class CategoryComponent implements OnInit {
 
   title : string;
   categories : Category[];
+  category : CategoryViewModel;
 
   constructor(private categoryService: CategoryService) { }
 
   myEvent(){
     console.log(this.title);
+    this.category = {"title" : this.title};
+    this.addNewCategory(this.category);
     this.title ="";
   }
 
@@ -31,8 +35,13 @@ export class CategoryComponent implements OnInit {
     this.getAllCategories();
   }
 
-  addNewCategory(){
-    this.categoryService.postCategory.arguments(this.title);
+  addNewCategory(category){
+    (this.categoryService.postCategory(category).subscribe(respon=>{
+      this.categories.push(respon);
+    }, 
+    error=>{
+      alert("could not save");
+    }));
   }
 
   getAllCategories(){

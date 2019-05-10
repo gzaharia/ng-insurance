@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Category, CategoryViewModel} from '../../model/category';
+import {Category} from '../../model/category';
+import { CategoryViewModel } from "../../model/CategoryViewModel";
 import {CategoryService} from '../../service/category/category.service';
 
 @Component({

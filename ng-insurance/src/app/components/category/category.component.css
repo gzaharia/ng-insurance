@@ -1,6 +1,8 @@
 .even{
     background-color: gray;
+    color: white;
 }
 .odd{
     background-color: white;
+    color: black;
 }
