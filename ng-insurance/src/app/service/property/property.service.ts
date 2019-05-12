@@ -24,7 +24,7 @@ export class PropertyService {
   }
 
   getAllPropertiesByCategory(category: Category): Observable<Property[]> {
-    return ;//this.http.get<Propery[]>();
+    return this.http.get<Property[]>(this.GET_PROPERTIES_BY_CATEGORY_URL + category);
   }
 
   postProperty(property: PropertyViewModel): Observable<any> {

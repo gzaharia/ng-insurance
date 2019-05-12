@@ -1,0 +1,44 @@
+<div class="container">
+  Category: {{ category["title"]}}
+  <p>Add property:</p>
+</div>
+
+<div class="container">
+  <div class="form-row align-items-center">
+    <div class="col-md">
+      <label class="sr-only" for="titleInput">Title</label>
+      <input type="text" class="form-control mb-2" [(ngModel)]="title" id="titleInput" placeholder="Property name">
+    </div>
+    <div class="col-md">
+      <label class="sr-only" for="coefficientInput">Coefficient</label>
+      <input type="text" class="form-control mb-2" [(ngModel)]="coefficient" id="coefficientInput" placeholder="coefficient value">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-2" (click)=saveProperty()>Submit</button>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf=category.properties >
+  <div class="row" *ngFor="let property of category.properties; let id = index let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
+
+    <div class="col-1">
+      {{ id + 1 }}
+    </div>
+    <div class="col-md">
+      <a >{{ property.title }}</a> 
+    </div>
+    <div class="col-md">
+      <a >{{ property.coefficient }}</a> 
+    </div>
+    <div class="col-auto">
+      <button class="edit" title="edit category"
+      (click)="edit(category.id)">edit</button>
+    </div>
+    <div class="col-auto">
+      <button class="delete" title="delete category"
+      (click)="delete(category.id)">del</button>
+    </div>
+  </div>
+</div>
+
+

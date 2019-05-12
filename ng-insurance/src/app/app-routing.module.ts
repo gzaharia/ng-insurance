@@ -4,7 +4,7 @@ import { LoginComponent } from './components/admin/login/login.component';
 import {RcaComponent} from './components/rca/rca.component';
 import { CategoryComponent } from './components/admin/category/category.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { PropertyComponent } from './components/property/property.component';
+import { PropertyComponent } from './components/admin/property/property.component';
 import {AdminDashboardComponent} from './components/admin/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [

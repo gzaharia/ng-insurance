@@ -13,13 +13,12 @@ export class CategoryComponent implements OnInit {
 
   title : string;
   categories : Category[];
-  category : CategoryViewModel;
+  category : CategoryViewModel = <any>{};
 
   constructor(private categoryService: CategoryService, private router : Router) { }
 
   myEvent(){
-    console.log(this.title);
-    this.category = {'title' : this.title};
+    this.category.title =this.title;
     this.addNewCategory(this.category);
     this.title ='';
   }
