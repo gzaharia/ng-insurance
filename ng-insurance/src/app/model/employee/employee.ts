@@ -1,4 +1,6 @@
 export interface Employee {
+  id: number;
   username: string;
-  password: string;
+  roles: string[];
+  token?: string;
 }
