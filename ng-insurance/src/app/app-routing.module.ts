@@ -8,7 +8,7 @@ import {PropertyComponent} from './components/admin/property/property.component'
 import {AdminDashboardComponent} from './components/admin/admin-dashboard/admin-dashboard.component';
 import {AuthGuard} from './guards/auth-guard/auth.guard';
 import {Role} from './model/role/role.enum';
-import {UserComponent} from "./components/admin/user/user.component";
+import {UserComponent} from './components/admin/user/user.component';
 
 const routes: Routes = [
   {
