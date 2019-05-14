@@ -1,3 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import url(~bootstrap/dist/css/bootstrap.min.css);
+.btn-secondary {
+  background-color: aliceblue;
+  color: black;
+  margin: 2px;
+}
+
+
+
+
 
