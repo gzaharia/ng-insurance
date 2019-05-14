@@ -4,6 +4,8 @@ import {map} from 'rxjs/operators';
 import {Employee} from '../../model/employee/employee';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ApiService} from '../shared/api.service';
+import {Role} from "../../model/role/role.enum";
+import {JwtDecoder} from "../../helpers/jwt-decoder/jwt-decoder";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -37,5 +39,17 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+
+  get isAdmin() {
+    if (this.currentUser) {
+      let user: Employee;
+      let decodedUser;
+      this.currentUser.subscribe(x => user = x);
+      decodedUser = JwtDecoder.decodeToken(user.token);
+      return decodedUser.roles.includes(Role.Admin);
+    } else {
+      return false;
+    }
   }
 }

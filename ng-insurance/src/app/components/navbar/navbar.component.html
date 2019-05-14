@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Asigurari</a>
+  <a class="navbar-brand" href="/">RapidAsig</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,7 +9,7 @@
       <li class="nav-item active">
         <div class="btn-group">
           <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Action
+            Alegeti o asigurare
           </button>
           <div class="dropdown-menu">
             <a class="dropdown-item" href="/">RCA</a>
@@ -26,8 +26,8 @@
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <a *ngIf="currentUser" class="dropdown-item" href="/admin">Dashboard</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a *ngIf="isAdmin" class="dropdown-item" href="/admin/categories">Categories</a>
+          <a *ngIf="isAdmin" class="dropdown-item" href="/admin/users">Users</a>
         </div>
       </div>
     </div>

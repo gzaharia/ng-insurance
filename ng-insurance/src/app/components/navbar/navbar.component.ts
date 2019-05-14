@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {Employee} from '../../model/employee/employee';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,10 @@ import {Employee} from '../../model/employee/employee';
 export class NavbarComponent implements OnInit {
   currentUser: Employee;
 
-  constructor(private auth: AuthenticationService) {
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router
+  ) {
     auth.currentUser.subscribe(x => this.currentUser = x);
   }
 
@@ -19,6 +23,10 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.auth.logout();
-    window.location.reload();
+    this.router.navigateByUrl('/');
+  }
+
+  get isAdmin() {
+    return this.auth.isAdmin;
   }
 }
