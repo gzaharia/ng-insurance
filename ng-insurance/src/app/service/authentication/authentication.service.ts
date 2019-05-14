@@ -4,8 +4,8 @@ import {map} from 'rxjs/operators';
 import {Employee} from '../../model/employee/employee';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ApiService} from '../shared/api.service';
-import {Role} from "../../model/role/role.enum";
-import {JwtDecoder} from "../../helpers/jwt-decoder/jwt-decoder";
+import {Role} from '../../model/role/role.enum';
+import {JwtDecoder} from '../../helpers/jwt-decoder/jwt-decoder';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {

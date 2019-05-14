@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../../service/user.service';
+import {EmployeeViewModel} from '../../../model/employee/employee-view-model';
 
 @Component({
   selector: 'app-user',
@@ -6,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  employees: EmployeeViewModel[];
 
-  constructor() { }
+  constructor(private userService: UserService) {
+    this.getAllEmployees();
+  }
 
   ngOnInit() {
   }
 
+  getAllEmployees() {
+    this.userService.getAllUsers().subscribe(
+      result => {
+        this.employees = result;
+      },
+      error => {
+        alert('Could not fetch users!');
+      }
+    );
+  }
 }
