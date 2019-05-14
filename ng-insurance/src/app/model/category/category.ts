@@ -1,7 +1,8 @@
-import { PropertyViewModel } from '../property/propertyViewModel';
+import { Property } from '../property/property';
 
 export interface Category {
   id: number;
   title: string;
-  properties: PropertyViewModel[];
+  properties: Property[];
+  status: number;
 }

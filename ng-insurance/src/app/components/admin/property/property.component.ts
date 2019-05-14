@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/model/category/category';
-import { CategoryViewModel } from 'src/app/model/category/CategoryViewModel';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PropertyService } from 'src/app/service/property/property.service';
-import { PropertyViewModel } from 'src/app/model/property/propertyViewModel';
+import { Property } from 'src/app/model/property/property';
 
 @Component({
   selector: 'app-property',
@@ -18,7 +17,7 @@ export class PropertyComponent implements OnInit {
   coefficient : number;
 
   category : Category = <any>{};
-  property : PropertyViewModel = <any>{};
+  property : Property = <any>{};
   
   constructor(private categoryService: CategoryService, private propertyService : PropertyService,private route : ActivatedRoute) {}
 
@@ -30,6 +29,17 @@ export class PropertyComponent implements OnInit {
   getCategory(){
     this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result=>{
       this.category = result;
+      let prop: Property[] = <any>[];
+      for(let i = 0; i < this.category.properties.length; i++){
+        console.log(this.category.properties[i].status);
+          if (this.category.properties[i].status == 2){
+            this.category.properties[i].status = 0;
+          }else{
+            this.category.properties[i].status = 1;
+          } 
+      }
+     
+      console.log(this.category);
     }, error=>{
       alert("Error to read category");
       console.log(error);
@@ -53,6 +63,19 @@ export class PropertyComponent implements OnInit {
     this.property.coefficient = this.coefficient;
     this.property.category = this.category;
     this.propertyService.postProperty(this.property).subscribe(resp => {
+      //this.category.properties.push(this.property);
+      this.getCategory();
+    }, err => {
+        alert('could not save');
+    });
+  }
+
+  delete(id){
+    this.property.title = this.category.properties[id].title;
+    this.property.coefficient = this.category.properties[id].coefficient;
+    this.property.category = this.category;
+    this.property.status = 2;
+    this.propertyService.putProperty(this.category.properties[id].id, this.property).subscribe(resp => {
       //this.category.properties.push(this.property);
       this.getCategory();
     }, err => {

@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="col-auto">
-          <button type="submit" class="btn btn-primary mb-2" (click)=updCategory()>Upd</button>
+          <button type="submit" class="btn btn-primary mb-2" (click)=updCategory()>Update</button>
       </div>
     </div>
   <p>Add property:</p>
@@ -39,18 +39,18 @@
       {{ id + 1 }}
     </div>
     <div class="col-md">
-      <a >{{ property.title }}</a> 
+      <a >{{ property.title }} <span *ngIf=property.status>{{property.status}}</span></a> 
     </div>
     <div class="col-md">
       <a >{{ property.coefficient }}</a> 
     </div>
     <div class="col-auto">
       <button class="edit" title="edit category"
-      (click)="edit(category.id)">edit</button>
+      (click)="edit(property.id)">edit</button>
     </div>
     <div class="col-auto">
       <button class="delete" title="delete category"
-      (click)="delete(category.id)">del</button>
+      (click)="delete(id)">del</button>
     </div>
   </div>
 </div>

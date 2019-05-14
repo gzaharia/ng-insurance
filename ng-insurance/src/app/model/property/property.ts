@@ -5,4 +5,5 @@ export interface Property {
   title: string;
   category: Category;
   coefficient: number;
+  status: number;
 }

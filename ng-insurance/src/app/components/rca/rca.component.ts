@@ -9,9 +9,7 @@ import {CategoryService} from '../../service/category/category.service';
   styleUrls: ['./rca.component.css']
 })
 export class RcaComponent implements OnInit {
-  model: CategoryViewModel = {
-    title: ''
-  };
+  model: CategoryViewModel = <any>{};
   categories: Category[];
 
   constructor(private categoryService: CategoryService) { }

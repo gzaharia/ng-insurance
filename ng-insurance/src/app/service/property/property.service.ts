@@ -14,7 +14,7 @@ export class PropertyService {
   private GET_PROPERTIES_URL = `${ApiService.BASE_URL}\\properties`;
   private GET_PROPERTIES_BY_CATEGORY_URL = `${ApiService.BASE_URL}\\properties`;
   private POST_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\add`;
-  private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
+  private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\/properties\/edit\/`;
   private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
 
   constructor(private http: HttpClient) { }
