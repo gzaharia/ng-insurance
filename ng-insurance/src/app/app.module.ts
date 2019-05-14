@@ -16,6 +16,7 @@ import { AdminDashboardComponent } from './components/admin/admin-dashboard/admi
 import { AdminComponent } from './components/admin/admin.component';
 import {JwtInterceptor} from './helpers/jwt_interceptor/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error_interceptor/error.interceptor';
+import { UserComponent } from './components/admin/user/user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {ErrorInterceptor} from './helpers/error_interceptor/error.interceptor';
     NotFoundComponent,
     PropertyComponent,
     AdminDashboardComponent,
-    AdminComponent
+    AdminComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

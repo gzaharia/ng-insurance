@@ -8,6 +8,7 @@ import {PropertyComponent} from './components/admin/property/property.component'
 import {AdminDashboardComponent} from './components/admin/admin-dashboard/admin-dashboard.component';
 import {AuthGuard} from './guards/auth-guard/auth.guard';
 import {Role} from './model/role/role.enum';
+import {UserComponent} from './components/admin/user/user.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,14 @@ const routes: Routes = [
     path: 'admin/category/:id',
     component: PropertyComponent,
     canActivate: [AuthGuard],
+    data: {
+      requiredRoles: [ Role.Admin ]
+    }
+  },
+  {
+    path: 'admin/users',
+    component: UserComponent,
+    canActivate: [ AuthGuard ],
     data: {
       requiredRoles: [ Role.Admin ]
     }
