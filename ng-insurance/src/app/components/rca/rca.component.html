@@ -4,16 +4,17 @@
       Calculator RCA
     </div>
 
-    <div class="grid">
-      <div *ngFor="let category of categories">
-        <div class="row">{{category.title}}</div>
-      <div class="btn-group-toggle row" data-toggle="buttons" role="group" aria-label="Basic example">
-        <label class="btn btn-secondary" *ngFor="let property of category.properties">
-        <input  type="radio"> {{property.title}}
-        </label>
-      </div>
+    <div class="card-body">
+      <div class="grid">
+        <div *ngFor="let category of categories">
+          <div class="row">{{category.title}}</div>
+          <div class="btn-group-toggle row" data-toggle="buttons" role="group" aria-label="Basic example">
+            <label class="btn btn-secondary" *ngFor="let property of category.properties">
+              <input  type="radio"> {{property.title}}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
-
   </div>
 </div>

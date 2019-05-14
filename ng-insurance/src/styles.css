@@ -1,3 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import url(~bootstrap/dist/css/bootstrap.min.css);
 
+.transparent-input {
+  background-color: transparent;
+  border: 0 solid;
+  cursor: pointer;
+}
