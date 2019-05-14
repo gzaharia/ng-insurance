@@ -1,32 +1,38 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Asigurari</a>
+  <a class="navbar-brand" href="/">RapidAsig</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="btn-group">
-    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Action
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
-  </div>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li>
-
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Alegeti o asigurare
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/">RCA</a>
+          </div>
+        </div>
       </li>
     </ul>
-  </div>
 
-  <div *ngIf="currentUser" class="mx-3">Welcome, {{currentUser.username}}!</div>
-  <div *ngIf="currentUser">
-    <button class="btn btn-secondary" (click)="logout()">Logout</button>
+    <div *ngIf="currentUser" class="my-2 my-lg-0">
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ currentUser.username }}
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a *ngIf="currentUser" class="dropdown-item" href="/admin">Dashboard</a>
+          <a *ngIf="isAdmin" class="dropdown-item" href="/admin/categories">Categories</a>
+          <a *ngIf="isAdmin" class="dropdown-item" href="/admin/users">Users</a>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentUser" class="mx-3 my-2 my-lg-0">
+      <button class="btn btn-secondary" (click)="logout()">Logout</button>
+    </div>
   </div>
 </nav>

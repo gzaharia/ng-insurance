@@ -1,0 +1,23 @@
+<div class="container my-3">
+  <table class="table table-bordered table-hover table-sm table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Roles</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.userName }}</td>
+        <td>
+          <div *ngFor="let role of employee.roles">
+            {{ role.name }}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

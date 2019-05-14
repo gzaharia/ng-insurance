@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/model/category/category';
+import { CategoryViewModel } from 'src/app/model/category/CategoryViewModel';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PropertyService } from 'src/app/service/property/property.service';
@@ -11,6 +12,7 @@ import { PropertyViewModel } from 'src/app/model/property/propertyViewModel';
   styleUrls: ['./property.component.css']
 })
 export class PropertyComponent implements OnInit {
+
 
   title : string = "";
   coefficient : number;
@@ -31,6 +33,18 @@ export class PropertyComponent implements OnInit {
     }, error=>{
       alert("Error to read category");
       console.log(error);
+    });
+  }
+
+  updCategory(){
+    console.log(this.category.title);
+    var oldTitle = this.category.title;
+    this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
+      //$(".valid-feedback").toggleClass("show");
+      console.log("true");
+    }, err => {
+     // $(".invalid-feedback").toggleClass("show");
+      console.log("false");
     });
   }
 

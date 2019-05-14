@@ -28,6 +28,11 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(id){
+    this.categoryService.deleteCategory(id).subscribe(res => {
+      alert("Delete PASS");
+    }, err => {
+      alert("Delete FAIL");
+    });
     console.log('delete : ' + id);
   }
 
