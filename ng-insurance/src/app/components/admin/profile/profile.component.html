@@ -1,0 +1,75 @@
+<div class="container my-3">
+  <div class="card">
+    <div class="card-header">
+      <form>
+        <input
+          style="font-size: 36px;"
+          class="transparent-input"
+          type="text"
+          name="usernameInputField"
+          [(ngModel)]="currentUserFromDb.userName"
+          [value]="currentUserFromDb.userName"
+        >
+      </form>
+    </div>
+
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <div class="row">
+            <div class="col">
+              <label for="firstNameInputField">First name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstNameInputField"
+                id="firstNameInputField"
+                [(ngModel)]="currentUserFromDb.firstName"
+                [value]="currentUserFromDb.firstName"
+                placeholder="First name"
+              >
+            </div>
+
+            <div class="col">
+              <label for="lastNameInputField">Last name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastNameInputField"
+                id="lastNameInputField"
+                [(ngModel)]="currentUserFromDb.lastName"
+                [value]="currentUserFromDb.lastName"
+                placeholder="Last name"
+              >
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <label for="passwordInputField">Password</label>
+              <input
+                type="text"
+                class="form-control"
+                name="passwordInputField"
+                id="passwordInputField"
+                [(ngModel)]="currentUserFromDb.password"
+                placeholder="Password"
+              >
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <label for=""></label>
+              <div class="row" *ngFor="let role of currentUserFromDb.roles">
+                <input
+                  type="checkbox"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

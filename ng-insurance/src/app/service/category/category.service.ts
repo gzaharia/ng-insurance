@@ -21,7 +21,7 @@ export class CategoryService {
     return this.http.get<Category[]>(this.GET_ALL_CATEGORIES);
   }
 
-  getOneCategory(id: number):Observable<Category>{
+  getOneCategory(id: number): Observable<Category>{
     return this.http.get<Category>(this.GET_ONE_CATEGORY + id);
   }
 

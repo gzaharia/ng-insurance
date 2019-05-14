@@ -17,6 +17,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import {JwtInterceptor} from './helpers/jwt_interceptor/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error_interceptor/error.interceptor';
 import { UserComponent } from './components/admin/user/user.component';
+import { ProfileComponent } from './components/admin/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserComponent } from './components/admin/user/user.component';
     PropertyComponent,
     AdminDashboardComponent,
     AdminComponent,
-    UserComponent
+    UserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

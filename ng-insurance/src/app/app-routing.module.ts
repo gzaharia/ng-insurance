@@ -9,6 +9,7 @@ import {AdminDashboardComponent} from './components/admin/admin-dashboard/admin-
 import {AuthGuard} from './guards/auth-guard/auth.guard';
 import {Role} from './model/role/role.enum';
 import {UserComponent} from './components/admin/user/user.component';
+import {ProfileComponent} from "./components/admin/profile/profile.component";
 
 const routes: Routes = [
   {
@@ -49,6 +50,14 @@ const routes: Routes = [
     canActivate: [ AuthGuard ],
     data: {
       requiredRoles: [ Role.Admin ]
+    }
+  },
+  {
+    path: 'admin/profile',
+    component: ProfileComponent,
+    canActivate: [ AuthGuard ],
+    data: {
+      requiredRoles: [ Role.Moderator ]
     }
   },
   {

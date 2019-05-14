@@ -18,13 +18,15 @@
       </li>
     </ul>
 
-    <div *ngIf="currentUser" class="mx-3 my-2 my-lg-0">
+    <div *ngIf="currentUser" class="my-2 my-lg-0">
       <div class="dropdown">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ currentUser.username }}
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a *ngIf="currentUser" class="dropdown-item" href="/admin/profile">Profile</a>
+          <div class="dropdown-divider"></div>
           <a *ngIf="currentUser" class="dropdown-item" href="/admin">Dashboard</a>
           <a *ngIf="isAdmin" class="dropdown-item" href="/admin/categories">Categories</a>
           <a *ngIf="isAdmin" class="dropdown-item" href="/admin/users">Users</a>

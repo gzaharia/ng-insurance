@@ -1,9 +1,10 @@
 import {RoleViewModel} from '../role/role-view-model';
 
-export interface Employee {
+export interface EmployeeViewModel {
   id: number;
-  username: string;
+  userName: string;
   password: string;
+  firstName: string;
+  lastName: string;
   roles: RoleViewModel[];
-  token?: string;
 }
