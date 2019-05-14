@@ -1,5 +1,19 @@
 <div class="container">
-  Category: {{ category["title"]}}
+    <div class="form-row align-items-center">
+      <div class="col-md">
+        <label class="sr-only" for="category.title">Category:</label>
+        <input type="text" class="form-control mb-2" [(ngModel)]="category['title']" id="category.title" placeholder="upd ">
+        <div class="valid-feedback">
+            Category update successfully!
+        </div>
+        <div class="invalid-feedback">
+            Fail to update category!
+        </div>
+      </div>
+      <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-2" (click)=updCategory()>Upd</button>
+      </div>
+    </div>
   <p>Add property:</p>
 </div>
 
@@ -14,7 +28,7 @@
       <input type="text" class="form-control mb-2" [(ngModel)]="coefficient" id="coefficientInput" placeholder="coefficient value">
     </div>
     <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-2" (click)=saveProperty()>Submit</button>
+      <button type="submit" class="btn btn-primary mb-2" (click)=saveProperty()>Add</button>
     </div>
   </div>
 </div>

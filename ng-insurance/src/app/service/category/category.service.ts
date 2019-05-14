@@ -12,8 +12,8 @@ export class CategoryService {
   private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
   private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\\`;
   private POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;
-  private UPDATE_CATEGORY = `${ApiService.BASE_URL}\\categories\\`;
-  private DELETE_CATEGORY = `${ApiService.BASE_URL}\\categories\\`;
+  private UPDATE_CATEGORY = `${ApiService.BASE_URL}\/categories\/edit\/`;
+  private DELETE_CATEGORY = `${ApiService.BASE_URL}\/categories\/delete\/`;
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +29,7 @@ export class CategoryService {
     return this.http.post(this.POST_CATEGORY, category);
   }
 
-  updateCategory(id: number, category: CategoryViewModel): Observable<any> {
+  updateCategory(id: number, category: Category): Observable<any> {
     return this.http.put(this.UPDATE_CATEGORY + id, category);
   }
 
