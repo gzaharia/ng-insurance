@@ -7,13 +7,15 @@ import { LoginComponent } from './components/admin/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { RcaComponent } from './components/rca/rca.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { CategoryComponent } from './components/admin/category/category.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PropertyComponent } from './components/admin/property/property.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './components/admin/admin.component';
+import {JwtInterceptor} from './helpers/jwt_interceptor/jwt.interceptor';
+import {ErrorInterceptor} from './helpers/error_interceptor/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,9 +34,13 @@ import { AdminComponent } from './components/admin/admin.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

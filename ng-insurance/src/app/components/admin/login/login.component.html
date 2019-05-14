@@ -1,41 +1,35 @@
-<form (ngSubmit)="f.form.valid && checkLogin()" #f="ngForm" novalidate>
-  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-    <label for="exampleInputEmail1">Email address</label>
+<form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="container">
+  <div class="form-group">
+    <label for="username">Username</label>
     <input
-      name="username"
-      id="exampleInputEmail1"
-      [(ngModel)]="employee.username"
-      #username="ngModel" required
+      type="text"
+      formControlName="username"
+      id="username"
       class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
       placeholder="Username"
     >
-    <small *ngIf="f.submitted && !username.valid"
-           id="emailHelp"
-           class="form-text text-muted"
-    >
-      We'll never share your email with anyone else.
-    </small>
+    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+      <div *ngIf="f.username.errors.required">Username is required!</div>
+    </div>
   </div>
-  <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-    <label for="exampleInputPassword1">Password</label>
+  <div class="form-group">
+    <label for="password">Password</label>
     <input
       type="password"
-      id="exampleInputPassword1"
-      [(ngModel)]="employee.password"
-      #password="ngModel" required
-      name="passwd"
+      formControlName="password"
+      id="password"
       class="form-control"
       placeholder="Password"
+      [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
     >
-    <small *ngIf="f.submitted && !password.valid"
-           class="form-text text-muted"
-    >
-      Password is required
-    </small>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required!</div>
+    </div>
   </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary">Login</button>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div></div>
 </form>

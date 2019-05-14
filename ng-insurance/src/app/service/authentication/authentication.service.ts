@@ -1,43 +1,41 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {Employee} from "../../model/employee/employee";
+import {Employee} from '../../model/employee/employee';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {ApiService} from '../shared/api.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+  private currentUserSubject: BehaviorSubject<Employee>;
+  public currentUser: Observable<Employee>;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<Employee>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  authenticate(username, password) {
-    const headers = new HttpHeaders(
-      { Authorization: 'Basic ' + btoa(username + ':' + password) }
-      );
-    return this.httpClient.post<Employee>('http://localhost:8080/api/admin/login',{ headers }).pipe(
-      map(
-        userData => {
-          sessionStorage.setItem('username', username);
-          return userData;
+  public get currentUserValue(): Employee {
+    return this.currentUserSubject.value;
+  }
+
+  login(username: string, password: string) {
+    return this.http.post<any>(`${ApiService.BASE_URL}/auth/login`, { username, password })
+      .pipe(map(user => {
+        // login successful if there's a jwt token in the response
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
         }
-      )
-    );
+
+        return user;
+      }));
   }
 
-  isUserLoggedIn() {
-    const user = sessionStorage.getItem('username');
-    console.log(!(user === null));
-    return !(user === null);
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
-
-  logOut() {
-    sessionStorage.removeItem('username');
-  }
-}
-
-export class User {
-  constructor(
-    public status: string,
-  ) {}
 }
