@@ -5,6 +5,8 @@
         <th>Id</th>
         <th>Username</th>
         <th>Roles</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
     </thead>
 
@@ -16,6 +18,16 @@
           <div *ngFor="let role of employee.roles">
             {{ role.name }}
           </div>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm"
+                  (click)="router.navigateByUrl('/admin/users/' + employee.id)"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm">Delete</button>
         </td>
       </tr>
     </tbody>
