@@ -48,7 +48,7 @@
             <div class="col">
               <label for="passwordInputField">Password</label>
               <input
-                type="text"
+                type="password"
                 class="form-control"
                 name="passwordInputField"
                 id="passwordInputField"
@@ -60,12 +60,13 @@
 
           <div class="row mt-3">
             <div class="col">
-              <label for=""></label>
-              <div class="row" *ngFor="let role of currentUserFromDb.roles">
-                <input
-                  type="checkbox"
-                >
-              </div>
+              <button
+                class="btn btn-primary btn-block"
+                type="button"
+                (click)="submit()"
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
