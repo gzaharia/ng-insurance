@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-  title : string;
-  categories : Category[];
-  category : CategoryViewModel = <any>{};
+  title: string;
+  categories: Category[];
+  category: CategoryViewModel = <any>{};
 
   constructor(private categoryService: CategoryService, private router : Router) { }
 
@@ -29,12 +29,12 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(id){
-    this.categories[id-1].status = 2;
+    this.categories[id - 1].status = 2;
     console.log(this.categories[id]);
-    this.categoryService.updateCategory(id, this.categories[id-1]).subscribe(res => {
-      alert("Delete PASS");
+    this.categoryService.updateCategory(id, this.categories[id - 1]).subscribe(res => {
+      alert('Delete PASS');
     }, err => {
-      alert("Delete FAIL");
+      alert('Delete FAIL');
     });
     console.log('delete : ' + id);
   }

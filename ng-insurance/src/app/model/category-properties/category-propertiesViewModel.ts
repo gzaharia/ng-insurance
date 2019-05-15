@@ -1,6 +1,6 @@
 import {Category} from '../category/category';
 
-export interface PropertyViewModel {
+export interface CategoryPropertiesViewModel {
   id: number;
   title: string;
   coefficient: number;

@@ -1,8 +1,9 @@
-import { Property } from '../property/property';
+import { CategoryProperties } from '../category-properties/category-properties';
 
 export interface Category {
   id: number;
   title: string;
-  properties: Property[];
+  properties: CategoryProperties[];
   status: number;
+  deleted: boolean;
 }
