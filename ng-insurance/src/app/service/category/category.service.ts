@@ -9,8 +9,8 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class CategoryService {
-  private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
-  private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\\`;
+  private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all`;
+  private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\/`;
   private POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;
   private UPDATE_CATEGORY = `${ApiService.BASE_URL}\/categories\/edit\/`;
   private DELETE_CATEGORY = `${ApiService.BASE_URL}\/categories\/delete\/`;

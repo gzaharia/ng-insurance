@@ -29,10 +29,12 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(id){
-    this.categories[id - 1].status = 2;
+    console.log(id);
     console.log(this.categories[id]);
-    this.categoryService.updateCategory(id, this.categories[id - 1]).subscribe(res => {
+    this.categories[id].status = 2;
+    this.categoryService.updateCategory(this.categories[id].id, this.categories[id]).subscribe(res => {
       alert('Delete PASS');
+      location.reload();
     }, err => {
       alert('Delete FAIL');
     });
@@ -44,6 +46,7 @@ export class CategoryComponent implements OnInit {
   }
 
   addNewCategory(category) {
+    category.status = 1;
     this.categoryService.postCategory(category).subscribe(respon => {
       this.categories.push(respon);
     },
@@ -56,6 +59,14 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe(
       result => {
         this.categories = result;
+        for(let i = 0; i < this.categories.length; i++){
+          console.log(this.categories[i].status);
+            if (this.categories[i].status == 2){
+              this.categories[i].deleted = true;
+            }else{
+              this.categories[i].deleted = false;
+            } 
+        }
         console.log(this.categories);
       },
       err => {

@@ -19,68 +19,82 @@ export class CategoryPropertiesComponent implements OnInit {
   category: Category =<any>{} ;
   property: CategoryProperties = <any>{};
 
-  constructor(private categoryService: CategoryService, private propertyService: CategoryPropertiesService, private route: ActivatedRoute) {}
+  constructor(private categoryService: CategoryService, private propertyService: CategoryPropertiesService, 
+    private route: ActivatedRoute, private router : Router) {}
 
   ngOnInit() {
     this.getCategory();
     // this.getPropertiesByCategory();
   }
 
-  getCategory() {
-    this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result => {
+  getCategory(){
+    this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result=>{
       this.category = result;
-      if (this.category.status == 2) {
-        this.category.deleted = true;
-      }
-      for (let i = 0; i < this.category.properties.length; i++) {
+     if (this.category.status==2){
+       this.category.deleted = true; 
+     }
+      for(let i = 0; i < this.category.properties.length; i++){
         console.log(this.category.properties[i].status);
-        if (this.category.properties[i].status == 2) {
-          this.category.properties[i].deleted = true;
-        } else {
-          this.category.properties[i].deleted = false;
-        }
+          if (this.category.properties[i].status == 2){
+            this.category.properties[i].deleted = true;
+          }else{
+            this.category.properties[i].deleted = false;
+          } 
       }
-
+     
       console.log(this.category);
-    }, error => {
-      alert('Error to read category');
+    }, error=>{
+      alert("Error to read category");
       console.log(error);
     });
   }
 
-  updCategory() {
+  updCategory(){
     console.log(this.category.title);
-    let oldTitle = this.category.title;
+    var oldTitle = this.category.title;
     this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
-      // $(".valid-feedback").toggleClass("show");
-      console.log('true');
+      this.getCategory();
+      console.log("true");
     }, err => {
      // $(".invalid-feedback").toggleClass("show");
-      console.log('false');
+      console.log("false");
     });
   }
+  updStatus(status){
+    console.log(this.category);
+    this.category.status = status;
+    console.log(this.category);
+  }
 
-  saveProperty() {
+  saveProperty(){
     this.property.title = this.title;
     this.property.coefficient = this.coefficient;
     this.property.category = this.category;
     this.propertyService.postProperty(this.property).subscribe(resp => {
-      // this.category.properties.push(this.property);
+      //this.category.properties.push(this.property);
       this.getCategory();
     }, err => {
         alert('could not save');
     });
   }
 
-  delete(id) {
+  edit(id){
+    this.router.navigateByUrl('admin/properties/' + id);
+  }
+  
+
+  delete(id){
     this.property.title = this.category.properties[id].title;
     this.property.coefficient = this.category.properties[id].coefficient;
     this.property.category = this.category;
     this.property.status = 2;
     this.propertyService.putProperty(this.category.properties[id].id, this.property).subscribe(resp => {
       location.reload();
+      
     }, err => {
         alert('could not save');
+        
     });
+    this.getCategory();
   }
 }
