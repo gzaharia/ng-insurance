@@ -3,6 +3,7 @@ import {AuthenticationService} from '../../../service/authentication/authenticat
 import {Employee} from '../../../model/employee/employee';
 import {UserService} from '../../../service/user/user.service';
 import {EmployeeViewModel} from '../../../model/employee/employee-view-model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -12,33 +13,43 @@ import {EmployeeViewModel} from '../../../model/employee/employee-view-model';
 export class ProfileComponent implements OnInit {
   private currentUser: Employee;
   private currentUserFromDb: EmployeeViewModel;
+  private oldUsername: string;
 
   constructor(
     private auth: AuthenticationService,
-    private userService: UserService
-  ) {}
-
-  ngOnInit() {
+    private userService: UserService,
+    private router: Router
+  ) {
     if (this.auth.currentUser) {
       this.auth.currentUser.subscribe(x => this.currentUser = x);
-
       this.userService.getOneUserByUsername(this.currentUser.username).subscribe(
         result => {
           this.currentUserFromDb = result;
-        },
+          },
         error => {
           alert('Could not find user!');
-        }
-      );
+      });
+
+      this.oldUsername = this.currentUser.username;
     }
   }
 
-  updateEmployee() {
+  submit() {
     this.userService.updateEmployee(this.currentUserFromDb.id, this.currentUserFromDb).subscribe(
-      result => {},
+      result => {
+        if (this.currentUserFromDb.userName !== this.oldUsername) {
+          this.auth.logout();
+          this.router.navigateByUrl('/login');
+        } else {
+          location.reload();
+        }
+      },
       error => {
         alert('Could not update user!');
       }
     );
+  }
+
+  ngOnInit() {
   }
 }
