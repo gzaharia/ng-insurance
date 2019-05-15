@@ -12,7 +12,9 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<Employee>;
   public currentUser: Observable<Employee>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient
+  ) {
     this.currentUserSubject = new BehaviorSubject<Employee>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -33,6 +35,16 @@ export class AuthenticationService {
 
         return user;
       }));
+  }
+
+  decode(currentUser: Employee): Employee {
+    let decodedUser;
+
+    if (this.currentUser) {
+      decodedUser = JwtDecoder.decodeToken(currentUser.token);
+    }
+
+    return decodedUser;
   }
 
   logout() {

@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  employees: EmployeeViewModel[];
+  private employees: EmployeeViewModel[];
 
   constructor(
     private userService: UserService,
