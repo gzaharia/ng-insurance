@@ -18,7 +18,7 @@
       {{ item+1 }}
     </div>
     <div class="col-md">
-      <a >{{ category.title }}</a> 
+      <a >{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span></a> 
     </div>
     <div class="col-auto">
       <button class="edit" title="edit category"
@@ -26,7 +26,7 @@
     </div>
     <div class="col-auto">
       <button class="delete" title="delete category"
-      (click)="delete(category.id)">del</button>
+      (click)="delete(item)">del</button>
     </div>
   </div>
 </div>
