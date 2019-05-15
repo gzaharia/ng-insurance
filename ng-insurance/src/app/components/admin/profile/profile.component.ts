@@ -3,7 +3,7 @@ import {AuthenticationService} from '../../../service/authentication/authenticat
 import {Employee} from '../../../model/employee/employee';
 import {UserService} from '../../../service/user/user.service';
 import {EmployeeViewModel} from '../../../model/employee/employee-view-model';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
