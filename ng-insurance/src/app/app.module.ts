@@ -18,6 +18,7 @@ import {JwtInterceptor} from './helpers/jwt_interceptor/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error_interceptor/error.interceptor';
 import { UserComponent } from './components/admin/user/user.component';
 import { ProfileComponent } from './components/admin/profile/profile.component';
+import { PropertyComponent } from './components/admin/property/property.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProfileComponent } from './components/admin/profile/profile.component';
     AdminDashboardComponent,
     AdminComponent,
     UserComponent,
-    ProfileComponent
+    ProfileComponent,
+    PropertyComponent
   ],
   imports: [
     BrowserModule,

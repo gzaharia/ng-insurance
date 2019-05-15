@@ -13,6 +13,7 @@ export class CategoryPropertiesService {
   
   private GET_PROPERTIES_URL = `${ApiService.BASE_URL}\\properties`;
   private GET_PROPERTIES_BY_CATEGORY_URL = `${ApiService.BASE_URL}\\properties`;
+  private GET_PROPERTY_BY_ID = `${ApiService.BASE_URL}\/properties\/`
   private POST_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\add`;
   private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\/properties\/edit\/`;
   private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
@@ -25,6 +26,10 @@ export class CategoryPropertiesService {
 
   getAllPropertiesByCategory(category: Category): Observable<CategoryProperties[]> {
     return this.http.get<CategoryProperties[]>(this.GET_PROPERTIES_BY_CATEGORY_URL + category);
+  }
+
+  getPropertyById(id: number): Observable<CategoryProperties>{
+    return this.http.get<CategoryProperties>(this.GET_PROPERTY_BY_ID + id);
   }
 
   postProperty(property: CategoryPropertiesViewModel): Observable<any> {
