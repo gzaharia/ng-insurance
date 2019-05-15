@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Category} from '../../model/category/category';
 import { CategoryViewModel } from '../../model/category/CategoryViewModel';
 import {CategoryService} from '../../service/category/category.service';
-import {Property} from '../../model/property/property';
+import {CategoryProperties} from '../../model/category-properties/category-properties';
 
 @Component({
   selector: 'app-main',
@@ -11,15 +11,13 @@ import {Property} from '../../model/property/property';
 })
 
 export class RcaComponent implements OnInit {
+  model: CategoryViewModel = <any>{};
+  categories: Category[];
   public visible = false;
   public showFlag = true;
-  model: CategoryViewModel = {
-    title: ''
-  };
-  categories: Category[] = [];
   activeCategories: Category[] = [];
   category: Category;
-  selectedProperties: Property[] = [];
+  selectedProperties: CategoryProperties[] = [];
   nextIndex = 1;
 
   constructor(private categoryService: CategoryService) { }

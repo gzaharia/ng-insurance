@@ -4,7 +4,7 @@ import {LoginComponent} from './components/admin/login/login.component';
 import {RcaComponent} from './components/rca/rca.component';
 import {CategoryComponent} from './components/admin/category/category.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
-import {PropertyComponent} from './components/admin/property/property.component';
+import {CategoryPropertiesComponent} from './components/admin/category-properties/category-properties.component';
 import {AdminDashboardComponent} from './components/admin/admin-dashboard/admin-dashboard.component';
 import {AuthGuard} from './guards/auth-guard/auth.guard';
 import {Role} from './model/role/role.enum';
@@ -38,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'admin/category/:id',
-    component: PropertyComponent,
+    component: CategoryPropertiesComponent,
     canActivate: [AuthGuard],
     data: {
       requiredRoles: [ Role.Admin ]

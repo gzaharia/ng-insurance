@@ -11,7 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { CategoryComponent } from './components/admin/category/category.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { PropertyComponent } from './components/admin/property/property.component';
+import { CategoryPropertiesComponent } from './components/admin/category-properties/category-properties.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './components/admin/admin.component';
 import {JwtInterceptor} from './helpers/jwt_interceptor/jwt.interceptor';
@@ -28,7 +28,7 @@ import { ProfileComponent } from './components/admin/profile/profile.component';
     RcaComponent,
     CategoryComponent,
     NotFoundComponent,
-    PropertyComponent,
+    CategoryPropertiesComponent,
     AdminDashboardComponent,
     AdminComponent,
     UserComponent,

@@ -11,14 +11,15 @@ import { Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-  title : string;
-  categories : Category[];
-  category : CategoryViewModel = <any>{};
+  title: string;
+  categories: Category[];
+  category: CategoryViewModel = <any>{};
 
   constructor(private categoryService: CategoryService, private router : Router) { }
 
   myEvent(){
     this.category.title =this.title;
+    this.category.status = 1;
     this.addNewCategory(this.category);
     this.title ='';
   }
@@ -28,10 +29,12 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(id){
-    this.categoryService.deleteCategory(id).subscribe(res => {
-      alert("Delete PASS");
+    this.categories[id - 1].status = 2;
+    console.log(this.categories[id]);
+    this.categoryService.updateCategory(id, this.categories[id - 1]).subscribe(res => {
+      alert('Delete PASS');
     }, err => {
-      alert("Delete FAIL");
+      alert('Delete FAIL');
     });
     console.log('delete : ' + id);
   }
@@ -53,6 +56,7 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getAllCategories().subscribe(
       result => {
         this.categories = result;
+        console.log(this.categories);
       },
       err => {
         alert('Could not fetch categories!');

@@ -2,36 +2,36 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from '../shared/api.service';
 import {Observable} from 'rxjs';
-import {Property} from '../../model/property/property';
-import {PropertyViewModel} from '../../model/property/propertyViewModel';
+import {CategoryProperties} from '../../model/category-properties/category-properties';
+import {CategoryPropertiesViewModel} from '../../model/category-properties/category-propertiesViewModel';
 import { Category } from 'src/app/model/category/category';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PropertyService {
+export class CategoryPropertiesService {
   
   private GET_PROPERTIES_URL = `${ApiService.BASE_URL}\\properties`;
   private GET_PROPERTIES_BY_CATEGORY_URL = `${ApiService.BASE_URL}\\properties`;
   private POST_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\add`;
-  private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
+  private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\/properties\/edit\/`;
   private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
 
   constructor(private http: HttpClient) { }
 
-  getAllProperties(): Observable<Property[]> {
-    return this.http.get<Property[]>(this.GET_PROPERTIES_URL);
+  getAllProperties(): Observable<CategoryProperties[]> {
+    return this.http.get<CategoryProperties[]>(this.GET_PROPERTIES_URL);
   }
 
-  getAllPropertiesByCategory(category: Category): Observable<Property[]> {
-    return this.http.get<Property[]>(this.GET_PROPERTIES_BY_CATEGORY_URL + category);
+  getAllPropertiesByCategory(category: Category): Observable<CategoryProperties[]> {
+    return this.http.get<CategoryProperties[]>(this.GET_PROPERTIES_BY_CATEGORY_URL + category);
   }
 
-  postProperty(property: PropertyViewModel): Observable<any> {
+  postProperty(property: CategoryPropertiesViewModel): Observable<any> {
     return this.http.post(this.POST_PROPERTY_URL, property);
   }
 
-  putProperty(id: number, property: PropertyViewModel): Observable<any> {
+  putProperty(id: number, property: CategoryPropertiesViewModel): Observable<any> {
     return this.http.put(this.PUT_PROPERTY_URL + id, property);
   }
 

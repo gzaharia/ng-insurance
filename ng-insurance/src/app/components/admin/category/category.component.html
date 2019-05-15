@@ -12,10 +12,10 @@
   </div>
 </div>
 <div class="container" *ngIf=categories>
-  <div class="row" *ngFor="let category of categories; let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
+  <div class="row" *ngFor="let category of categories; let item = index let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
 
     <div class="col-1">
-      {{ category.id }}
+      {{ item+1 }}
     </div>
     <div class="col-md">
       <a >{{ category.title }}</a> 
