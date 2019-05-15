@@ -44,6 +44,7 @@ export class CategoryComponent implements OnInit {
   }
 
   addNewCategory(category) {
+    category.status = 1;
     this.categoryService.postCategory(category).subscribe(respon => {
       this.categories.push(respon);
     },
