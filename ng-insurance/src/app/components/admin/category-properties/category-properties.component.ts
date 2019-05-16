@@ -18,6 +18,7 @@ export class CategoryPropertiesComponent implements OnInit {
 
   category: Category =<any>{} ;
   property: CategoryProperties = <any>{};
+  error: string = '';
 
   constructor(private categoryService: CategoryService, private propertyService: CategoryPropertiesService, 
     private route: ActivatedRoute, private router : Router) {}
@@ -52,14 +53,28 @@ export class CategoryPropertiesComponent implements OnInit {
   updCategory(){
     console.log(this.category.title);
     var oldTitle = this.category.title;
-    this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
-      this.getCategory();
-      console.log("true");
-    }, err => {
-     // $(".invalid-feedback").toggleClass("show");
-      console.log("false");
-    });
+    if(this.category.title.trim().length) {
+      this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
+        this.getCategory();
+        console.log("true");
+      }, err => {
+        // $(".invalid-feedback").toggleClass("show");
+        console.log("false");
+      })
+    }
+    else {
+      this.error = 'You have nothing to update !';
+      console.log(this.error);
+      this.clearError();
+    }
   }
+
+  clearError(){
+    document.getElementById("Error").style.display="block";
+    setTimeout(function(){
+      document.getElementById("Error").style.display="none"},1000);
+  }
+
   updStatus(status){
     console.log(this.category);
     this.category.status = status;
@@ -70,12 +85,28 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.title = this.title;
     this.property.coefficient = this.coefficient;
     this.property.category = this.category;
-    this.propertyService.postProperty(this.property).subscribe(resp => {
-      //this.category.properties.push(this.property);
-      this.getCategory();
-    }, err => {
+    if (this.property.title.trim().length) {
+      this.propertyService.postProperty(this.property).subscribe(resp => {
+        //this.category.properties.push(this.property);
+        this.getCategory();
+      }, err => {
         alert('could not save');
-    });
+      })
+    }
+    else{
+      this.error = 'You have nothing to add !';
+      console.log(this.error);
+      this.clearAddError();
+
+    }
+
+
+
+  }
+  clearAddError(){
+    document.getElementById("AddError").style.display="block";
+    setTimeout(function(){
+      document.getElementById("AddError").style.display="none"},1000);
   }
 
   edit(id){

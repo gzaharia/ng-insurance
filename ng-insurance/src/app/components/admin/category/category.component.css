@@ -9,3 +9,6 @@
 .deleted{
     color:red;
 }
+#Error{
+  display: none;
+}
