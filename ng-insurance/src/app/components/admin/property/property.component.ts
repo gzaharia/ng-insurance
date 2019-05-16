@@ -35,12 +35,13 @@ export class PropertyComponent implements OnInit {
   getProperty(){
     this.propertyService.getPropertyById(this.id).subscribe(res => {
       this.property = res;
+      console.log(this.property);
       this.title = this.property.title;
       this.coefficient = this.property.coefficient;
       this.status = this.property.status;
       for(let category of this.categories){
         for(let property of category.properties){
-          if (property.id = this.id){
+          if (property.id == this.id){
             this.selectedCategory = category.title;
           }
         }
@@ -69,5 +70,6 @@ export class PropertyComponent implements OnInit {
   updCategory(id){
     console.log(id);
     this.selectedCategory = this.categories[id].title;
+    this.property.category = this.categories[id];
   }
 }
