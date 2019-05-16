@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-11">
     <label class="sr-only" for="inlineFormInput">Name</label>
-    <input type="text" class="form-control mb-2" [(ngModel)]="title" id="inlineFormInput" placeholder="Category name">
+    <input type="text" class="form-control mb-2" data-toggle="tooltip" title="Enter the category" [(ngModel)]="title" id="inlineFormInput" placeholder="Category name">
   </div>
   <div class="col-1">
     <button type="submit" class="btn btn-primary mb-2" (click)=myEvent()>Add</button>
@@ -17,8 +17,8 @@
       <tr>
         <th>Id</th>
         <th>Category</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th class="text-center">Edit</th>
+        <th class="text-center">Delete</th>
       </tr>
       </thead>
 
@@ -26,14 +26,11 @@
       <tr *ngFor="let category of categories; let item=index">
         <td>{{item + 1 }}</td>
         <td>{{ category.title }}<span *ngIf=category.deleted class="deleted">DELETED</span></td>
-        <td>
+        <td width="80" align="center">
           <button class="btn btn-primary btn-sm" title="edit category"
-                  (click)="edit(category.id)"
-          >
-            Edit
-          </button>
+                  (click)="edit(category.id)">Edit</button>
         </td>
-        <td>
+        <td width="100" align="center">
           <button class="btn btn-danger btn-sm" title="delete category"
           (click)="delete(item)">Delete</button>
         </td>
