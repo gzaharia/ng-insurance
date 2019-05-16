@@ -13,6 +13,8 @@ import {ProfileComponent} from "./components/admin/profile/profile.component";
 import { PropertyComponent } from './components/admin/property/property.component';
 import {EditUserComponent} from "./components/admin/user/edit-user/edit-user.component";
 import {AddUserComponent} from "./components/admin/user/add-user/add-user.component";
+import {resolve} from "q";
+import {CategoryPropertiesResolverService} from "./service/category-properties/resolver/category-properties-resolver.service";
 
 
 const routes: Routes = [
@@ -88,6 +90,9 @@ const routes: Routes = [
     path: 'admin/properties/:id',
     component: PropertyComponent,
     canActivate: [ AuthGuard ],
+    resolve: {
+      categories: CategoryPropertiesResolverService
+    },
     data: {
       requiredRoles: [ Role.Admin ]
     }

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Category} from '../../model/category/category';
 import { CategoryViewModel } from '../../model/category/CategoryViewModel';
 import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,9 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   getAllCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.GET_ALL_CATEGORIES);
+    return this.http.get<Category[]>(this.GET_ALL_CATEGORIES).pipe(
+      map((res: Category[]) => res)
+    );
   }
 
   getOneCategory(id: number): Observable<Category>{

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
 import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
 import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
 import { Category } from 'src/app/model/category/category';
@@ -8,20 +8,23 @@ import { CategoryService } from 'src/app/service/category/category.service';
 @Component({
   selector: 'app-property',
   templateUrl: './property.component.html',
-  styleUrls: ['./property.component.scss']
+  styleUrls: ['./property.component.css']
 })
 export class PropertyComponent implements OnInit {
 
   private property: CategoryProperties;
-  private categories: Category[] = <any>{};
-  private title: string = '';
+  private categories: Category[] = [];
+  private title = '';
   private coefficient: number;
-  private status: number = 1;
-  private showCategory: boolean = false;
-  private selectedCategory: string = '';
+  private status = 1;
+  private showCategory = false;
+  private selectedCategory = '';
 
-  constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService, 
-              private categoryService: CategoryService) { }
+  constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService,
+              private categoryService: CategoryService) {
+    this.categories = this.route.snapshot.data.categories;
+    console.log(this.route.snapshot.data.categories);
+  }
 
   ngOnInit() {
     this.getProperty();
@@ -33,28 +36,11 @@ export class PropertyComponent implements OnInit {
       this.title = this.property.title;
       this.coefficient = this.property.coefficient;
       this.status = this.property.status;
-      console.log("property");
-      console.log(this.property);
-      this.getCategories();
-    }, 
-    err => {
-      alert("error");
-    });
-    
-  }
-
-  getCategories(){
-    this.categoryService.getAllCategories().subscribe(res => {
-      this.categories = res;
-      console.log("categories");
-      console.log(this.categories);
       this.showCategory = true;
     }, 
     err => {
-      alert("error");
+      alert('error');
     });
-    console.log("categories");
-    console.log(this.categories);
   }
 
   updStatus(id){
@@ -71,8 +57,6 @@ export class PropertyComponent implements OnInit {
   }
 
   updCategory(id){
-    console.log("categories");
-    console.log(this.categories);
     this.selectedCategory = this.categories[id].title;
   }
 
