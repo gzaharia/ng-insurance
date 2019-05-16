@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../../service/user/user.service';
 import {EmployeeViewModel} from '../../../../model/employee/employee-view-model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {RoleViewModel} from '../../../../model/role/role-view-model';
 import {RoleService} from '../../../../service/role/role.service';
+import {Role} from "../../../../model/role/role.enum";
 
 @Component({
   selector: 'app-edit-user',
@@ -17,7 +18,8 @@ export class EditUserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private roleService: RoleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -51,11 +53,13 @@ export class EditUserComponent implements OnInit {
     );
   }
 
-  updateEmployee()
-  {
+  updateEmployee() {
+    const selectedRoles = this.roles.filter( (role) => role.checked );
+    this.user.roles = selectedRoles;
+
     this.userService.updateEmployee(this.user.id, this.user).subscribe(
       result => {
-        location.reload();
+        this.router.navigateByUrl('/admin/users');
       },
       error => {
         alert('Could not update employee!');
