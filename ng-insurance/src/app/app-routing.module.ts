@@ -12,6 +12,7 @@ import {UserComponent} from './components/admin/user/user.component';
 import {ProfileComponent} from "./components/admin/profile/profile.component";
 import { PropertyComponent } from './components/admin/property/property.component';
 import {EditUserComponent} from "./components/admin/user/edit-user/edit-user.component";
+import {AddUserComponent} from "./components/admin/user/add-user/add-user.component";
 
 
 const routes: Routes = [
@@ -50,6 +51,14 @@ const routes: Routes = [
   {
     path: 'admin/users',
     component: UserComponent,
+    canActivate: [ AuthGuard ],
+    data: {
+      requiredRoles: [ Role.Admin ]
+    }
+  },
+  {
+    path: 'admin/users/add',
+    component: AddUserComponent,
     canActivate: [ AuthGuard ],
     data: {
       requiredRoles: [ Role.Admin ]

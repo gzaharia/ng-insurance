@@ -4,7 +4,6 @@ import {EmployeeViewModel} from '../../../../model/employee/employee-view-model'
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoleViewModel} from '../../../../model/role/role-view-model';
 import {RoleService} from '../../../../service/role/role.service';
-import {Role} from "../../../../model/role/role.enum";
 
 @Component({
   selector: 'app-edit-user',

@@ -14,6 +14,7 @@ export class UserService {
   private GET_ONE_USER_BY_USERNAME = `${ApiService.BASE_URL}\\admin\\users\\name\\`;
   private POST_USER = `${ApiService.BASE_URL}\\admin\\users\\add`;
   private PUT_USER_URL = `${ApiService.BASE_URL}\\admin\\users\\edit\\`;
+  private DELETE_USER_URL = `${ApiService.BASE_URL}\\admin\\users\\delete\\`;
 
   constructor(private http: HttpClient) {}
 
@@ -35,5 +36,9 @@ export class UserService {
 
   updateEmployee(id: number, employee: EmployeeViewModel): Observable<any> {
     return this.http.put(this.PUT_USER_URL + id, employee);
+  }
+
+  deleteEmployee(id: number): Observable<any> {
+    return this.http.delete(this.DELETE_USER_URL + id);
   }
 }

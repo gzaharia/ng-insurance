@@ -1,4 +1,11 @@
 <div class="container my-3">
+  <button
+    class="btn btn-primary btn-block mb-3"
+    (click)="router.navigateByUrl('/admin/users/add')"
+  >
+    Add new user
+  </button>
+
   <table class="table table-bordered table-hover table-sm table-striped">
     <thead>
       <tr>
@@ -33,7 +40,18 @@
           </div>
         </td>
         <td>
-          <button class="btn btn-danger btn-sm">Delete</button>
+          <button
+            class="btn btn-danger btn-sm"
+            *ngIf="currentUser.username !== employee.userName"
+            (click)="deleteEmployee(employee.id)"
+          >
+            Delete
+          </button>
+          <div
+            *ngIf="currentUser.username === employee.userName"
+          >
+            Current user
+          </div>
         </td>
       </tr>
     </tbody>

@@ -43,4 +43,15 @@ export class UserComponent implements OnInit {
       }
     );
   }
+
+  deleteEmployee(id: number) {
+    this.userService.deleteEmployee(id).subscribe(
+      result => {
+        location.reload();
+      },
+      error => {
+        alert('Could not delete employee!');
+      }
+    );
+  }
 }
