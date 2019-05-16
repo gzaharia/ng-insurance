@@ -16,9 +16,11 @@ import {AdminDashboardComponent} from './components/admin/admin-dashboard/admin-
 import {AdminComponent} from './components/admin/admin.component';
 import {JwtInterceptor} from './helpers/jwt_interceptor/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error_interceptor/error.interceptor';
-import {UserComponent} from './components/admin/user/user.component';
-import {ProfileComponent} from './components/admin/profile/profile.component';
+import { UserComponent } from './components/admin/user/user.component';
+import { ProfileComponent } from './components/admin/profile/profile.component';
+import { PropertyComponent } from './components/admin/property/property.component';
 import { EditUserComponent } from './components/admin/user/edit-user/edit-user.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { EditUserComponent } from './components/admin/user/edit-user/edit-user.c
     AdminComponent,
     UserComponent,
     ProfileComponent,
+    PropertyComponent,
     EditUserComponent
+
   ],
   imports: [
     BrowserModule,

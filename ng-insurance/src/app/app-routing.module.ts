@@ -10,7 +10,9 @@ import {AuthGuard} from './guards/auth-guard/auth.guard';
 import {Role} from './model/role/role.enum';
 import {UserComponent} from './components/admin/user/user.component';
 import {ProfileComponent} from "./components/admin/profile/profile.component";
+import { PropertyComponent } from './components/admin/property/property.component';
 import {EditUserComponent} from "./components/admin/user/edit-user/edit-user.component";
+
 
 const routes: Routes = [
   {
@@ -72,6 +74,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'admin/properties/:id',
+    component: PropertyComponent,
+    canActivate: [ AuthGuard ],
+    data: {
+      requiredRoles: [ Role.Admin ]
+    }
   },
   {
     path: '**',

@@ -24,6 +24,7 @@
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-2" (click)=updCategory()>Update</button>
     </div>
+    <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
   </div>
   <p>Add property:</p>
 </div>
@@ -41,10 +42,11 @@
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-2" (click)=saveProperty()>Add</button>
     </div>
+    <div id="AddError" style="display: none" class="alert alert-danger">{{error}}</div>
   </div>
 </div>
 <div class="container" *ngIf=category.properties >
-  <div class="row" *ngFor="let property of category.properties; let id = index let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
+  <div class="row" *ngFor="let property of category.properties; let id = index; let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
 
     <div class="col-1">
       {{ id + 1 }}

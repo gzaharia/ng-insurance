@@ -4,6 +4,7 @@ import { Category } from 'src/app/model/category/category';
 import { CategoryViewModel } from 'src/app/model/category/CategoryViewModel';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -11,9 +12,10 @@ import { Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-  title: string;
+  title: string = '';
   categories: Category[];
   category: CategoryViewModel = <any>{};
+  error : string = '';
 
   constructor(private categoryService: CategoryService, private router : Router) { }
 
@@ -47,12 +49,27 @@ export class CategoryComponent implements OnInit {
 
   addNewCategory(category) {
     category.status = 1;
-    this.categoryService.postCategory(category).subscribe(respon => {
-      this.categories.push(respon);
-    },
-    error => {
-      alert('could not save');
-    });
+    if(this.title.trim().length){
+      this.categoryService.postCategory(category).subscribe(respon => {
+          this.categories.push(respon);
+        },
+        error => {
+          alert("cannot execute!");
+        });
+    }
+    else {
+      this.error = 'You have nothing to add !';
+      console.log(this.error);
+      this.clearError();
+    }
+
+
+  }
+
+  clearError(){
+    document.getElementById("Error").style.display="block";
+    setTimeout(function(){
+      document.getElementById("Error").style.display="none"},1000);
   }
 
   getAllCategories() {
