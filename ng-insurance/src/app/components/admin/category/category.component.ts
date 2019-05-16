@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
     this.categories[id].status = 2;
     this.categoryService.updateCategory(this.categories[id].id, this.categories[id]).subscribe(res => {
       alert('Delete PASS');
-      location.reload();
+       location.reload();
     }, err => {
       alert('Delete FAIL');
     });
@@ -69,7 +69,7 @@ export class CategoryComponent implements OnInit {
   clearError(){
     document.getElementById("Error").style.display="block";
     setTimeout(function(){
-      document.getElementById("Error").style.display="none"},1000);
+      document.getElementById("Error").style.display="none"},3000);
   }
 
   getAllCategories() {
