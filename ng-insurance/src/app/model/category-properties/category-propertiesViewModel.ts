@@ -5,4 +5,5 @@ export interface CategoryPropertiesViewModel {
   title: string;
   coefficient: number;
   category: Category;
+  status: number;
 }
