@@ -19,6 +19,7 @@ export class PropertyComponent implements OnInit {
   private status = 1;
   private showCategory = false;
   private selectedCategory = '';
+  private id: number;
 
   constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService,
               private categoryService: CategoryService) {
@@ -27,15 +28,23 @@ export class PropertyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.id = +this.route.snapshot.paramMap.get('id');
     this.getProperty();
   }
 
   getProperty(){
-    this.propertyService.getPropertyById(+this.route.snapshot.paramMap.get('id')).subscribe(res => {
+    this.propertyService.getPropertyById(this.id).subscribe(res => {
       this.property = res;
       this.title = this.property.title;
       this.coefficient = this.property.coefficient;
       this.status = this.property.status;
+      for(let category of this.categories){
+        for(let property of category.properties){
+          if (property.id = this.id){
+            this.selectedCategory = category.title;
+          }
+        }
+      }
       this.showCategory = true;
     }, 
     err => {
@@ -44,6 +53,7 @@ export class PropertyComponent implements OnInit {
   }
 
   updStatus(id){
+    this.status = id;
     this.property.status = id;
   }
 
@@ -57,7 +67,7 @@ export class PropertyComponent implements OnInit {
   }
 
   updCategory(id){
+    console.log(id);
     this.selectedCategory = this.categories[id].title;
   }
-
 }
