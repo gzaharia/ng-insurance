@@ -31,7 +31,7 @@
          {{selectedCategory}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" *ngFor="let category of categories" (click)="updCategory(category.id)">{{ category.title }}</a>
+          <a class="dropdown-item" *ngFor="let category of categories; let id = index;" (click)="updCategory(id)">{{ category.title }}</a>
         </div>
       </div>
       <div class="valid-feedback">
