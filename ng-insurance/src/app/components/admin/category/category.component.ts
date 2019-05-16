@@ -31,8 +31,6 @@ export class CategoryComponent implements OnInit {
   }
 
   delete(id){
-    console.log(id);
-    console.log(this.categories[id]);
     this.categories[id].status = 2;
     this.categoryService.updateCategory(this.categories[id].id, this.categories[id]).subscribe(res => {
       alert('Delete PASS');
@@ -40,7 +38,6 @@ export class CategoryComponent implements OnInit {
     }, err => {
       alert('Delete FAIL');
     });
-    console.log('delete : ' + id);
   }
 
   ngOnInit() {
@@ -59,7 +56,6 @@ export class CategoryComponent implements OnInit {
     }
     else {
       this.error = 'You have nothing to add !';
-      console.log(this.error);
       this.clearError();
     }
 
@@ -84,14 +80,10 @@ export class CategoryComponent implements OnInit {
               this.categories[i].deleted = false;
             } 
         }
-        console.log(this.categories);
       },
       err => {
         alert('Could not fetch categories!');
       }
     );
   }
-
-
-
 }

@@ -1,0 +1,22 @@
+<form class="my-3">
+  <div class="row">
+    <div class="col-11">
+      <input
+        class="form-control"
+        type="number"
+        placeholder="Base price"
+        name="basePriceInput"
+        [(ngModel)]="basePrice"
+      >
+    </div>
+
+    <div class="col-1">
+      <button
+        class="btn btn-primary"
+        (click)="updateBasePrice()"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</form>
