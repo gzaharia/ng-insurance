@@ -11,14 +11,22 @@ import {Employee} from '../../../model/employee/employee';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private employees: EmployeeViewModel[];
-  private currentUser: Employee;
+  private employees: EmployeeViewModel[] = [];
+  private currentUser: Employee = {
+    id: null,
+    username: '',
+    password: '',
+    roles: [],
+    token: ''
+  };
 
   constructor(
     private userService: UserService,
     private router: Router,
     private auth: AuthenticationService
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.getAllEmployees();
     this.auth.currentUser.subscribe(
       result => {
@@ -28,9 +36,6 @@ export class UserComponent implements OnInit {
         alert('Could not get logged user!');
       }
     );
-  }
-
-  ngOnInit() {
   }
 
   getAllEmployees() {
