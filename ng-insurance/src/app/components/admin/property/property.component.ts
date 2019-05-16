@@ -23,7 +23,6 @@ export class PropertyComponent implements OnInit {
   constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService,
               private categoryService: CategoryService) {
     this.categories = this.route.snapshot.data.categories;
-    console.log(this.route.snapshot.data.categories);
   }
 
   ngOnInit() {
