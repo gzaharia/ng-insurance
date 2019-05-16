@@ -72,7 +72,7 @@ export class CategoryPropertiesComponent implements OnInit {
   clearError(){
     document.getElementById("Error").style.display="block";
     setTimeout(function(){
-      document.getElementById("Error").style.display="none"},1000);
+      document.getElementById("Error").style.display="none"},3000);
   }
 
   updStatus(status){
@@ -85,7 +85,7 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.title = this.title;
     this.property.coefficient = this.coefficient;
     this.property.category = this.category;
-    if (this.property.title.trim().length) {
+    if (this.property.title.trim().length && this.property.coefficient >=1) {
       this.propertyService.postProperty(this.property).subscribe(resp => {
         //this.category.properties.push(this.property);
         this.getCategory();
@@ -106,7 +106,7 @@ export class CategoryPropertiesComponent implements OnInit {
   clearAddError(){
     document.getElementById("AddError").style.display="block";
     setTimeout(function(){
-      document.getElementById("AddError").style.display="none"},1000);
+      document.getElementById("AddError").style.display="none"},3000);
   }
 
   edit(id){

@@ -1,33 +1,43 @@
-
-  <div class="container">
-    <p>Add category:</p>
-  <div class="form-row align-items-center">
-    <div class="col-md">
-      <label class="sr-only" for="inlineFormInput">Name</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="title" id="inlineFormInput" placeholder="Category name">
-    </div>
-    <div class="col-auto">
-      <button  type="submit"  class="btn btn-primary mb-2" (click)=myEvent()>Add</button>
-    </div>
-    <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
+<div class="container">
+<div class="row">
+  <div class="col-11">
+    <label class="sr-only" for="inlineFormInput">Name</label>
+    <input type="text" class="form-control mb-2" [(ngModel)]="title" id="inlineFormInput" placeholder="Category name">
+  </div>
+  <div class="col-1">
+    <button type="submit" class="btn btn-primary mb-2" (click)=myEvent()>Add</button>
   </div>
 </div>
-<div class="container" *ngIf=categories>
-  <div class="row" *ngFor="let category of categories; let item = index; let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
 
-    <div class="col-1">
-      {{ item+1 }}
-    </div>
-    <div class="col-md">
-      <a >{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span></a>
-    </div>
-    <div class="col-auto">
-      <button class="edit" title="edit category"
-      (click)="edit(category.id)">edit</button>
-    </div>
-    <div class="col-auto">
-      <button class="delete" title="delete category"
-      (click)="delete(item)">del</button>
-    </div>
+  <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
   </div>
+<div class="container my-3" xmlns:odd="http://www.w3.org/1999/xhtml">
+    <table class="table table-bordered table-hover table-sm table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+
+      <tbody *ngIf=categories>
+      <tr *ngFor="let category of categories; let item=index">
+        <td>{{item + 1 }}</td>
+        <td>{{ category.title }}<span *ngIf=category.deleted class="deleted">DELETED</span></td>
+        <td>
+          <button class="btn btn-primary btn-sm" title="edit category"
+                  (click)="edit(category.id)"
+          >
+            Edit
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm" title="delete category"
+          (click)="delete(item)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 </div>
