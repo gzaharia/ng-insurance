@@ -63,7 +63,7 @@
     <tbody>
     <tr *ngFor="let property of category.properties; let id = index">
       <td>{{id + 1 }}</td>
-      <td>{{ property.title }}<span *ngIf=property.status style="color:red"> {{property.status}} </span></td>
+      <td>{{ property.title }}<span *ngIf="property.deleted" style="color:red"> DELETED </span></td>
       <td>{{property.coefficient}}</td>
       <td width="80" align="center">
         <button class="btn btn-primary btn-sm" title="edit category"
