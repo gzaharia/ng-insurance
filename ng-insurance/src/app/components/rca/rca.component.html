@@ -4,17 +4,23 @@
       Calculator RCA
     </div>
 
-    <div class="card-footer mt-3"  *ngFor="let activeCategory of activeCategories; index as i">
-      <div *ngIf="showFlag">
-      <div class="row">{{activeCategory.title}}
-      </div>
-      <div class="btn-group-toggle row" data-toggle="buttons" role="group" >
-        <label class="btn btn-secondary" (click)="nextElement($event, i, pId)" *ngFor="let property of activeCategory.properties; index as pId">
-            <input type="radio" name="{{property.id}}">{{property.title}}
-            </label>
-      </div>
-      </div>
-    </div>
-    <input *ngIf="visible" type="submit" class="btn btn-secondary row mb-3" (click)="createOrder()" value="Calculeaza">
+    <form (ngSubmit)="createOrder()">
+        <div class="card-footer mt-3 form-group" *ngFor="let category of displayedCategories; index as i">
+          <div *ngIf="showFlag">
+          <div class="row">{{category.title}}
+          </div>
+          <div class="btn-group-toggle row" data-toggle="buttons" role="group" >
+            <label class="btn btn-secondary" (click)="nextElement($event, i, pId)" *ngFor="let property of category.properties; index as pId">
+                <input type="radio" name="{{property.id}}">{{property.title}}
+                </label>
+          </div>
+          </div>
+        </div>
+        <input *ngIf="visible" type="submit" class="btn btn-secondary row mb-3" value="Calculeaza">
+      <div *ngIf="priceFlag">{{price}}</div>
+    </form>
+
+
+
   </div>
 </div>

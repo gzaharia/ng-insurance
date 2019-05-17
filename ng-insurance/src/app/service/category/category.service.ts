@@ -10,6 +10,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CategoryService {
   private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all`;
+  private GET_ACTIVE_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
   private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\/`;
   private POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;
   private UPDATE_CATEGORY = `${ApiService.BASE_URL}\/categories\/edit\/`;
@@ -19,6 +20,10 @@ export class CategoryService {
 
   getAllCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.GET_ALL_CATEGORIES);
+  }
+
+  getActiveCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.GET_ACTIVE_CATEGORIES);
   }
 
   getOneCategory(id: number): Observable<Category>{

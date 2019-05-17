@@ -3,6 +3,11 @@ import {Category} from '../../model/category/category';
 import { CategoryViewModel } from '../../model/category/CategoryViewModel';
 import {CategoryService} from '../../service/category/category.service';
 import {CategoryProperties} from '../../model/category-properties/category-properties';
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {CategoryPropertiesViewModel} from "../../model/category-properties/category-propertiesViewModel";
+import {OrderService} from "../../service/order/order.service";
+import {Order} from "../../model/order/order";
+import {CategoryPropertiesIdViewModel} from "../../model/category-properties/category-properties-idViewModel";
 
 @Component({
   selector: 'app-main',
@@ -11,27 +16,41 @@ import {CategoryProperties} from '../../model/category-properties/category-prope
 })
 
 export class RcaComponent implements OnInit {
-  model: CategoryViewModel = <any>{};
   categories: Category[];
   public visible = false;
   public showFlag = true;
-  activeCategories: Category[] = [];
+  public priceFlag = false;
+  private price: number;
+  displayedCategories: Category[] = [];
   category: Category;
-  selectedProperties: CategoryProperties[] = [];
+  selectedProperties;
   nextIndex = 1;
 
-  constructor(private categoryService: CategoryService) { }
+
+  constructor(private categoryService: CategoryService, private orderService: OrderService) { }
 
   ngOnInit() {
     this.getAllCategories();
+    this.selectedProperties = new Map();
   }
 
   getAllCategories() {
-    this.categoryService.getAllCategories().subscribe(
+    this.categoryService.getActiveCategories().subscribe(
       result => {
-        this.categories = result;
+        this.categories = result.sort((a, b): number => {
+          if (a.id < b.id) return -1;
+          if (a.id > b.id) return 1;
+          return 0;
+        });
+        for (let category of this.categories) {
+          category.properties.sort((a, b): number => {
+            if (a.id < b.id) return -1;
+            if (a.id > b.id) return 1;
+            return 0;
+          });
+        }
         if (result[0]) {
-          this.activeCategories.push(result[0]);
+          this.displayedCategories.push(result[0]);
         }
       },
       err => {
@@ -39,21 +58,37 @@ export class RcaComponent implements OnInit {
       }
     );
   }
+  arrToOrder(map) {
+    const order: Order = {
+      properties: []
+    };
+    map.forEach(function (value) {
+      order.properties.push({id: value.id});
+    });
+    return order;
+  }
   createOrder() {
-    console.log(this.selectedProperties);
+    const order: Order = this.arrToOrder(this.selectedProperties);
+    this.orderService.postOrder(order).subscribe(res => {
+      this.price = res;
+      this.priceFlag = true;
+    }, error1 => {
+        alert('fail');
+        this.priceFlag = false;
+      });
   }
   nextElement(event: Event, i, pId) {
-    this.selectedProperties.push(this.categories[i].properties[pId]);
+    this.priceFlag = false;
+    this.selectedProperties.set(this.categories[i], this.categories[i].properties[pId]);
     if (i < this.nextIndex - 1) {
       for (let x = 0; x < (this.nextIndex - i); x++) {
-        this.activeCategories.pop();
-        this.selectedProperties.pop();
+        this.displayedCategories.pop();
         console.log('pop');
       }
       this.nextIndex = i;
     }
     if (this.categories[this.nextIndex]) {
-      this.activeCategories.push(this.categories[this.nextIndex]);
+      this.displayedCategories.push(this.categories[this.nextIndex]);
       console.log('push');
       this.nextIndex ++;
       this.visible = false;
