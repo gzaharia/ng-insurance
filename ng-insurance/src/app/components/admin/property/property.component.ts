@@ -42,6 +42,7 @@ export class PropertyComponent implements OnInit {
         for(let property of category.properties){
           if (property.id == this.id){
             this.selectedCategory = category.title;
+            this.property.category = category;
           }
         }
       }
