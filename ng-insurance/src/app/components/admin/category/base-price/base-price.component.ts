@@ -25,7 +25,12 @@ export class BasePriceComponent implements OnInit {
 
     this.insuranceService.getOneInsuranceByName('RCA').subscribe(
       result => {
-        this.basePrice = result.basePrice;
+        if (result == null){
+        this.basePrice = 400;
+        }
+        else {
+          this.basePrice = result.basePrice;
+        }
       },
       error => {
         alert('Could not retrieve base price!');
