@@ -1,10 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Category} from '../../model/category/category';
-import { CategoryViewModel } from '../../model/category/CategoryViewModel';
 import {CategoryService} from '../../service/category/category.service';
-import {CategoryProperties} from '../../model/category-properties/category-properties';
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {CategoryPropertiesViewModel} from "../../model/category-properties/category-propertiesViewModel";
 import {OrderService} from '../../service/order/order.service';
 import {Order} from '../../model/order/order';
 
@@ -32,9 +28,6 @@ export class RcaComponent implements OnInit {
   ngOnInit() {
     this.getAllCategories();
     this.selectedProperties = new Map();
-  }
-  sortCategories() {
-
   }
 
   getAllCategories() {
