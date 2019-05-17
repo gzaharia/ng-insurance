@@ -33,9 +33,6 @@ export class RcaComponent implements OnInit {
     this.getAllCategories();
     this.selectedProperties = new Map();
   }
-  sortCategories() {
-
-  }
 
   getAllCategories() {
     this.categoryService.getActiveCategories().subscribe(
@@ -61,13 +58,14 @@ export class RcaComponent implements OnInit {
           });
 
           for (let j = category.properties.length - 1; j >= 0; j--) {
-            if (category.properties[j].status.toString() === 'DELETED') {
+            if (category.properties[j].status === 2) {
                 category.properties.splice(j, 1);
             }
           }
           category.properties.filter(function (el) {
             return el != null;
           });
+          console.log(category);
 
         }
         if (result[0]) {
