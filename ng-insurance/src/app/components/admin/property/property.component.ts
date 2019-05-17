@@ -4,6 +4,7 @@ import { CategoryPropertiesService } from 'src/app/service/category-properties/c
 import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
 import { Category } from 'src/app/model/category/category';
 import { CategoryService } from 'src/app/service/category/category.service';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-property',
@@ -22,7 +23,7 @@ export class PropertyComponent implements OnInit {
   private id: number;
 
   constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService,
-              private categoryService: CategoryService) {
+              private categoryService: CategoryService, private _location: Location) {
     this.categories = this.route.snapshot.data.categories;
   }
 
@@ -42,6 +43,7 @@ export class PropertyComponent implements OnInit {
         for(let property of category.properties){
           if (property.id == this.id){
             this.selectedCategory = category.title;
+            this.property.category = category;
           }
         }
       }
@@ -58,8 +60,10 @@ export class PropertyComponent implements OnInit {
   }
 
   updProperty(){
+    this.property.coefficient = this.coefficient;
+    this.property.title = this.title;
     this.propertyService.putProperty(this.property.id, this.property).subscribe(res => {
-      this.property = res;
+      this._location.back();
     },
     err => {
       alert("error");

@@ -28,24 +28,23 @@ export class CategoryPropertiesComponent implements OnInit {
   }
 
   getCategory(){
+    this.title = '';
+    this.coefficient = null;
     this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result=>{
       this.category = result;
      if (this.category.status==2){
        this.category.deleted = true; 
      }
       for(let i = 0; i < this.category.properties.length; i++){
-        console.log(this.category.properties[i].status);
           if (this.category.properties[i].status == 2){
             this.category.properties[i].deleted = true;
           }else{
             this.category.properties[i].deleted = false;
           } 
       }
-     
-      console.log(this.category);
     }, error=>{
       alert("Error to read category");
-      console.log(error);
+      
     });
   }
 
@@ -55,15 +54,12 @@ export class CategoryPropertiesComponent implements OnInit {
     if(this.category.title.trim().length) {
       this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
         this.getCategory();
-        console.log("true");
       }, err => {
-        // $(".invalid-feedback").toggleClass("show");
-        console.log("false");
+        alert("false");
       })
     }
     else {
       this.error = 'You have nothing to update !';
-      console.log(this.error);
       this.clearError();
     }
   }
@@ -71,17 +67,16 @@ export class CategoryPropertiesComponent implements OnInit {
   clearError(){
     document.getElementById("Error").style.display="block";
     setTimeout(function(){
-      document.getElementById("Error").style.display="none"},3000);
+    document.getElementById("Error").style.display="none"},3000);
   }
 
   updStatus(status){
-    console.log(this.category);
     this.category.status = status;
-    console.log(this.category);
   }
 
   saveProperty(){
     this.property.title = this.title;
+    this.property.status = 1;
     this.property.coefficient = this.coefficient;
     this.property.category = this.category;
     if (this.property.title.trim().length && this.property.coefficient >=1) {
@@ -94,18 +89,14 @@ export class CategoryPropertiesComponent implements OnInit {
     }
     else{
       this.error = 'You have nothing to add !';
-      console.log(this.error);
       this.clearAddError();
-
     }
-
-
-
   }
+
   clearAddError(){
     document.getElementById("AddError").style.display="block";
     setTimeout(function(){
-      document.getElementById("AddError").style.display="none"},3000);
+    document.getElementById("AddError").style.display="none"},3000);
   }
 
   edit(id){

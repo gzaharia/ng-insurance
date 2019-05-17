@@ -36,7 +36,7 @@
     </div>
     <div class="col-md">
       <label class="sr-only" for="coefficientInput">Coefficient</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="coefficient" id="coefficientInput" placeholder="coefficient value">
+      <input type="number" class="form-control mb-2" [(ngModel)]="coefficient" id="coefficientInput" placeholder="coefficient value">
     </div>
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-2" (click)=saveProperty()>Add</button>
@@ -48,7 +48,7 @@
   <div class="row">
   </div>
 </div>
-<div class="container my-3" xmlns:odd="http://www.w3.org/1999/xhtml" *ngIf="category.properties.length > 0" >
+<div class="container my-3" xmlns:odd="http://www.w3.org/1999/xhtml" *ngIf="category.properties?.length > 0" >
   <table class="table table-bordered table-hover table-sm table-striped">
     <thead>
     <tr>
@@ -63,7 +63,7 @@
     <tbody>
     <tr *ngFor="let property of category.properties; let id = index">
       <td>{{id + 1 }}</td>
-      <td>{{ property.title }}<span *ngIf=property.status style="color:red"> {{property.status}} </span></td>
+      <td>{{ property.title }}<span *ngIf="property.deleted" style="color:red"> DELETED </span></td>
       <td>{{property.coefficient}}</td>
       <td width="80" align="center">
         <button class="btn btn-primary btn-sm" title="edit category"
