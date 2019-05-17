@@ -25,12 +25,12 @@ export class CategoryPropertiesComponent implements OnInit {
 
   ngOnInit() {
     this.getCategory();
-    // this.getPropertiesByCategory();
   }
 
   getCategory(){
     this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result=>{
       this.category = result;
+      console.log(this.category);
      if (this.category.status==2){
        this.category.deleted = true; 
      }
@@ -56,7 +56,7 @@ export class CategoryPropertiesComponent implements OnInit {
     if(this.category.title.trim().length) {
       this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
         this.getCategory();
-        console.log("true");
+        console.log(this.category);
       }, err => {
         // $(".invalid-feedback").toggleClass("show");
         console.log("false");
