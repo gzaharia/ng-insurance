@@ -33,7 +33,6 @@ export class CategoryComponent implements OnInit {
   delete(id){
     this.categories[id].status = 2;
     this.categoryService.updateCategory(this.categories[id].id, this.categories[id]).subscribe(res => {
-      alert('Delete PASS');
        location.reload();
     }, err => {
       alert('Delete FAIL');
