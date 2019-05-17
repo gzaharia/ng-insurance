@@ -5,9 +5,9 @@ import {CategoryService} from '../../service/category/category.service';
 import {CategoryProperties} from '../../model/category-properties/category-properties';
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {CategoryPropertiesViewModel} from "../../model/category-properties/category-propertiesViewModel";
-import {OrderService} from "../../service/order/order.service";
-import {Order} from "../../model/order/order";
-import {CategoryPropertiesIdViewModel} from "../../model/category-properties/category-properties-idViewModel";
+import {OrderService} from '../../service/order/order.service';
+import {Order} from '../../model/order/order';
+
 
 @Component({
   selector: 'app-main',
@@ -33,21 +33,42 @@ export class RcaComponent implements OnInit {
     this.getAllCategories();
     this.selectedProperties = new Map();
   }
+  sortCategories() {
+
+  }
 
   getAllCategories() {
     this.categoryService.getActiveCategories().subscribe(
       result => {
         this.categories = result.sort((a, b): number => {
-          if (a.id < b.id) return -1;
-          if (a.id > b.id) return 1;
+          if (a.id < b.id) {
+            return -1;
+          }
+          if (a.id > b.id) {
+            return 1;
+          }
           return 0;
         });
-        for (let category of this.categories) {
+        for (const category of this.categories) {
           category.properties.sort((a, b): number => {
-            if (a.id < b.id) return -1;
-            if (a.id > b.id) return 1;
+            if (a.id < b.id) {
+              return -1;
+            }
+            if (a.id > b.id) {
+              return 1;
+            }
             return 0;
           });
+
+          for (let j = category.properties.length - 1; j >= 0; j--) {
+            if (category.properties[j].status.toString() === 'DELETED') {
+                category.properties.splice(j, 1);
+            }
+          }
+          category.properties.filter(function (el) {
+            return el != null;
+          });
+
         }
         if (result[0]) {
           this.displayedCategories.push(result[0]);
@@ -83,13 +104,11 @@ export class RcaComponent implements OnInit {
     if (i < this.nextIndex - 1) {
       for (let x = 0; x < (this.nextIndex - i); x++) {
         this.displayedCategories.pop();
-        console.log('pop');
       }
       this.nextIndex = i;
     }
     if (this.categories[this.nextIndex]) {
       this.displayedCategories.push(this.categories[this.nextIndex]);
-      console.log('push');
       this.nextIndex ++;
       this.visible = false;
     } else {
