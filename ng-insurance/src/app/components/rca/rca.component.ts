@@ -61,14 +61,13 @@ export class RcaComponent implements OnInit {
           });
 
           for (let j = category.properties.length - 1; j >= 0; j--) {
-            if (category.properties[j].status.toString() === 'DELETED') {
+            if (category.properties[j].status === 2) {
                 category.properties.splice(j, 1);
             }
           }
           category.properties.filter(function (el) {
             return el != null;
           });
-
         }
         if (result[0]) {
           this.displayedCategories.push(result[0]);
