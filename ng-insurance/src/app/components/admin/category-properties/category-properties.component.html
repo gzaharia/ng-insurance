@@ -2,8 +2,9 @@
   <div class="form-row align-items-center">
     <div class="col-md">
       <label class="sr-only" for="category.title">Category:</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="category['title']" id="category.title" placeholder="upd ">
+      <input type="text" class="form-control mb-2"  [(ngModel)]="category['title']" id="category.title" placeholder="update ">
     </div>
+
     <div class="col-md">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -17,17 +18,15 @@
       <div class="valid-feedback">
         Category update successfully!
       </div>
-      <div class="invalid-feedback">
-        Fail to update category!
-      </div>
     </div>
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-2" (click)=updCategory()>Update</button>
     </div>
-    <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
   </div>
+  <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
   <p>Add property:</p>
 </div>
+
 
 <div class="container">
   <div class="form-row align-items-center">
@@ -42,30 +41,41 @@
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-2" (click)=saveProperty()>Add</button>
     </div>
-    <div id="AddError" style="display: none" class="alert alert-danger">{{error}}</div>
+  </div>
+  <div id="AddError" style="display: none" class="alert alert-danger">{{error}}</div>
+</div>
+<div class="container">
+  <div class="row">
   </div>
 </div>
-<div class="container" *ngIf=category.properties >
-  <div class="row" *ngFor="let property of category.properties; let id = index; let even = even;let odd = odd" [ngClass]={even:even,odd:odd}>
+<div class="container my-3" xmlns:odd="http://www.w3.org/1999/xhtml" *ngIf="category.properties.length > 0" >
+  <table class="table table-bordered table-hover table-sm table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Property</th>
+      <th>Coefficient</th>
+      <th class="text-center">Edit</th>
+      <th class="text-center">Delete</th>
+    </tr>
+    </thead>
 
-    <div class="col-1">
-      {{ id + 1 }}
-    </div>
-    <div class="col-md">
-      <a >{{ property.title }} <span *ngIf=property.status style="color:red"> {{property.status}} </span></a>
-    </div>
-    <div class="col-md">
-      <a >{{ property.coefficient }}</a>
-    </div>
-    <div class="col-auto">
-      <button class="edit" title="edit category"
-              (click)="edit(property.id)">edit</button>
-    </div>
-    <div class="col-auto">
-      <button class="delete" title="delete category"
-              (click)="delete(id)">del</button>
-    </div>
-  </div>
+    <tbody>
+    <tr *ngFor="let property of category.properties; let id = index">
+      <td>{{id + 1 }}</td>
+      <td>{{ property.title }}<span *ngIf=property.status style="color:red"> {{property.status}} </span></td>
+      <td>{{property.coefficient}}</td>
+      <td width="80" align="center">
+        <button class="btn btn-primary btn-sm" title="edit category"
+                (click)="edit(property.id)">Edit</button>
+      </td>
+      <td width="100" align="center">
+        <button class="btn btn-danger btn-sm" title="delete category"
+                (click)="delete(id)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 

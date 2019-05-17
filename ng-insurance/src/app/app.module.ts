@@ -21,6 +21,8 @@ import {ProfileComponent} from './components/admin/profile/profile.component';
 import {PropertyComponent} from './components/admin/property/property.component';
 import {EditUserComponent} from './components/admin/user/edit-user/edit-user.component';
 import {AddUserComponent} from './components/admin/user/add-user/add-user.component';
+import {CategoryPropertiesResolverService} from './service/category-properties/resolver/category-properties-resolver.service';
+import {BasePriceComponent} from './components/admin/category/base-price/base-price.component';
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import {AddUserComponent} from './components/admin/user/add-user/add-user.compon
     PropertyComponent,
     EditUserComponent,
     AddUserComponent,
+    BasePriceComponent
 
   ],
   imports: [
@@ -51,7 +54,8 @@ import {AddUserComponent} from './components/admin/user/add-user/add-user.compon
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    CategoryPropertiesResolverService
   ],
   bootstrap: [AppComponent]
 })

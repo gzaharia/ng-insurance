@@ -8,52 +8,45 @@
 
   <table class="table table-bordered table-hover table-sm table-striped">
     <thead>
-      <tr>
-        <th>Id</th>
-        <th>Username</th>
-        <th>Roles</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
+    <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Roles</th>
+      <th class="text-center">Edit</th>
+      <th class="text-center">Delete</th>
+    </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let employee of employees">
-        <td>{{ employee.id }}</td>
-        <td>{{ employee.userName }}</td>
-        <td>
-          <div *ngFor="let role of employee.roles">
-            {{ role.name }}
-          </div>
-        </td>
-        <td>
-          <button class="btn btn-primary btn-sm"
-                  (click)="router.navigateByUrl('/admin/users/' + employee.id)"
-                  *ngIf="currentUser.username !== employee.userName"
-          >
-            Edit
-          </button>
-          <div
-            *ngIf="currentUser.username === employee.userName"
-          >
-            Current user
-          </div>
-        </td>
-        <td>
-          <button
-            class="btn btn-danger btn-sm"
-            *ngIf="currentUser.username !== employee.userName"
-            (click)="deleteEmployee(employee.id)"
-          >
-            Delete
-          </button>
-          <div
-            *ngIf="currentUser.username === employee.userName"
-          >
-            Current user
-          </div>
-        </td>
-      </tr>
+    <tr *ngFor="let employee of employees">
+      <td>{{ employee.id }}</td>
+      <td>{{ employee.userName }}</td>
+      <td>
+        <div *ngFor="let role of employee.roles">
+          {{ role.name }}
+        </div>
+      </td>
+      <td width="120" align="center" class="align-middle">
+        <button width class="btn btn-primary btn-sm"
+                (click)="router.navigateByUrl('/admin/users/' + employee.id)"
+                *ngIf="currentUser.username !== employee.userName">Edit
+        </button>
+        <div
+          *ngIf="currentUser.username === employee.userName">Current user
+        </div>
+      </td>
+      <td width="120" align="center" class="align-middle">
+        <button class="btn btn-danger btn-sm"
+          *ngIf="currentUser.username !== employee.userName"
+          (click)="deleteEmployee(employee.id)">Delete
+        </button>
+        <div
+          *ngIf="currentUser.username === employee.userName"
+        >
+          Current user
+        </div>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>

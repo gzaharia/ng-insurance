@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EmployeeViewModel} from '../../model/employee/employee-view-model';
 import {Employee} from '../../model/employee/employee';
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<EmployeeViewModel[]> {
-    return this.http.get<EmployeeViewModel[]>(this.GET_ALL_USERS_URL);
+    return this.http.get<EmployeeViewModel[]>(this.GET_ALL_USERS_URL).pipe(
+      map((res: EmployeeViewModel[]) => res)
+    );
   }
 
   getOneUserById(id: number): Observable<EmployeeViewModel> {

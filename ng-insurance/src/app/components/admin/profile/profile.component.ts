@@ -11,24 +11,40 @@ import {Router} from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  private currentUser: Employee;
-  private currentUserFromDb: EmployeeViewModel;
+  private currentUser: Employee = {
+    id: null,
+    username: '',
+    password: '',
+    roles: [],
+    token: ''
+  };
+  private currentUserFromDb: EmployeeViewModel = {
+    id: null,
+    userName: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    roles: [],
+    status: null
+  };
   private oldUsername: string;
 
   constructor(
     private auth: AuthenticationService,
     private userService: UserService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
     if (this.auth.currentUser) {
       this.auth.currentUser.subscribe(x => this.currentUser = x);
       this.userService.getOneUserByUsername(this.currentUser.username).subscribe(
         result => {
           this.currentUserFromDb = result;
-          },
+        },
         error => {
           alert('Could not find user!');
-      });
+        });
 
       this.oldUsername = this.currentUser.username;
     }
@@ -48,8 +64,5 @@ export class ProfileComponent implements OnInit {
         alert('Could not update user!');
       }
     );
-  }
-
-  ngOnInit() {
   }
 }

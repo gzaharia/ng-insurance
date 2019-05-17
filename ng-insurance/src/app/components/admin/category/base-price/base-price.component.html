@@ -1,0 +1,31 @@
+<div class="card my-3">
+  <div class="card-header">
+    Base price
+  </div>
+
+  <div class="card-body">
+    <form class="my-3">
+      <div class="row">
+        <div class="col-11">
+          <input
+            class="form-control"
+            type="number"
+            placeholder="Base price"
+            name="basePriceInput"
+            id="basePriceInput"
+            [(ngModel)]="basePrice"
+          >
+        </div>
+
+        <div class="col-1">
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="updateBasePrice()"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

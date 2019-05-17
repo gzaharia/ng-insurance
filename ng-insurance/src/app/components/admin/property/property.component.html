@@ -26,12 +26,12 @@
       </div>
     </div>
     <div class="col-md" >
-      <div class="dropdown" *ngIf="showCategory" >
+      <div class="dropdown" *ngIf="showCategory">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          {{selectedCategory}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"  *ngFor="let category of categories">
-          <a class="dropdown-item" (click)="updCategory(category.id)">{{ category.title }}</a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" *ngFor="let category of categories; let id = index;" (click)="updCategory(id)">{{ category.title }}</a>
         </div>
       </div>
       <div class="valid-feedback">
