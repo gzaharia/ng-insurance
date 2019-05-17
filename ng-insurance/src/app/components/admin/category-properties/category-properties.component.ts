@@ -28,6 +28,8 @@ export class CategoryPropertiesComponent implements OnInit {
   }
 
   getCategory(){
+    this.title = '';
+    this.coefficient = null;
     this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result=>{
       this.category = result;
      if (this.category.status==2){
