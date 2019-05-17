@@ -25,7 +25,6 @@ export class CategoryPropertiesComponent implements OnInit {
 
   ngOnInit() {
     this.getCategory();
-    // this.getPropertiesByCategory();
   }
 
   getCategory(){
