@@ -23,7 +23,7 @@ export class RcaComponent implements OnInit {
   selectedProperties;
   nextIndex = 1;
   calculated = false;
-  activeTab = 'order';
+  activeTab = 'calculator';
   rightOfPossesionList = Object.keys(RightOfPossesion);
 
   constructor(
