@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
-import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
-import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
-import { Category } from 'src/app/model/category/category';
-import { CategoryService } from 'src/app/service/category/category.service';
-import { Location } from '@angular/common'
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {CategoryPropertiesService} from 'src/app/service/category-properties/category-properties.service';
+import {CategoryProperties} from 'src/app/model/category-properties/category-properties';
+import {Category} from 'src/app/model/category/category';
+import {CategoryService} from 'src/app/service/category/category.service';
+import {Location} from '@angular/common'
 
 @Component({
   selector: 'app-property',

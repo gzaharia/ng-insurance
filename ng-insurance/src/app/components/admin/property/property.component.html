@@ -1,48 +1,57 @@
 <div class="container">
-  <div class="form-row align-items-center">
-    <div class="col-md">
-      <label class="sr-only" for="property.title">Property:</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="title" placeholder="upd ">
-    </div>
-    <div class="col-md">
-      <label class="sr-only" for="property.coefficient">Coefficient:</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="coefficient" placeholder="upd ">
-    </div>
-    <div class="col-md">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ status==2?"DELETED":"ACTIVE" }}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="updStatus(1)">ACTIVE</a>
-          <a class="dropdown-item" (click)="updStatus(2)">DELETED</a>
+  <div class="card mt-3">
+    <div class="card-header">Edit a property</div>
+
+    <div class="card-body">
+      <div class="form-row align-items-center">
+        <div class="col-md">
+          <label class="sr-only" for="property.title">Property:</label>
+          <input type="text" class="form-control" [(ngModel)]="title" placeholder="upd ">
+        </div>
+        <div class="col-md">
+          <label class="sr-only" for="property.coefficient">Coefficient:</label>
+          <input type="number" class="form-control" [(ngModel)]="coefficient" placeholder="upd ">
+        </div>
+        <div class="col">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ status==2?"DELETED":"ACTIVE" }}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="updStatus(1)">ACTIVE</a>
+              <a class="dropdown-item" (click)="updStatus(2)">DELETED</a>
+            </div>
+          </div>
+          <div class="valid-feedback">
+            Property update successfully!
+          </div>
+          <div class="invalid-feedback">
+            Fail to update property!
+          </div>
+        </div>
+        <div class="col" >
+          <div class="dropdown" *ngIf="showCategory">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{selectedCategory}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" *ngFor="let category of categories; let id = index;" (click)="updCategory(id)">{{ category.title }}</a>
+            </div>
+          </div>
+          <div class="valid-feedback">
+            Property update successfully!
+          </div>
+          <div class="invalid-feedback">
+            Fail to update property!
+          </div>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-secondary mb-2" (click)="_location.back()">Cancel</button>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-2" (click)=updProperty()>Update</button>
         </div>
       </div>
-      <div class="valid-feedback">
-        Property update successfully!
-      </div>
-      <div class="invalid-feedback">
-        Fail to update property!
-      </div>
-    </div>
-    <div class="col-md" >
-      <div class="dropdown" *ngIf="showCategory">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         {{selectedCategory}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" *ngFor="let category of categories; let id = index;" (click)="updCategory(id)">{{ category.title }}</a>
-        </div>
-      </div>
-      <div class="valid-feedback">
-        Property update successfully!
-      </div>
-      <div class="invalid-feedback">
-        Fail to update property!
-      </div>
-    </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-2" (click)=updProperty()>Update</button>
-    </div>
+  </div>
   </div>
 </div>

@@ -33,7 +33,7 @@ export class CategoryComponent implements OnInit {
   delete(id){
     this.categories[id].status = 2;
     this.categoryService.updateCategory(this.categories[id].id, this.categories[id]).subscribe(res => {
-       location.reload();
+      this.categories[id].deleted = true;
     }, err => {
       alert('Delete FAIL');
     });
@@ -50,7 +50,7 @@ export class CategoryComponent implements OnInit {
           this.categories.push(respon);
         },
         error => {
-          alert("cannot execute!");
+          alert('cannot execute!');
         });
     }
     else {

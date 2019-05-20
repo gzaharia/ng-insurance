@@ -110,8 +110,7 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.category = this.category;
     this.property.status = 2;
     this.propertyService.putProperty(this.category.properties[id].id, this.property).subscribe(resp => {
-      location.reload();
-      
+      this.category.properties[id].deleted = true;
     }, err => {
         alert('could not save');
         
