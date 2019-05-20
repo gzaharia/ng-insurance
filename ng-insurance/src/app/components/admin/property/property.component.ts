@@ -4,7 +4,7 @@ import { CategoryPropertiesService } from 'src/app/service/category-properties/c
 import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
 import { Category } from 'src/app/model/category/category';
 import { CategoryService } from 'src/app/service/category/category.service';
-import { Location } from '@angular/common';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-property',
@@ -42,9 +42,9 @@ export class PropertyComponent implements OnInit {
       this.title = this.property.title;
       this.coefficient = this.property.coefficient;
       this.status = this.property.status;
-      for (const category of this.categories) {
-        for (const property of category.properties) {
-          if (property.id == this.id) {
+      for(let category of this.categories){
+        for(let property of category.properties){
+          if (property.id == this.id){
             this.selectedCategory = category.title;
             this.property.category = category;
           }

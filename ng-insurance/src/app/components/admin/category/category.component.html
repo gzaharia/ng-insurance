@@ -4,17 +4,17 @@
 <div class="row">
   <div class="col-11">
     <label class="sr-only" for="inlineFormInput">Name</label>
-    <input type="text" class="form-control mb-2" data-toggle="tooltip" title="Enter the category" [(ngModel)]="title" id="inlineFormInput" placeholder="Category name">
+    <input type="text" class="form-control" data-toggle="tooltip" title="Enter the category" [(ngModel)]="title" id="inlineFormInput" placeholder="Category name">
   </div>
   <div class="col-1">
-    <button type="submit" class="btn btn-primary mb-2" (click)=myEvent()>Add</button>
+    <button type="submit" class="btn btn-primary" (click)=myEvent()>Add</button>
   </div>
 </div>
 
   <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
   </div>
-<div class="container my-3" xmlns:odd="http://www.w3.org/1999/xhtml">
-    <table class="table table-bordered table-hover table-sm table-striped">
+<div class="container" xmlns:odd="http://www.w3.org/1999/xhtml">
+    <table class="table table-bordered table-hover table-sm table-striped mt-3">
       <thead>
       <tr>
         <th>Id</th>

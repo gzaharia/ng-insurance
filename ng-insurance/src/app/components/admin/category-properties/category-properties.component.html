@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="form-row align-items-center">
+  <div class="form-row align-items-center my-3">
     <div class="col-md">
       <label class="sr-only" for="category.title">Category:</label>
-      <input type="text" class="form-control mb-2" (change)="onChangeCategory()"  [(ngModel)]="category['title']" id="category.title" placeholder="update ">
+      <input type="text" class="form-control" (change)="onChangeCategory()"  [(ngModel)]="category['title']" id="category.title" placeholder="update ">
     </div>
 
     <div class="col-md">
@@ -18,6 +18,9 @@
       <div class="valid-feedback">
         Category update successfully!
       </div>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-secondary mb-2" (click)="router.navigateByUrl('/admin/categories')">Cancel</button>
     </div>
     <div class="col-auto">
       <button type="submit" id="updateButton" class="btn btn-primary mb-2" (click)=updCategory()>Update</button>

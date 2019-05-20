@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Category} from '../../model/category/category';
-import { CategoryViewModel } from '../../model/category/CategoryViewModel';
 import {CategoryService} from '../../service/category/category.service';
-import {CategoryProperties} from '../../model/category-properties/category-properties';
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {CategoryPropertiesViewModel} from "../../model/category-properties/category-propertiesViewModel";
-import {OrderService} from "../../service/order/order.service";
-import {Order} from "../../model/order/order";
-import {CategoryPropertiesIdViewModel} from "../../model/category-properties/category-properties-idViewModel";
+import {OrderService} from '../../service/order/order.service';
+import {Order} from '../../model/order/order';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-main',
@@ -25,9 +22,13 @@ export class RcaComponent implements OnInit {
   category: Category;
   selectedProperties;
   nextIndex = 1;
+  calculated = false;
+  activeTab = 'calculator';
 
-
-  constructor(private categoryService: CategoryService, private orderService: OrderService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private orderService: OrderService
+  ) { }
 
   ngOnInit() {
     this.getAllCategories();
@@ -38,15 +39,32 @@ export class RcaComponent implements OnInit {
     this.categoryService.getActiveCategories().subscribe(
       result => {
         this.categories = result.sort((a, b): number => {
-          if (a.id < b.id) return -1;
-          if (a.id > b.id) return 1;
+          if (a.id < b.id) {
+            return -1;
+          }
+          if (a.id > b.id) {
+            return 1;
+          }
           return 0;
         });
-        for (let category of this.categories) {
+        for (const category of this.categories) {
           category.properties.sort((a, b): number => {
-            if (a.id < b.id) return -1;
-            if (a.id > b.id) return 1;
+            if (a.id < b.id) {
+              return -1;
+            }
+            if (a.id > b.id) {
+              return 1;
+            }
             return 0;
+          });
+
+          for (let j = category.properties.length - 1; j >= 0; j--) {
+            if (category.properties[j].status === 2) {
+                category.properties.splice(j, 1);
+            }
+          }
+          category.properties.filter(function (el) {
+            return el != null;
           });
         }
         if (result[0]) {
@@ -77,19 +95,22 @@ export class RcaComponent implements OnInit {
         this.priceFlag = false;
       });
   }
+
+  finalizeTab() {
+
+  }
+
   nextElement(event: Event, i, pId) {
     this.priceFlag = false;
     this.selectedProperties.set(this.categories[i], this.categories[i].properties[pId]);
     if (i < this.nextIndex - 1) {
       for (let x = 0; x < (this.nextIndex - i); x++) {
         this.displayedCategories.pop();
-        console.log('pop');
       }
       this.nextIndex = i;
     }
     if (this.categories[this.nextIndex]) {
       this.displayedCategories.push(this.categories[this.nextIndex]);
-      console.log('push');
       this.nextIndex ++;
       this.visible = false;
     } else {
