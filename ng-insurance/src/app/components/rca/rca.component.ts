@@ -49,24 +49,11 @@ export class RcaComponent implements OnInit {
           return 0;
         });
         for (const category of this.categories) {
-          category.properties.sort((a, b): number => {
-            if (a.id < b.id) {
-              return -1;
-            }
-            if (a.id > b.id) {
-              return 1;
-            }
-            return 0;
-          });
-
           for (let j = category.properties.length - 1; j >= 0; j--) {
             if (category.properties[j].status === 2) {
                 category.properties.splice(j, 1);
             }
           }
-          category.properties.filter(function (el) {
-            return el != null;
-          });
         }
         if (result[0]) {
           this.displayedCategories.push(result[0]);
@@ -86,15 +73,17 @@ export class RcaComponent implements OnInit {
     });
     return order;
   }
-  createOrder() {
+  getPrice() {
     const order: Order = this.arrToOrder(this.selectedProperties);
-    this.orderService.postOrder(order).subscribe(res => {
+    this.orderService.priceOrder(order).subscribe(res => {
       this.price = res;
       this.priceFlag = true;
     }, error1 => {
         alert('fail');
         this.priceFlag = false;
       });
+  }
+  createOrder() {
   }
 
   nextElement(event: Event, i, pId) {
