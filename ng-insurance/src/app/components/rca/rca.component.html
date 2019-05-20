@@ -36,7 +36,7 @@
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade" [ngClass]="{'show active':activeTab==='calculator'}" id="nav-calculator"
            role="tabpanel" aria-labelledby="nav-calculator-tab">
-        <form (ngSubmit)="createOrder()">
+        <form (ngSubmit)="getPrice()">
           <div class="card-footer mt-3 form-group" *ngFor="let category of displayedCategories; index as i">
             <div *ngIf="showFlag">
               <div class="row">{{category.title}}
@@ -83,6 +83,7 @@
                 id="firstNameInput"
                 class="form-control"
                 placeholder="Nume"
+                [(ngModel)]="order.firstName"
               >
             </div>
 
@@ -94,6 +95,7 @@
                 id="lastNameInput"
                 class="form-control"
                 placeholder="Prenume"
+                [(ngModel)]="order.lastName"
               >
             </div>
           </div>
@@ -107,6 +109,7 @@
                 id="idnpInput"
                 class="form-control"
                 placeholder="IDNP"
+                [(ngModel)]="order.idnp"
               >
             </div>
 
@@ -116,6 +119,7 @@
                 name="rightOfPossesionInput"
                 id="rightOfPossesionInput"
                 class="form-control"
+                [(ngModel)]="order.rightOfPossesion"
               >
                 <option *ngFor="let right of rightOfPossesionList">
                   {{right}}
@@ -132,24 +136,26 @@
                      id="docNumberInput"
                      class="form-control"
                      placeholder="Numărul certificatului de înmatriculare"
+                     [(ngModel)]="order.docNumber"
               >
             </div>
 
             <div class="col">
               <label for="licencePlateNumberInput">Numărul de înmatriculare</label>
               <input
-                type="number"
+                type="text"
                 name="licencePlateNumberInput"
                 id="licencePlateNumberInput"
                 class="form-control"
                 placeholder="Numărul de înmatriculare"
+                [(ngModel)]="order.licensePlateNumber"
               >
             </div>
           </div>
 
           <div class="row mt-3">
             <div class="col">
-              <button class="btn btn-primary">Confirmă</button>
+              <button class="btn btn-primary" (click)="postOrder()">Confirmă</button>
             </div>
           </div>
         </form>
