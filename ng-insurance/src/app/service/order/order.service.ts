@@ -5,16 +5,23 @@ import {Observable} from "rxjs";
 
 import {CategoryPropertiesViewModel} from '../../model/category-properties/category-propertiesViewModel';
 import {Order} from "../../model/order/order";
+import {OrderViewModel} from "../../model/order/orderViewModel";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  private POST_ORDER = `${ApiService.BASE_URL}\\orders\\price`;
+  private POST_ORDER = `${ApiService.BASE_URL}\\orders\\add`;
+  private PRICE_ORDER = `${ApiService.BASE_URL}\\orders\\price`;
+
 
   constructor(private http: HttpClient) { }
-  postOrder(order: Order): Observable<any> {
+  priceOrder(order: Order): Observable<any> {
+    return this.http.post(this.PRICE_ORDER, order);
+  }
+
+  postOrder(order: OrderViewModel): Observable<any> {
     return this.http.post(this.POST_ORDER, order);
   }
 
