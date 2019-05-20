@@ -3,7 +3,7 @@ import {Category} from '../../model/category/category';
 import {CategoryService} from '../../service/category/category.service';
 import {OrderService} from '../../service/order/order.service';
 import {Order} from '../../model/order/order';
-import {Router} from '@angular/router';
+import {RightOfPossesion} from '../../model/right-of-possession/right-of-possesion.enum';
 
 
 @Component({
@@ -23,7 +23,8 @@ export class RcaComponent implements OnInit {
   selectedProperties;
   nextIndex = 1;
   calculated = false;
-  activeTab = 'calculator';
+  activeTab = 'order';
+  rightOfPossesionList = Object.keys(RightOfPossesion);
 
   constructor(
     private categoryService: CategoryService,
@@ -83,10 +84,6 @@ export class RcaComponent implements OnInit {
       });
   }
   createOrder() {
-  }
-
-  finalizeTab() {
-
   }
 
   nextElement(event: Event, i, pId) {
