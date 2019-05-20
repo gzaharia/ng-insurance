@@ -3,6 +3,7 @@ import {Category} from '../../model/category/category';
 import {CategoryService} from '../../service/category/category.service';
 import {OrderService} from '../../service/order/order.service';
 import {Order} from '../../model/order/order';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -21,9 +22,13 @@ export class RcaComponent implements OnInit {
   category: Category;
   selectedProperties;
   nextIndex = 1;
+  calculated = false;
+  activeTab = 'calculator';
 
-
-  constructor(private categoryService: CategoryService, private orderService: OrderService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private orderService: OrderService
+  ) { }
 
   ngOnInit() {
     this.getAllCategories();
@@ -90,6 +95,11 @@ export class RcaComponent implements OnInit {
         this.priceFlag = false;
       });
   }
+
+  finalizeTab() {
+
+  }
+
   nextElement(event: Event, i, pId) {
     this.priceFlag = false;
     this.selectedProperties.set(this.categories[i], this.categories[i].properties[pId]);
