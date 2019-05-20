@@ -2,7 +2,7 @@
   <div class="form-row align-items-center">
     <div class="col-md">
       <label class="sr-only" for="category.title">Category:</label>
-      <input type="text" class="form-control mb-2"  [(ngModel)]="category['title']" id="category.title" placeholder="update ">
+      <input type="text" class="form-control mb-2" (change)="onChangeCategory()"  [(ngModel)]="category['title']" id="category.title" placeholder="update ">
     </div>
 
     <div class="col-md">
@@ -20,10 +20,11 @@
       </div>
     </div>
     <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-2" (click)=updCategory()>Update</button>
+      <button type="submit" id="updateButton" class="btn btn-primary mb-2" (click)=updCategory()>Update</button>
     </div>
   </div>
   <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
+  <div id="Success" style="display: none" class="alert alert-success">{{succes}}</div>
   <p>Add property:</p>
 </div>
 

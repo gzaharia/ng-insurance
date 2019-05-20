@@ -2,11 +2,11 @@
   <div class="form-row align-items-center">
     <div class="col-md">
       <label class="sr-only" for="property.title">Property:</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="title" placeholder="upd ">
+      <input type="text" class="form-control mb-2" (change)="onChangeProperty()" [(ngModel)]="title" placeholder="upd ">
     </div>
     <div class="col-md">
       <label class="sr-only" for="property.coefficient">Coefficient:</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="coefficient" placeholder="upd ">
+      <input type="number" class="form-control mb-2" (change)="onChangeProperty()"  [(ngModel)]="coefficient" placeholder="upd ">
     </div>
     <div class="col-md">
       <div class="dropdown">
@@ -45,4 +45,6 @@
       <button type="submit" class="btn btn-primary mb-2" (click)=updProperty()>Update</button>
     </div>
   </div>
+  <div id="MessageError" style="display: none" class="alert alert-danger">{{propertyError}}</div>
+  <div id="MessageSuccess" style="display: none" class="alert alert-success">{{propertySuccess}}</div>
 </div>
