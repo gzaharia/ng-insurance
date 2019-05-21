@@ -17,7 +17,7 @@ export class PropertyComponent implements OnInit {
   private categories: Category[] = [];
   private title = '';
   private coefficient: number;
-  private status = 1;
+  private status: string = 'ACTIVE';
   private showCategory = false;
   private selectedCategory = '';
   private id: number;

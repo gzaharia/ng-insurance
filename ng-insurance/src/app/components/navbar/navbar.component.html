@@ -5,7 +5,7 @@
     Insurances
     </a>
     <div class="dropdown-menu">
-    <a *ngFor="let x of listOfInsurances" class="dropdown-item" href="/{{x.title}}">{{x.title}}</a>
+    <a *ngFor="let x of listOfInsurances" class="dropdown-item" href="/insurances/{{x.title}}">{{x.title}}</a>
   </div>
   </div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
           <a *ngIf="currentUser" class="dropdown-item" href="/admin/profile">Profile</a>
           <div class="dropdown-divider"></div>
           <a *ngIf="currentUser" class="dropdown-item" href="/admin">Dashboard</a>
-          <a *ngIf="isAdmin" class="dropdown-item" href="/admin/categories">Categories</a>
+          <a *ngIf="isAdmin" class="dropdown-item" href="/admin/insurances">Insurances</a>
           <a *ngIf="isAdmin" class="dropdown-item" href="/admin/users">Users</a>
         </div>
       </div>

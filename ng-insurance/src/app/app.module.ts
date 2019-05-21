@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './components/admin/login/login.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 
-import {RcaComponent} from './components/rca/rca.component';
+import {InsuranceCalculatorComponent} from './components/insurance-calculator/insurance-calculator.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CategoryComponent} from './components/admin/category/category.component';
@@ -21,9 +21,13 @@ import {ProfileComponent} from './components/admin/profile/profile.component';
 import {PropertyComponent} from './components/admin/property/property.component';
 import {EditUserComponent} from './components/admin/user/edit-user/edit-user.component';
 import {AddUserComponent} from './components/admin/user/add-user/add-user.component';
-import {CategoryPropertiesResolverService} from './service/category-properties/resolver/category-properties-resolver.service';
+import {CategoryPropertiesResolverService} from './guards/category-properties-resolver/category-properties-resolver.service';
 import {BasePriceComponent} from './components/admin/category/base-price/base-price.component';
-
+import {InsurancesComponent} from './components/admin/insurances/insurances.component';
+import {InsuranceHeaderComponent} from './components/admin/insurance-header/insurance-header.component';
+import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/admin-dashboard-resolver.service';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,7 @@ import {BasePriceComponent} from './components/admin/category/base-price/base-pr
     LoginComponent,
     NavbarComponent,
     AppComponent,
-    RcaComponent,
+    InsuranceCalculatorComponent,
     CategoryComponent,
     NotFoundComponent,
     CategoryPropertiesComponent,
@@ -42,7 +46,10 @@ import {BasePriceComponent} from './components/admin/category/base-price/base-pr
     PropertyComponent,
     EditUserComponent,
     AddUserComponent,
-    BasePriceComponent
+    BasePriceComponent,
+    InsurancesComponent,
+    InsuranceHeaderComponent,
+    HomeComponent
 
   ],
   imports: [
@@ -50,12 +57,14 @@ import {BasePriceComponent} from './components/admin/category/base-price/base-pr
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    CategoryPropertiesResolverService
+    CategoryPropertiesResolverService,
+    AdminDashboardResolverService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,22 +1,27 @@
 import {Component, OnInit} from '@angular/core';
 import {Category} from '../../model/category/category';
-import {CategoryService} from '../../service/category/category.service';
 import {OrderService} from '../../service/order/order.service';
 import {Order} from '../../model/order/order';
 import {RightOfPossesion} from '../../model/right-of-possession/right-of-possesion.enum';
 import {OrderViewModel} from '../../model/order/orderViewModel';
+import {InsuranceService} from '../../service/insurance/insurance.service';
+import {ActivatedRoute} from '@angular/router';
+import {Insurance} from '../../model/insurance/insurance';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './rca.component.html',
-  styleUrls: ['./rca.component.css']
+  templateUrl: './insurance-calculator.component.html',
+  styleUrls: ['./insurance-calculator.component.css']
 })
-export class RcaComponent implements OnInit {
+export class InsuranceCalculatorComponent implements OnInit {
   categories: Category[];
   public visible = false;
   public showFlag = true;
   public priceFlag = false;
   private price: number;
+  private insurances: Insurance[] = [];
+  private selectedInsuranceName: string;
+  private selectedInsurance: Insurance;
   displayedCategories: Category[] = [];
   category: Category;
   selectedProperties;
@@ -35,8 +40,9 @@ export class RcaComponent implements OnInit {
   };
 
   constructor(
-    private categoryService: CategoryService,
-    private orderService: OrderService
+    private insuranceService: InsuranceService,
+    private orderService: OrderService,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -46,32 +52,27 @@ export class RcaComponent implements OnInit {
   }
 
   getAllCategories() {
-    this.categoryService.getActiveCategories().subscribe(
-      result => {
-        this.categories = result.sort((a, b): number => {
-          if (a.id < b.id) {
-            return -1;
-          }
-          if (a.id > b.id) {
-            return 1;
-          }
-          return 0;
-        });
-        for (const category of this.categories) {
-          for (let j = category.properties.length - 1; j >= 0; j--) {
-            if (category.properties[j].status === 2) {
-              category.properties.splice(j, 1);
-            }
-          }
-        }
-        if (result[0]) {
-          this.displayedCategories.push(result[0]);
-        }
-      },
-      err => {
-        alert('Could not fetch categories!');
+    this.insurances = this.route.snapshot.data.insurances;
+    this.selectedInsuranceName = this.route.snapshot.paramMap.get('name');
+
+    for (const insurance of this.insurances) {
+      if (insurance.title === this.selectedInsuranceName) {
+        this.selectedInsurance = insurance;
       }
-    );
+    }
+
+    this.categories = this.selectedInsurance.categories;
+    if (this.categories[0]) {
+      this.displayedCategories.push(this.categories[0]);
+    }
+
+    for (const category of this.categories) {
+      for (let j = category.properties.length - 1; j >= 0; j--) {
+        if (category.properties[j].status === 'DELETED') {
+            category.properties.splice(j, 1);
+        }
+      }
+    }
   }
 
   arrToOrder(map) {

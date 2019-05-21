@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
-import {Category} from '../../../model/category/category';
-import {CategoryService} from '../../category/category.service';
+import {Category} from '../../model/category/category';
+import {CategoryService} from '../../service/category/category.service';
 
 @Injectable({
   providedIn: 'root'

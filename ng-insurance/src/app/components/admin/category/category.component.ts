@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { Category } from 'src/app/model/category/category';
 import { CategoryViewModel } from 'src/app/model/category/CategoryViewModel';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { InsuranceService } from 'src/app/service/insurance/insurance.service';
+import { Insurance } from 'src/app/model/insurance/insurance';
+import { clearOverrides } from '@angular/core/src/view';
 
 
 @Component({
@@ -12,71 +15,41 @@ import { Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit {
 
-  title: string = '';
-  categories: Category[];
-  category: CategoryViewModel = <any>{};
-  error : string = '';
+  private title: string = '';
+  private insurance: Insurance;
+  private category: CategoryViewModel = <any>{};
+  private error: string = '';
+  private id: number = null;
+  private insuranceTitle: string;
+  private insuranceBasePrice: number;
+  private operation: string = "Update";
+  private action:string = "Update";
 
-  constructor(private categoryService: CategoryService, private router : Router) { }
+  constructor(
+    private insuranceService: InsuranceService,
+    private categoryService: CategoryService, 
+    private router: Router, 
+    private route: ActivatedRoute) {
 
-  myEvent(){
-    this.category.title =this.title;
-    this.category.status = 1;
-    this.addNewCategory(this.category);
-    this.title ='';
-  }
-
-  edit(id){
-    this.router.navigateByUrl('admin/category/' + id);
-  }
-
-  delete(id){
-    this.categories[id].status = 2;
-    this.categoryService.updateCategory(this.categories[id].id, this.categories[id]).subscribe(res => {
-      this.categories[id].deleted = true;
-    }, err => {
-      alert('Delete FAIL');
-    });
-  }
+    this.id = +this.route.snapshot.paramMap.get('id')
+   }
 
   ngOnInit() {
     this.getAllCategories();
   }
 
-  addNewCategory(category) {
-    category.status = 1;
-    if(this.title.trim().length){
-      this.categoryService.postCategory(category).subscribe(respon => {
-          this.categories.push(respon);
-        },
-        error => {
-          alert('cannot execute!');
-        });
-    }
-    else {
-      this.error = 'You have nothing to add !';
-      this.clearError();
-    }
-
-
-  }
-
-  clearError(){
-    document.getElementById("Error").style.display="block";
-    setTimeout(function(){
-      document.getElementById("Error").style.display="none"},3000);
-  }
-
   getAllCategories() {
-    this.categoryService.getAllCategories().subscribe(
+    this.insuranceService.getOneInsurance(this.id).subscribe(
       result => {
-        this.categories = result;
-        for(let i = 0; i < this.categories.length; i++){
-          console.log(this.categories[i].status);
-            if (this.categories[i].status == 2){
-              this.categories[i].deleted = true;
+        this.insurance = result;
+        this.insuranceTitle = this.insurance.title;
+        this.insuranceBasePrice = this.insurance.basePrice;
+        for(let i = 0; i < this.insurance.categories.length; i++){
+          console.log(this.insurance.categories[i].status);
+            if (this.insurance.categories[i].status===("DELETED")){
+              this.insurance.categories[i].deleted = true;
             }else{
-              this.categories[i].deleted = false;
+              this.insurance.categories[i].deleted = false;
             } 
         }
       },
@@ -84,5 +57,56 @@ export class CategoryComponent implements OnInit {
         alert('Could not fetch categories!');
       }
     );
+  }
+
+  saveCategory() {
+    this.category.title =this.title;
+    this.title ='';
+    this.category.status = "ACTIVE";
+    this.category.insurance = this.insurance;
+    if(this.category.title.trim().length){
+      this.categoryService.postCategory( this.category).subscribe(respon => {
+          this.insurance.categories.push(respon);
+        },
+        error => {
+          alert('cannot execute!');
+        });
+    }
+    else {
+      this.error = 'You have nothing to add !';
+      this.clearError('ErrorCategory');
+    }
+  }
+
+  edit(id){
+    this.router.navigateByUrl('admin/category/' + id);
+  }
+
+  delete(id){
+    this.insurance.categories[id].status = "DELETED";
+    this.categoryService.updateCategory(this.insurance.categories[id].id, this.insurance.categories[id]).subscribe(res => {
+      this.insurance.categories[id].deleted = true;
+    }, err => {
+      alert('Delete FAIL');
+    });
+  }
+
+  updStatusInsurance(status){
+    this.insurance.status = status;
+  }
+
+  saveInsurance(){
+    this.insuranceService.editOneInsurance(this.id, this.insurance).subscribe(res => {
+
+    }, 
+    err => {
+      this.clearError('ErrorInsurance');
+    });
+  }
+
+  clearError(tagId){
+    document.getElementById(tagId).style.display="block";
+    setTimeout(function(){
+      document.getElementById(tagId).style.display="none"},3000);
   }
 }

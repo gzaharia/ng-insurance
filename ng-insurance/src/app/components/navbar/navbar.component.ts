@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {Employee} from '../../model/employee/employee';
 import {Router} from '@angular/router';
-import {InsuranceService} from '../../service/insurance-service/insurance.service';
+import { InsuranceService } from 'src/app/service/insurance/insurance.service';
 
 @Component({
   selector: 'app-navbar',

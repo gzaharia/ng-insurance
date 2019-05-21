@@ -5,6 +5,6 @@ export interface CategoryProperties {
   title: string;
   category: Category;
   coefficient: number;
-  status: number;
+  status: string;
   deleted: boolean;
 }
