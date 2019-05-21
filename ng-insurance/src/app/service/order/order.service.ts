@@ -14,6 +14,7 @@ export class OrderService {
   private POST_ORDER = `${ApiService.BASE_URL}\\orders\\add`;
   private PRICE_ORDER = `${ApiService.BASE_URL}\\orders\\price`;
   private GET_ORDERS = `${ApiService.BASE_URL}\\orders`;
+  private GET_ONE_ORDER = `${ApiService.BASE_URL}\\orders\\`;
   private GET_PENDING_ORDERS = `${ApiService.BASE_URL}\\orders\\pending`;
   private GET_APPROVED_ORDERS = `${ApiService.BASE_URL}\\orders\\approved`;
   private GET_DECLINED_ORDERS = `${ApiService.BASE_URL}\\orders\\declined`;
@@ -29,6 +30,10 @@ export class OrderService {
 
   getOrders(): Observable<OrderFullViewModel[]> {
     return this.http.get<OrderFullViewModel[]>(this.GET_ORDERS);
+  }
+
+  getOneOrder(id: number): Observable<OrderFullViewModel> {
+    return this.http.get<OrderFullViewModel>(this.GET_ONE_ORDER + id);
   }
 
   getPendingOrders(): Observable<OrderFullViewModel[]> {

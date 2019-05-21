@@ -10,19 +10,91 @@
     <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
       <div class="d-flex flex-row flex-wrap">
         <div class="card card-block col-md-4 my-2" *ngFor="let order of pendingOrders | paginate: config">
-          <div class="card-header">Nr. comenzii: {{order.id}}</div>
-
-          <div class="card-body">
-            ...
+          <div class="card-header">
+            <div class="card-text">Nr. comenzii: {{order.id}}</div>
           </div>
 
-          <div class="card-footer" style="color: darkorange">{{order.status}}</div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col">Persoana:</dt>
+              <dd class="col">{{order.firstName}} {{order.lastName}}</dd>
+            </dl>
+            <dl class="row">
+              <dt class="col">Prețul total:</dt>
+              <dd class="col">{{order.price}}</dd>
+            </dl>
+          </div>
+
+          <div class="card-footer" style="color: darkorange">
+            <div class="card-text float-left">{{order.status}}</div>
+            <div class="float-right">
+              <button
+                class="btn btn-primary btn-sm"
+                data-toggle="modal"
+                data-target="#exampleModal"
+                (click)="getOrderDetails(order.id)"
+              >
+                Detalii
+              </button>
+            </div>
+          </div>
         </div>
 
-        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
       </div>
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
 
     <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">...</div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalii despre comandă</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <dl class="row">
+            <dt class="col">Comanda nr:</dt>
+            <dd class="col">{{orderDetails.id}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">Persoana:</dt>
+            <dd class="col">{{orderDetails.firstName}} {{orderDetails.lastName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">Nr. certificatului de înmatriculare:</dt>
+            <dd class="col">{{orderDetails.docNumber}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">Nr. de înmatriculare:</dt>
+            <dd class="col">{{orderDetails.licensePlateNumber}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">IDNP:</dt>
+            <dd class="col">{{orderDetails.idnp}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">Dreptul de posesiune:</dt>
+            <dd class="col">{{orderDetails.rightOfPossesion}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">Status:</dt>
+            <dd class="col" style="color: darkorange;">{{orderDetails.status}}</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Decline</button>
+        <button type="button" class="btn btn-success">Approve</button>
+      </div>
+    </div>
   </div>
 </div>
