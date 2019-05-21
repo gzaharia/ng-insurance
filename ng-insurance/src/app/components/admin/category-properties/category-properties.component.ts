@@ -97,8 +97,8 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.category = this.category;
     if (this.property.title.trim().length && this.property.coefficient >= 1) {
       this.propertyService.postProperty(this.property).subscribe(resp => {
-        // this.category.properties.push(this.property);
-        this.getCategory();
+        this.property.id = resp.id;
+        this.category.properties.push(this.property);
       }, err => {
         alert('could not save');
       });
@@ -124,13 +124,15 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.coefficient = this.category.properties[id].coefficient;
     this.property.category = this.category;
     this.property.status = 'DELETED';
-    this.propertyService.putProperty(this.category.properties[id].id, this.property).subscribe(resp => {
-      location.reload();
-      
+    this.propertyService.deleteProperty(this.category.properties[id].id).subscribe(resp => {
+      this.category.properties[id].status = resp.status;
+      if (resp.status==='DELETED'){
+        this.category.properties[id].deleted = true;
+      }
     }, err => {
         alert('could not save');
 
-    });
-    this.getCategory();
+    }
+    );
   }
 }

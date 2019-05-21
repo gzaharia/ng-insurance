@@ -62,17 +62,23 @@ export class InsuranceCalculatorComponent implements OnInit {
     }
 
     this.categories = this.selectedInsurance.categories;
-    if (this.categories[0]) {
-      this.displayedCategories.push(this.categories[0]);
-    }
 
-    for (const category of this.categories) {
-      for (let j = category.properties.length - 1; j >= 0; j--) {
-        if (category.properties[j].status === 'DELETED') {
-            category.properties.splice(j, 1);
+    for (let i = this.categories.length - 1; i >= 0; i--) {
+      if (this.categories[i].status === 'DELETED'){
+        this.categories.splice(i, 1);
+      }
+      else{
+        for (let j = this.categories[i].properties.length - 1; j >= 0; j--) {
+          if (this.categories[i].properties[j].status === 'DELETED') {
+              this.categories[i].properties.splice(j, 1);
+          }
         }
       }
     }
+    if (this.categories[0]) {
+      this.displayedCategories.push(this.categories[0]);
+    }
+  
   }
 
   arrToOrder(map) {

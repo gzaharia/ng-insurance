@@ -16,7 +16,7 @@ export class CategoryPropertiesService {
   private GET_PROPERTY_BY_ID = `${ApiService.BASE_URL}\/properties\/`;
   private POST_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\add`;
   private PUT_PROPERTY_URL = `${ApiService.BASE_URL}\/properties\/edit\/`;
-  private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\`;
+  private DELETE_PROPERTY_URL = `${ApiService.BASE_URL}\\properties\\delete\\`;
 
   constructor(private http: HttpClient) { }
 

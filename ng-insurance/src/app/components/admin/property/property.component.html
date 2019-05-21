@@ -15,11 +15,11 @@
         <div class="col">
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ status==2?"DELETED":"ACTIVE" }}
+              {{ status }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" (click)="updStatus(1)">ACTIVE</a>
-              <a class="dropdown-item" (click)="updStatus(2)">DELETED</a>
+              <a class="dropdown-item" (click)="updStatus('ACTIVE')">ACTIVE</a>
+              <a class="dropdown-item" (click)="updStatus('DELETED')">DELETED</a>
             </div>
           </div>
           <div class="valid-feedback">

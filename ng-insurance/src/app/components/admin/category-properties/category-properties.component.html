@@ -8,11 +8,11 @@
     <div class="col-md">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ category.status==2?"DELETED":"ACTIVE" }}
+          {{ category.status }}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="updStatus(1)">ACTIVE</a>
-          <a class="dropdown-item" (click)="updStatus(2)">DELETED</a>
+          <a class="dropdown-item" (click)="updStatus('ACTIVE')">ACTIVE</a>
+          <a class="dropdown-item" (click)="updStatus('DELETED')">DELETED</a>
         </div>
       </div>
       <div class="valid-feedback">
@@ -70,11 +70,11 @@
       <td>{{ property.title }}<span *ngIf="property.deleted" style="color:red"> DELETED </span></td>
       <td>{{property.coefficient}}</td>
       <td width="80" align="center">
-        <button class="btn btn-primary btn-sm" title="edit category"
+        <button class="btn btn-primary btn-sm" title="edit property"
                 (click)="edit(property.id)">Edit</button>
       </td>
       <td width="100" align="center">
-        <button class="btn btn-danger btn-sm" title="delete category"
+        <button class="btn btn-danger btn-sm" title="delete property"
                 (click)="delete(id)">Delete</button>
       </td>
     </tr>
