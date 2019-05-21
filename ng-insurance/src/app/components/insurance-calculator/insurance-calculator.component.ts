@@ -36,7 +36,8 @@ export class InsuranceCalculatorComponent implements OnInit {
     idnp: '',
     firstName: '',
     lastName: '',
-    rightOfPossesion: ''
+    rightOfPossesion: '',
+    insurance: null
   };
 
   constructor(
@@ -122,6 +123,7 @@ export class InsuranceCalculatorComponent implements OnInit {
   }
 
   postOrder() {
+    this.order.insurance = this.selectedInsurance;
     this.order.properties = this.arrToOrder(this.selectedProperties).properties;
     this.orderService.postOrder(this.order).subscribe(
       result => {},

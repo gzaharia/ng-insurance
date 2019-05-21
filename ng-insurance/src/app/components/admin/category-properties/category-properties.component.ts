@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/service/category/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
 import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-property',
@@ -24,7 +25,7 @@ export class CategoryPropertiesComponent implements OnInit {
   updateFlag : boolean = false;
 
   constructor(private categoryService: CategoryService, private propertyService: CategoryPropertiesService,
-              private route: ActivatedRoute, private router: Router) {}
+              private route: ActivatedRoute, private router: Router, private location: Location) {}
 
   ngOnInit() {
     this.getCategory();
@@ -35,8 +36,8 @@ export class CategoryPropertiesComponent implements OnInit {
     this.coefficient = null;
     this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result => {
       this.category = result;
-     if (this.category.status==="DELETED"){
-       this.category.deleted = true; 
+     if (this.category.status === 'DELETED'){
+       this.category.deleted = true;
      }
       for(let i = 0; i < this.category.properties.length; i++){
           if (this.category.properties[i].status === 'DELETED'){
