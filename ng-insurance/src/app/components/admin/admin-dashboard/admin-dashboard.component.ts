@@ -59,10 +59,24 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   approveOrder() {
-    console.log(OrderStatus.approved);
+    this.orderService.updateOrderStatus(this.orderDetails.id, OrderStatus.approved).subscribe(
+      result => {
+        this.orderDetails = result;
+      },
+      error => {
+        alert('Could not approve order!');
+      }
+    );
   }
 
   declineOrder() {
-    console.log(OrderStatus.declined);
+    this.orderService.updateOrderStatus(this.orderDetails.id, OrderStatus.declined).subscribe(
+      result => {
+        this.orderDetails = result;
+      },
+      error => {
+        alert('Could not decline order!');
+      }
+    );
   }
 }
