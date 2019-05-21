@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './components/admin/login/login.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 
-import {RcaComponent} from './components/rca/rca.component';
+import {InsuranceCalculatorComponent} from './components/insurance-calculator/insurance-calculator.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CategoryComponent} from './components/admin/category/category.component';
@@ -35,7 +35,7 @@ import { HomeComponent } from './components/home/home.component';
     LoginComponent,
     NavbarComponent,
     AppComponent,
-    RcaComponent,
+    InsuranceCalculatorComponent,
     CategoryComponent,
     NotFoundComponent,
     CategoryPropertiesComponent,

@@ -8,10 +8,10 @@ import {OrderViewModel} from '../../model/order/orderViewModel';
 
 @Component({
   selector: 'app-main',
-  templateUrl: './rca.component.html',
-  styleUrls: ['./rca.component.css']
+  templateUrl: './insurance-calculator.component.html',
+  styleUrls: ['./insurance-calculator.component.css']
 })
-export class RcaComponent implements OnInit {
+export class InsuranceCalculatorComponent implements OnInit {
   categories: Category[];
   public visible = false;
   public showFlag = true;
