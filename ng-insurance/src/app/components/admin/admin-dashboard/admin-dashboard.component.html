@@ -1,3 +1,28 @@
-<p>
-  admin-dashboard works!
-</p>
+<div class="container mt-3">
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-pending-tab" data-toggle="tab" href="#nav-pending" role="tab"
+       aria-controls="nav-pending" aria-selected="true">Pending orders</a>
+    <a class="nav-item nav-link" id="nav-history-tab" data-toggle="tab" href="#nav-history" role="tab"
+       aria-controls="nav-history" aria-selected="false">History</a>
+  </div>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+      <div class="d-flex flex-row flex-wrap">
+        <div class="card card-block col-md-4 my-2" *ngFor="let order of pendingOrders | paginate: config">
+          <div class="card-header">Nr. comenzii: {{order.id}}</div>
+
+          <div class="card-body">
+            ...
+          </div>
+
+          <div class="card-footer" style="color: darkorange">{{order.status}}</div>
+        </div>
+      </div>
+    </div>
+
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+    <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">...</div>
+  </div>
+</div>

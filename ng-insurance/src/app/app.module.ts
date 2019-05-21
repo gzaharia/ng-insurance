@@ -21,9 +21,10 @@ import {ProfileComponent} from './components/admin/profile/profile.component';
 import {PropertyComponent} from './components/admin/property/property.component';
 import {EditUserComponent} from './components/admin/user/edit-user/edit-user.component';
 import {AddUserComponent} from './components/admin/user/add-user/add-user.component';
-import {CategoryPropertiesResolverService} from './service/category-properties/resolver/category-properties-resolver.service';
+import {CategoryPropertiesResolverService} from './guards/category-properties-resolver/category-properties-resolver.service';
 import {BasePriceComponent} from './components/admin/category/base-price/base-price.component';
-
+import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/admin-dashboard-resolver.service';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -50,12 +51,14 @@ import {BasePriceComponent} from './components/admin/category/base-price/base-pr
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    CategoryPropertiesResolverService
+    CategoryPropertiesResolverService,
+    AdminDashboardResolverService
   ],
   bootstrap: [AppComponent]
 })
