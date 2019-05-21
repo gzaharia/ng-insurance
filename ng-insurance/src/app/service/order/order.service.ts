@@ -18,6 +18,7 @@ export class OrderService {
   private GET_PENDING_ORDERS = `${ApiService.BASE_URL}\\orders\\pending`;
   private GET_APPROVED_ORDERS = `${ApiService.BASE_URL}\\orders\\approved`;
   private GET_DECLINED_ORDERS = `${ApiService.BASE_URL}\\orders\\declined`;
+  private UPDATE_ORDER_STATUS = `${ApiService.BASE_URL}\\orders\\edit\\status\\`;
 
   constructor(private http: HttpClient) { }
   priceOrder(order: Order): Observable<any> {
@@ -46,5 +47,9 @@ export class OrderService {
 
   getDeclinedOrders(): Observable<OrderFullViewModel[]> {
     return this.http.get<OrderFullViewModel[]>(this.GET_DECLINED_ORDERS);
+  }
+
+  updateOrderStatus(id: number, status: string): Observable<OrderFullViewModel> {
+    return this.http.put<OrderFullViewModel>(this.UPDATE_ORDER_STATUS + id, status);
   }
 }

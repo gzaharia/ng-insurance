@@ -17,6 +17,7 @@ import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/a
 import {InsurancesComponent} from './components/admin/insurances/insurances.component';
 import {HomeComponent} from './components/home/home.component';
 import {InsuranceCalculatorComponent} from './components/insurance-calculator/insurance-calculator.component';
+import {InsuranceCalculatorResolverService} from "./guards/insurance-calculator-resolver/insurance-calculator-resolver.service";
 
 
 const routes: Routes = [
@@ -93,7 +94,10 @@ const routes: Routes = [
   },
   {
     path: 'insurances/:name',
-    component: InsuranceCalculatorComponent
+    component: InsuranceCalculatorComponent,
+    resolve: {
+      insurances: InsuranceCalculatorResolverService
+    }
   },
   {
     path: 'admin/properties/:id',

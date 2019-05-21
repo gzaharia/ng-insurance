@@ -24,6 +24,8 @@ export class PropertyComponent implements OnInit {
   private changeProperty = false;
   private propertyError = '';
   private propertySuccess = '';
+  private changeCategory = false;
+  private oldTitle = '';
 
   constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService,
               private categoryService: CategoryService, private _location: Location) {
@@ -39,6 +41,7 @@ export class PropertyComponent implements OnInit {
     this.propertyService.getPropertyById(this.id).subscribe(res => {
       this.property = res;
       console.log(this.property);
+      this.oldTitle = this.property.title;
       this.title = this.property.title;
       this.coefficient = this.property.coefficient;
       this.status = this.property.status;
@@ -64,19 +67,23 @@ export class PropertyComponent implements OnInit {
   }
 
   updProperty() {
-    if ((this.changeProperty) && (this.title.trim().length) && (this.coefficient >= 1)) {
-      this.property.coefficient = this.coefficient;
-      this.property.title = this.title;
-      this.propertyService.putProperty(this.property.id, this.property).subscribe(res => {
+    if ((this.title.trim().length && this.coefficient >= 1)) {
+      if(this.changeProperty || this.changeCategory ) {
+  this.property.coefficient = this.coefficient;
+  this.property.title = this.title;
+
+  this.propertyService.putProperty(this.property.id, this.property).subscribe(res => {
       this._location.back();
       this.changeProperty = false;
+      this.changeCategory = false;
       this.succesPropertyUpdate();
     },
     err => {
       alert('error');
-    } ); } else {
-      this.errorMessage();
-    }
+    });
+} else {
+  this.errorMessage();
+}}
   }
   errorMessage() {
   this.propertyError = 'You have nothing to update !';
@@ -87,6 +94,8 @@ export class PropertyComponent implements OnInit {
   onChangeProperty() {
     this.changeProperty = true;
   }
+
+
   succesPropertyUpdate() {
     if (this.property.title.trim().length && this.property.title) {
       this.propertySuccess = 'Updated successfully !';
@@ -96,7 +105,7 @@ export class PropertyComponent implements OnInit {
   }
 
   updCategory(id) {
-    console.log(id);
+    this.changeCategory = true;
     this.selectedCategory = this.categories[id].title;
     this.property.category = this.categories[id];
   }
