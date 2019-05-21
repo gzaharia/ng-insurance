@@ -3,4 +3,5 @@ export interface Insurance {
   title: string;
   basePrice: number;
   status?: string;
+  deleted: boolean;
 }

@@ -60,6 +60,7 @@ export class PropertyComponent implements OnInit {
   updStatus(id) {
     this.status = id;
     this.property.status = id;
+    this.changeProperty = true;
   }
 
   updProperty() {

@@ -86,6 +86,7 @@ export class CategoryPropertiesComponent implements OnInit {
 
   updStatus(status) {
     this.category.status = status;
+    this.updateFlag = true;
   }
 
   saveProperty() {
