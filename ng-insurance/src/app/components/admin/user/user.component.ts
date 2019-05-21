@@ -52,7 +52,11 @@ export class UserComponent implements OnInit {
   deleteEmployee(id: number) {
     this.userService.deleteEmployee(id).subscribe(
       result => {
-        location.reload();
+        for (let i = 0; i < this.employees.length; i++) {
+          if (this.employees[i].id === id) {
+            this.employees.splice(i, 1);
+          }
+        }
       },
       error => {
         alert('Could not delete employee!');

@@ -1,4 +1,5 @@
 import {CategoryPropertiesIdViewModel} from '../category-properties/category-properties-idViewModel';
+import {Insurance} from '../insurance/insurance';
 
 export interface OrderViewModel {
   properties: CategoryPropertiesIdViewModel[];
@@ -8,4 +9,5 @@ export interface OrderViewModel {
   firstName: string;
   lastName: string;
   rightOfPossesion: string;
+  insurance: Insurance;
 }

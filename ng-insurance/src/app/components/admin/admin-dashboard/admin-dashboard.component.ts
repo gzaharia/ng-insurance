@@ -65,6 +65,20 @@ export class AdminDashboardComponent implements OnInit {
     this.orderService.updateOrderStatus(this.orderDetails.id, OrderStatus.approved).subscribe(
       result => {
         this.orderDetails = result;
+
+        for (let j = this.pendingOrders.length - 1; j >= 0; j--) {
+          if (this.pendingOrders[j].id === result.id) {
+            this.pendingOrders.splice(j, 1);
+          }
+        }
+
+        for (let j = this.declinedOrders.length - 1; j >= 0; j--) {
+          if (this.declinedOrders[j].id === result.id) {
+            this.declinedOrders.splice(j, 1);
+          }
+        }
+
+        this.approvedOrders.push(result);
       },
       error => {
         alert('Could not approve order!');
@@ -76,6 +90,20 @@ export class AdminDashboardComponent implements OnInit {
     this.orderService.updateOrderStatus(this.orderDetails.id, OrderStatus.declined).subscribe(
       result => {
         this.orderDetails = result;
+
+        for (let j = this.pendingOrders.length - 1; j >= 0; j--) {
+          if (this.pendingOrders[j].id === result.id) {
+            this.pendingOrders.splice(j, 1);
+          }
+        }
+
+        for (let j = this.approvedOrders.length - 1; j >= 0; j--) {
+          if (this.approvedOrders[j].id === result.id) {
+            this.approvedOrders.splice(j, 1);
+          }
+        }
+
+        this.declinedOrders.push(result);
       },
       error => {
         alert('Could not decline order!');
