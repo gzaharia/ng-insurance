@@ -26,6 +26,8 @@ export class CategoryComponent implements OnInit {
   private action:string = "Update";
   private isSuccesVisible: boolean = false;
   private succes: string;
+  private oldInsuranceTitle: string;
+  private oldBasePrice: number;
 
   constructor(
     private insuranceService: InsuranceService,
@@ -45,6 +47,8 @@ export class CategoryComponent implements OnInit {
       result => {
         this.insurance = result;
         this.insuranceTitle = this.insurance.title;
+        this.oldInsuranceTitle = this.insurance.title;
+        this.oldBasePrice = this.insurance.basePrice;
         this.insuranceBasePrice = this.insurance.basePrice;
         for(let i = 0; i < this.insurance.categories.length; i++){
           console.log(this.insurance.categories[i].status);
@@ -56,7 +60,8 @@ export class CategoryComponent implements OnInit {
         }
       },
       err => {
-        alert('Could not fetch categories!');
+        this.error = ('Could not fetch categories!');
+        this.showError('ErrorCategory');
       }
     );
   }
@@ -68,6 +73,7 @@ export class CategoryComponent implements OnInit {
     this.category.insurance = this.insurance;
     if(this.category.title.trim().length){
       this.categoryService.postCategory( this.category).subscribe(respon => {
+          this.showSucces('SuccesCategory');
           this.insurance.categories.push(respon);
         },
         error => {
@@ -76,7 +82,7 @@ export class CategoryComponent implements OnInit {
     }
     else {
       this.error = 'You have nothing to add !';
-      this.clearError('ErrorCategory');
+      this.showError('ErrorCategory');
     }
   }
 
@@ -98,24 +104,32 @@ export class CategoryComponent implements OnInit {
   }
 
   saveInsurance(){
-    this.insuranceService.editOneInsurance(this.id, this.insurance).subscribe(res => {
-      this.showSucces();
-    }, 
-    err => {
-      this.clearError('ErrorInsurance');
-    });
+    if((this.insuranceTitle !== this.oldInsuranceTitle || this.insuranceBasePrice !== this.oldBasePrice) && this.insuranceTitle.trim().length > 0 && this.insuranceBasePrice >= 1){
+      this.insurance.title = this.insuranceTitle;
+      this.insurance.basePrice = this.insuranceBasePrice;
+      this.insuranceService.editOneInsurance(this.id, this.insurance).subscribe(res => {
+        this.showSucces('SuccesInsurance');
+      }, 
+      err => {
+        this.error = "You data can't Update !";
+        this.showError('ErrorInsurance');
+      });
+    }else{
+      this.error = "You have nothing to Update !";
+      this.showError('ErrorInsurance');;
+    }
   }
 
-  clearError(tagId){
+  showError(tagId){
     document.getElementById(tagId).style.display="block";
     setTimeout(function(){
       document.getElementById(tagId).style.display="none"},3000);
   }
 
-  showSucces(){
-    document.getElementById('SuccesInsurance').style.display="block";
-    this.succes = "succes";
+  showSucces(tagId){
+    document.getElementById(tagId).style.display="block";
+    this.succes = "You data have been saved !";
     setTimeout(function(){
-      document.getElementById('SuccesInsurance').style.display="none"},3000);
+      document.getElementById(tagId).style.display="none"},3000);
   }
 }

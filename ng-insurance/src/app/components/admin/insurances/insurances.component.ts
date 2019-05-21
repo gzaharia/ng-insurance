@@ -36,18 +36,23 @@ export class InsurancesComponent implements OnInit {
   }
 
   saveInsurance(){
-    console.log(this.insurance);
-    this.insurance.title = this.title;
-    this.insurance.basePrice = this.basePrice;
-    this.insuranceService.postInsurance(this.insurance).subscribe(res =>{
-      this.insurance = res;
-        if (this.insurance.status === 'DELETED'){
-          this.insurance.deleted = true;
-        }
-        this.insurances.push(this.insurance);
-    }, err => {
-        this.showError();
-    });
+    if(this.title.trim().length > 0 && +this.basePrice > 0){
+      this.insurance.title = this.title;
+      this.insurance.basePrice = this.basePrice;
+      this.insuranceService.postInsurance(this.insurance).subscribe(res =>{
+        this.insurance = res;
+          if (this.insurance.status === 'DELETED'){
+            this.insurance.deleted = true;
+          }
+          this.insurances.push(this.insurance);
+          this.showSucces();
+      }, err => {
+          this.showError();
+      });
+    }
+    else{
+      this.showError();
+    }
   }
 
   getAllInsurance(){
@@ -88,14 +93,14 @@ export class InsurancesComponent implements OnInit {
   }
 
   showError() {
-    this.error = 'You have nothing to update !';
+    this.error = 'You have nothing to save!';
     document.getElementById('Error').style.display = 'block';
     setTimeout(function() {
     document.getElementById('Error').style.display = 'none'; }, 3000);
   }
 
-  showSuuces() {
-    this.succes = 'You have update !';
+  showSucces() {
+    this.succes = 'You save data !';
     document.getElementById('Succes').style.display = 'block';
     setTimeout(function() {
     document.getElementById('Succes').style.display = 'none'; }, 3000);

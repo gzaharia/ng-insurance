@@ -40,20 +40,41 @@
                   id="statusInput" >
                   {{insurance?.status}}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" (click)="updStatusInsurance('ACTIVE')">ACTIVE</a>
-                  <a class="dropdown-item" (click)="updStatusInsurance('DELETED')">DELETED</a>
+                <div 
+                  class="dropdown-menu" 
+                  aria-labelledby="dropdownMenuButton">
+                  <a 
+                    class="dropdown-item" 
+                    (click)="updStatusInsurance('ACTIVE')">
+                    ACTIVE
+                  </a>
+                  <a 
+                    class="dropdown-item" 
+                    (click)="updStatusInsurance('DELETED')">
+                    DELETED
+                  </a>
                 </div>
               </div>
-              <div class="col-2">
+              <div 
+                class="col-2">
                 <button
                   class="form-control btn btn-primary btn-sm"
                   (click)="saveInsurance()" >
                   {{ action }}
                 </button>
               </div>
-              <div id="ErrorInsurance" style="display: none" class="alert alert-danger">{{error}}</div>
-              <div id="SuccesInsurance" style="display: none" class="alert alert-success">{{succes}}</div>
+              <div 
+                id="ErrorInsurance" 
+                style="display: none" 
+                class="alert alert-danger col-12">
+                {{error}}
+              </div>
+              <div 
+                id="SuccesInsurance" 
+                style="display: none" 
+                class="alert alert-success col-12">
+                {{succes}}
+              </div>
             </div>
           </form>
         </div>
@@ -67,6 +88,8 @@
   <div class="col-1">
     <button type="submit" class="btn btn-primary" (click)=saveCategory()>Add</button>
   </div>
+  <div id="ErrorCategory" style="display: none" class="alert alert-danger col-12">{{error}}</div>
+  <div id="SuccesCategory" style="display: none" class="alert alert-success col-12">{{succes}}</div>
 </div>
 
   <div id="ErrorCategory" style="display: none" class="alert alert-danger">{{error}}</div>
