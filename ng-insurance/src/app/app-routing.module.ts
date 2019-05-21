@@ -9,12 +9,12 @@ import {AdminDashboardComponent} from './components/admin/admin-dashboard/admin-
 import {AuthGuard} from './guards/auth-guard/auth.guard';
 import {Role} from './model/role/role.enum';
 import {UserComponent} from './components/admin/user/user.component';
-import {ProfileComponent} from "./components/admin/profile/profile.component";
+import {ProfileComponent} from './components/admin/profile/profile.component';
 import { PropertyComponent } from './components/admin/property/property.component';
-import {EditUserComponent} from "./components/admin/user/edit-user/edit-user.component";
-import {AddUserComponent} from "./components/admin/user/add-user/add-user.component";
-import {resolve} from "q";
-import {CategoryPropertiesResolverService} from "./service/category-properties/resolver/category-properties-resolver.service";
+import {EditUserComponent} from './components/admin/user/edit-user/edit-user.component';
+import {AddUserComponent} from './components/admin/user/add-user/add-user.component';
+import {resolve} from 'q';
+import {CategoryPropertiesResolverService} from './service/category-properties/resolver/category-properties-resolver.service';
 
 
 const routes: Routes = [
