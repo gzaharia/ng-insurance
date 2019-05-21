@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './components/admin/login/login.component';
-import {RcaComponent} from './components/rca/rca.component';
 import {CategoryComponent} from './components/admin/category/category.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {CategoryPropertiesComponent} from './components/admin/category-properties/category-properties.component';
@@ -15,17 +14,18 @@ import {EditUserComponent} from './components/admin/user/edit-user/edit-user.com
 import {AddUserComponent} from './components/admin/user/add-user/add-user.component';
 import {CategoryPropertiesResolverService} from './guards/category-properties-resolver/category-properties-resolver.service';
 import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/admin-dashboard-resolver.service';
-import { InsurancesComponent } from './components/admin/insurances/insurances.component';
+import {InsurancesComponent} from './components/admin/insurances/insurances.component';
+import {HomeComponent} from './components/home/home.component';
 
 
 const routes: Routes = [
   {
     path: 'main',
-    component: RcaComponent
+    component: HomeComponent
   },
   {
     path: '',
-    component: RcaComponent
+    component: HomeComponent
   },
   {
     path: 'admin',

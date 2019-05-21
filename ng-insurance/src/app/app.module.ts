@@ -27,6 +27,7 @@ import {InsurancesComponent} from './components/admin/insurances/insurances.comp
 import {InsuranceHeaderComponent} from './components/admin/insurance-header/insurance-header.component';
 import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/admin-dashboard-resolver.service';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AddUserComponent,
     BasePriceComponent,
     InsurancesComponent,
-    InsuranceHeaderComponent
+    InsuranceHeaderComponent,
+    HomeComponent
 
   ],
   imports: [

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {OrderFullViewModel} from '../../../model/order/order-full-view-model';
 import {OrderService} from '../../../service/order/order.service';
+import {OrderStatus} from '../../../model/order-status/order-status.enum';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -55,5 +56,13 @@ export class AdminDashboardComponent implements OnInit {
         alert('Could not get order details!');
       }
     );
+  }
+
+  approveOrder() {
+    console.log(OrderStatus.approved);
+  }
+
+  declineOrder() {
+    console.log(OrderStatus.declined);
   }
 }
