@@ -24,6 +24,8 @@ export class CategoryComponent implements OnInit {
   private insuranceBasePrice: number;
   private operation: string = "Update";
   private action:string = "Update";
+  private isSuccesVisible: boolean = false;
+  private succes: string;
 
   constructor(
     private insuranceService: InsuranceService,
@@ -97,7 +99,7 @@ export class CategoryComponent implements OnInit {
 
   saveInsurance(){
     this.insuranceService.editOneInsurance(this.id, this.insurance).subscribe(res => {
-
+      this.showSucces();
     }, 
     err => {
       this.clearError('ErrorInsurance');
@@ -108,5 +110,12 @@ export class CategoryComponent implements OnInit {
     document.getElementById(tagId).style.display="block";
     setTimeout(function(){
       document.getElementById(tagId).style.display="none"},3000);
+  }
+
+  showSucces(){
+    document.getElementById('SuccesInsurance').style.display="block";
+    this.succes = "succes";
+    setTimeout(function(){
+      document.getElementById('SuccesInsurance').style.display="none"},3000);
   }
 }

@@ -24,6 +24,8 @@ export class InsurancesComponent implements OnInit {
   private basePrice: number;
   public operation: string = 'Add new';
   public action: string = 'Add'
+  private error:string = '';
+  private succes:string = '';
 
   constructor(
     private insuranceService: InsuranceService, 
@@ -44,7 +46,7 @@ export class InsurancesComponent implements OnInit {
         }
         this.insurances.push(this.insurance);
     }, err => {
-        alert('don\'t save');
+        this.showError();
     });
   }
 
@@ -67,7 +69,7 @@ export class InsurancesComponent implements OnInit {
       console.log(this.insurances);
     },
        err => {
-      alert('error');
+        this.showError()
     });
 
   }
@@ -83,6 +85,20 @@ export class InsurancesComponent implements OnInit {
 
   getStatus(){
     return this.status;
+  }
+
+  showError() {
+    this.error = 'You have nothing to update !';
+    document.getElementById('Error').style.display = 'block';
+    setTimeout(function() {
+    document.getElementById('Error').style.display = 'none'; }, 3000);
+  }
+
+  showSuuces() {
+    this.succes = 'You have update !';
+    document.getElementById('Succes').style.display = 'block';
+    setTimeout(function() {
+    document.getElementById('Succes').style.display = 'none'; }, 3000);
   }
 
 }
