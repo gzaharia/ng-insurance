@@ -10,7 +10,7 @@
     <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
       <div class="d-flex flex-row flex-wrap">
         <div class="card card-block col-md-4 my-2" *ngFor="let order of pendingOrders | paginate: config">
-          <div class="card-header">
+          <div class="card-header mt-3">
             <div class="card-text">Nr. comenzii: {{order.id}}</div>
           </div>
 
@@ -25,7 +25,7 @@
             </dl>
           </div>
 
-          <div class="card-footer" style="color: darkorange">
+          <div class="card-footer mb-3" style="color: darkorange">
             <div class="card-text float-left">{{order.status}}</div>
             <div class="float-right">
               <button
@@ -44,7 +44,89 @@
       <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
     </div>
 
-    <div class="tab-pane fade" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">...</div>
+    <div class="tab-pane fade mt-3" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
+      <nav>
+        <div class="nav nav-tabs" id="nav-historyTabs" role="tablist">
+          <a class="nav-item nav-link active" id="nav-approved-tab" data-toggle="tab" href="#nav-approved" role="tab" aria-controls="nav-approved" aria-selected="true">Approved</a>
+          <a class="nav-item nav-link" id="nav-declined-tab" data-toggle="tab" href="#nav-declined" role="tab" aria-controls="nav-declined" aria-selected="false">Declined</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-historyContent">
+        <div class="tab-pane fade show active" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
+          <div class="d-flex flex-row flex-wrap">
+            <div class="card card-block col-md-4 my-2" *ngFor="let order of approvedOrders | paginate: config">
+              <div class="card-header mt-3">
+                <div class="card-text">Nr. comenzii: {{order.id}}</div>
+              </div>
+
+              <div class="card-body">
+                <dl class="row">
+                  <dt class="col">Persoana:</dt>
+                  <dd class="col">{{order.firstName}} {{order.lastName}}</dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col">Prețul total:</dt>
+                  <dd class="col">{{order.price}}</dd>
+                </dl>
+              </div>
+
+              <div class="card-footer mb-3" style="color: green">
+                <div class="card-text float-left">{{order.status}}</div>
+                <div class="float-right">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    (click)="getOrderDetails(order.id)"
+                  >
+                    Detalii
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+        </div>
+
+        <div class="tab-pane fade" id="nav-declined" role="tabpanel" aria-labelledby="nav-declined-tab">
+          <div class="d-flex flex-row flex-wrap">
+            <div class="card card-block col-md-4 my-2" *ngFor="let order of declinedOrders | paginate: config">
+              <div class="card-header mt-3">
+                <div class="card-text">Nr. comenzii: {{order.id}}</div>
+              </div>
+
+              <div class="card-body">
+                <dl class="row">
+                  <dt class="col">Persoana:</dt>
+                  <dd class="col">{{order.firstName}} {{order.lastName}}</dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col">Prețul total:</dt>
+                  <dd class="col">{{order.price}}</dd>
+                </dl>
+              </div>
+
+              <div class="card-footer mb-3" style="color: red">
+                <div class="card-text float-left">{{order.status}}</div>
+                <div class="float-right">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    (click)="getOrderDetails(order.id)"
+                  >
+                    Detalii
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -86,14 +168,30 @@
           </dl>
           <dl class="row">
             <dt class="col">Status:</dt>
-            <dd class="col" style="color: darkorange;">{{orderDetails.status}}</dd>
+            <dd class="col" [ngStyle]="getStatusStyle()">{{orderDetails.status}}</dd>
           </dl>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="declineOrder()">Decline</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="approveOrder()">Approve</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-dismiss="modal"
+          (click)="declineOrder()"
+          *ngIf="orderDetails.status === 'PENDING'"
+        >
+          Decline
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          data-dismiss="modal"
+          (click)="approveOrder()"
+          *ngIf="orderDetails.status === 'PENDING'"
+        >
+          Approve
+        </button>
       </div>
     </div>
   </div>

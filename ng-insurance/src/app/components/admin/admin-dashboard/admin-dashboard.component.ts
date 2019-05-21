@@ -23,7 +23,8 @@ export class AdminDashboardComponent implements OnInit {
     firstName: '',
     lastName: '',
     rightOfPossesion: '',
-    status: null
+    status: null,
+    insurance: null
   };
 
   constructor(
@@ -41,6 +42,8 @@ export class AdminDashboardComponent implements OnInit {
     this.pendingOrders = this.activatedRoute.snapshot.data.orders.pending;
     this.approvedOrders = this.activatedRoute.snapshot.data.orders.approved;
     this.declinedOrders = this.activatedRoute.snapshot.data.orders.declined;
+
+    console.log(this.pendingOrders);
   }
 
   pageChanged(event) {
@@ -78,5 +81,16 @@ export class AdminDashboardComponent implements OnInit {
         alert('Could not decline order!');
       }
     );
+  }
+
+  getStatusStyle() {
+    if (this.orderDetails.status === OrderStatus.approved) {
+      return {color: 'green'};
+    }
+    if (this.orderDetails.status === OrderStatus.pending) {
+      return {color: 'darkorange'};
+    } else {
+      return {color: 'red'};
+    }
   }
 }
