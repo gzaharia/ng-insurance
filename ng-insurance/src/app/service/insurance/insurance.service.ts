@@ -9,7 +9,8 @@ import {HttpClient} from '@angular/common/http';
 })
 export class InsuranceService {
   
-  private GET_ALL_INSURANCES_URL = `${ApiService.BASE_URL}\\insurances`;
+  private GET_ALL_INSURANCES_URL = `${ApiService.BASE_URL}\\insurances\\all`;
+  private GET_ACTIVE_INSURANCE_URL = `${ApiService.BASE_URL}\\insurances\\`;
   private GET_ONE_INSURANCE_URL = `${ApiService.BASE_URL}\\insurances\\`;
   private POST_ONE_INSURANCE_URL = `${ApiService.BASE_URL}\\insurances\\add\\`;
   private GET_ONE_BY_NAME_URL = `${ApiService.BASE_URL}\\insurances\\name\\`;
@@ -20,6 +21,10 @@ export class InsuranceService {
 
   getAllInsurances(): Observable<Insurance[]> {
     return this.http.get<Insurance[]>(this.GET_ALL_INSURANCES_URL);
+  }
+
+  getAllActiveInsurances():Observable<Insurance[]>{
+    return this.http.get<Insurance[]>(this.GET_ACTIVE_INSURANCE_URL);
   }
 
   getOneInsurance(id: number): Observable<Insurance> {

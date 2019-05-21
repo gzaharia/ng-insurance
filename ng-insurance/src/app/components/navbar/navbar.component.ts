@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.insuranceService.getAllInsurances().subscribe(result => {
+    this.insuranceService.getAllActiveInsurances().subscribe(result => {
       this.listOfInsurances = result;
     }, error => {
       alert('Fail');
