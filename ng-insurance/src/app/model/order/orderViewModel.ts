@@ -1,4 +1,4 @@
-import {CategoryPropertiesIdViewModel} from "../category-properties/category-properties-idViewModel";
+import {CategoryPropertiesIdViewModel} from '../category-properties/category-properties-idViewModel';
 
 export interface OrderViewModel {
   properties: CategoryPropertiesIdViewModel[];

@@ -4,14 +4,13 @@ import {CategoryService} from '../../service/category/category.service';
 import {OrderService} from '../../service/order/order.service';
 import {Order} from '../../model/order/order';
 import {RightOfPossesion} from '../../model/right-of-possession/right-of-possesion.enum';
-
+import {OrderViewModel} from '../../model/order/orderViewModel';
 
 @Component({
   selector: 'app-main',
   templateUrl: './rca.component.html',
   styleUrls: ['./rca.component.css']
 })
-
 export class RcaComponent implements OnInit {
   categories: Category[];
   public visible = false;
@@ -24,12 +23,22 @@ export class RcaComponent implements OnInit {
   nextIndex = 1;
   calculated = false;
   activeTab = 'calculator';
-  rightOfPossesionList = Object.keys(RightOfPossesion);
+  rightOfPossesionList = Object.values(RightOfPossesion);
+  order: OrderViewModel = {
+    properties: [],
+    docNumber: '',
+    licensePlateNumber: '',
+    idnp: '',
+    firstName: '',
+    lastName: '',
+    rightOfPossesion: ''
+  };
 
   constructor(
     private categoryService: CategoryService,
     private orderService: OrderService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.getAllCategories();
@@ -51,7 +60,7 @@ export class RcaComponent implements OnInit {
         for (const category of this.categories) {
           for (let j = category.properties.length - 1; j >= 0; j--) {
             if (category.properties[j].status === 2) {
-                category.properties.splice(j, 1);
+              category.properties.splice(j, 1);
             }
           }
         }
@@ -64,6 +73,7 @@ export class RcaComponent implements OnInit {
       }
     );
   }
+
   arrToOrder(map) {
     const order: Order = {
       properties: []
@@ -73,18 +83,16 @@ export class RcaComponent implements OnInit {
     });
     return order;
   }
+
   getPrice() {
     const order: Order = this.arrToOrder(this.selectedProperties);
     this.orderService.priceOrder(order).subscribe(res => {
       this.price = res;
       this.priceFlag = true;
     }, error1 => {
-        alert('fail');
-        this.priceFlag = false;
-      });
-  }
-  createOrder() {
-
+      alert('fail');
+      this.priceFlag = false;
+    });
   }
 
   nextElement(event: Event, i, pId) {
@@ -98,11 +106,21 @@ export class RcaComponent implements OnInit {
     }
     if (this.categories[this.nextIndex]) {
       this.displayedCategories.push(this.categories[this.nextIndex]);
-      this.nextIndex ++;
+      this.nextIndex++;
       this.visible = false;
     } else {
       this.visible = true;
     }
 
-    }
+  }
+
+  postOrder() {
+    this.order.properties = this.arrToOrder(this.selectedProperties).properties;
+    this.orderService.postOrder(this.order).subscribe(
+      result => {},
+      error => {
+        alert('Error while adding new order!');
+      }
+    );
+  }
 }
