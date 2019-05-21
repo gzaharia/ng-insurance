@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {CategoryPropertiesService} from 'src/app/service/category-properties/category-properties.service';
-import {CategoryProperties} from 'src/app/model/category-properties/category-properties';
-import {Category} from 'src/app/model/category/category';
-import {CategoryService} from 'src/app/service/category/category.service';
-import {Location} from '@angular/common'
+import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
+import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
+import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
+import { Category } from 'src/app/model/category/category';
+import { CategoryService } from 'src/app/service/category/category.service';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-property',
@@ -21,6 +21,9 @@ export class PropertyComponent implements OnInit {
   private showCategory = false;
   private selectedCategory = '';
   private id: number;
+  private changeProperty = false;
+  private propertyError = '';
+  private propertySuccess = '';
 
   constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService,
               private categoryService: CategoryService, private _location: Location) {
@@ -32,7 +35,7 @@ export class PropertyComponent implements OnInit {
     this.getProperty();
   }
 
-  getProperty(){
+  getProperty() {
     this.propertyService.getPropertyById(this.id).subscribe(res => {
       this.property = res;
       console.log(this.property);
@@ -48,29 +51,51 @@ export class PropertyComponent implements OnInit {
         }
       }
       this.showCategory = true;
-    }, 
+    },
     err => {
       alert('error');
     });
   }
 
-  updStatus(id){
+  updStatus(id) {
     this.status = id;
     this.property.status = id;
+    this.changeProperty = true;
   }
 
-  updProperty(){
-    this.property.coefficient = this.coefficient;
-    this.property.title = this.title;
-    this.propertyService.putProperty(this.property.id, this.property).subscribe(res => {
+  updProperty() {
+    if ((this.changeProperty) && (this.title.trim().length) && (this.coefficient >= 1)) {
+      this.property.coefficient = this.coefficient;
+      this.property.title = this.title;
+      this.propertyService.putProperty(this.property.id, this.property).subscribe(res => {
       this._location.back();
+      this.changeProperty = false;
+      this.succesPropertyUpdate();
     },
     err => {
-      alert("error");
-    } );
+      alert('error');
+    } ); } else {
+      this.errorMessage();
+    }
+  }
+  errorMessage() {
+  this.propertyError = 'You have nothing to update !';
+  document.getElementById('MessageError').style.display = 'block';
+  setTimeout(function() {
+      document.getElementById('MessageError').style.display = 'none'; }, 3000);
+  }
+  onChangeProperty() {
+    this.changeProperty = true;
+  }
+  succesPropertyUpdate() {
+    if (this.property.title.trim().length && this.property.title) {
+      this.propertySuccess = 'Updated successfully !';
+      document.getElementById('MessageSuccess').style.display = 'block';
+      setTimeout(function() {
+        document.getElementById('MessageSuccess').style.display = 'none'; }, 3000); }
   }
 
-  updCategory(id){
+  updCategory(id) {
     console.log(id);
     this.selectedCategory = this.categories[id].title;
     this.property.category = this.categories[id];

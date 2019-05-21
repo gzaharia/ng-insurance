@@ -34,14 +34,16 @@
 
     <!-- Tab content -->
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade" [ngClass]="{'show active':activeTab==='calculator'}" id="nav-calculator" role="tabpanel" aria-labelledby="nav-calculator-tab">
-        <form (ngSubmit)="createOrder()">
+      <div class="tab-pane fade" [ngClass]="{'show active':activeTab==='calculator'}" id="nav-calculator"
+           role="tabpanel" aria-labelledby="nav-calculator-tab">
+        <form (ngSubmit)="getPrice()">
           <div class="card-footer mt-3 form-group" *ngFor="let category of displayedCategories; index as i">
             <div *ngIf="showFlag">
               <div class="row">{{category.title}}
               </div>
-              <div class="btn-group-toggle row" data-toggle="buttons" role="group" >
-                <label class="btn btn-secondary" (click)="nextElement($event, i, pId)" *ngFor="let property of category.properties; index as pId">
+              <div class="btn-group-toggle row" data-toggle="buttons" role="group">
+                <label class="btn btn-secondary" (click)="nextElement($event, i, pId)"
+                       *ngFor="let property of category.properties; index as pId">
                   <input type="radio" name="{{property.id}}">{{property.title}}
                 </label>
               </div>
@@ -64,13 +66,107 @@
         </form>
       </div>
 
-      <div class="tab-pane fade" [ngClass]="{'show active':activeTab==='order'}" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab">...</div>
+      <div
+        class="tab-pane fade"
+        [ngClass]="{'show active':activeTab==='order'}"
+        id="nav-order"
+        role="tabpanel"
+        aria-labelledby="nav-order-tab"
+      >
+        <form class="mt-3">
+          <div class="row">
+            <div class="col">
+              <label for="firstNameInput">Nume</label>
+              <input
+                type="text"
+                name="firstNameInput"
+                id="firstNameInput"
+                class="form-control"
+                placeholder="Nume"
+                [(ngModel)]="order.firstName"
+              >
+            </div>
+
+            <div class="col">
+              <label for="lastNameInput">Prenume</label>
+              <input
+                type="text"
+                name="lastNameInput"
+                id="lastNameInput"
+                class="form-control"
+                placeholder="Prenume"
+                [(ngModel)]="order.lastName"
+              >
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <label for="idnpInput">IDNP</label>
+              <input
+                type="number"
+                name="idnpInput"
+                id="idnpInput"
+                class="form-control"
+                placeholder="IDNP"
+                [(ngModel)]="order.idnp"
+              >
+            </div>
+
+            <div class="col">
+              <label for="rightOfPossesionInput">Dreptul de posesiune al autovehiculului</label>
+              <select
+                name="rightOfPossesionInput"
+                id="rightOfPossesionInput"
+                class="form-control"
+                [(ngModel)]="order.rightOfPossesion"
+              >
+                <option *ngFor="let right of rightOfPossesionList">
+                  {{right}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <label for="docNumberInput">Numărul certificatului de înmatriculare</label>
+              <input type="number"
+                     name="docNumberInput"
+                     id="docNumberInput"
+                     class="form-control"
+                     placeholder="Numărul certificatului de înmatriculare"
+                     [(ngModel)]="order.docNumber"
+              >
+            </div>
+
+            <div class="col">
+              <label for="licencePlateNumberInput">Numărul de înmatriculare</label>
+              <input
+                type="text"
+                name="licencePlateNumberInput"
+                id="licencePlateNumberInput"
+                class="form-control"
+                placeholder="Numărul de înmatriculare"
+                [(ngModel)]="order.licensePlateNumber"
+              >
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <button class="btn btn-primary" (click)="postOrder()">Confirmă</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -89,7 +185,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Inchide</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="activeTab = 'order'">Urmatorul</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="activeTab = 'order'">Urmatorul
+        </button>
       </div>
     </div>
   </div>

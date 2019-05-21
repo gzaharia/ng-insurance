@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {Employee} from '../../model/employee/employee';
 import {Router} from '@angular/router';
+import {InsuranceService} from '../../service/insurance-service/insurance.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,16 +11,24 @@ import {Router} from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   currentUser: Employee;
+  private listOfInsurances = [];
 
   constructor(
     private auth: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private insuranceService: InsuranceService
   ) {
     auth.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit() {
+    this.insuranceService.getAllInsurances().subscribe(result =>{
+      this.listOfInsurances = result;
+    }, error => {
+      alert('Fail');
+    } );
   }
+
 
   logout() {
     this.auth.logout();
