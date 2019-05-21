@@ -32,11 +32,11 @@ export class CategoryPropertiesComponent implements OnInit {
     this.coefficient = null;
     this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result=>{
       this.category = result;
-     if (this.category.status==2){
+     if (this.category.status==="DELETED"){
        this.category.deleted = true; 
      }
       for(let i = 0; i < this.category.properties.length; i++){
-          if (this.category.properties[i].status == 2){
+          if (this.category.properties[i].status === 'DELETED'){
             this.category.properties[i].deleted = true;
           }else{
             this.category.properties[i].deleted = false;
@@ -76,7 +76,7 @@ export class CategoryPropertiesComponent implements OnInit {
 
   saveProperty(){
     this.property.title = this.title;
-    this.property.status = 1;
+    this.property.status = 'ACTIVE';
     this.property.coefficient = this.coefficient;
     this.property.category = this.category;
     if (this.property.title.trim().length && this.property.coefficient >=1) {
@@ -108,7 +108,7 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.title = this.category.properties[id].title;
     this.property.coefficient = this.category.properties[id].coefficient;
     this.property.category = this.category;
-    this.property.status = 2;
+    this.property.status = 'DELETED';
     this.propertyService.putProperty(this.category.properties[id].id, this.property).subscribe(resp => {
       this.category.properties[id].deleted = true;
     }, err => {

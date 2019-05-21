@@ -23,6 +23,8 @@ import {EditUserComponent} from './components/admin/user/edit-user/edit-user.com
 import {AddUserComponent} from './components/admin/user/add-user/add-user.component';
 import {CategoryPropertiesResolverService} from './service/category-properties/resolver/category-properties-resolver.service';
 import {BasePriceComponent} from './components/admin/category/base-price/base-price.component';
+import {InsurancesComponent} from './components/admin/insurances/insurances.component';
+import {InsuranceHeaderComponent} from './components/admin/insurance-header/insurance-header.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import {BasePriceComponent} from './components/admin/category/base-price/base-pr
     PropertyComponent,
     EditUserComponent,
     AddUserComponent,
-    BasePriceComponent
+    BasePriceComponent,
+    InsurancesComponent,
+    InsuranceHeaderComponent
 
   ],
   imports: [

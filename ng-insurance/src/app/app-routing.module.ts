@@ -15,6 +15,7 @@ import {EditUserComponent} from "./components/admin/user/edit-user/edit-user.com
 import {AddUserComponent} from "./components/admin/user/add-user/add-user.component";
 import {resolve} from "q";
 import {CategoryPropertiesResolverService} from "./service/category-properties/resolver/category-properties-resolver.service";
+import { InsurancesComponent } from './components/admin/insurances/insurances.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'admin/categories',
+    path: 'admin/insurance/:id',
     component: CategoryComponent,
     canActivate: [AuthGuard],
     data: {
@@ -93,6 +94,14 @@ const routes: Routes = [
     resolve: {
       categories: CategoryPropertiesResolverService
     },
+    data: {
+      requiredRoles: [ Role.Admin ]
+    }
+  },
+  {
+    path: 'admin/insurances',
+    component: InsurancesComponent,
+    canActivate: [ AuthGuard ],
     data: {
       requiredRoles: [ Role.Admin ]
     }

@@ -4,6 +4,6 @@ export interface Category {
   id: number;
   title: string;
   properties: CategoryProperties[];
-  status: number;
+  status: string;
   deleted: boolean;
 }
