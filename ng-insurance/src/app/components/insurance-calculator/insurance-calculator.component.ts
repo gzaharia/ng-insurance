@@ -37,6 +37,8 @@ export class InsuranceCalculatorComponent implements OnInit {
     firstName: '',
     lastName: '',
     rightOfPossesion: '',
+    email: '',
+    phoneNo: '',
     insurance: null
   };
 

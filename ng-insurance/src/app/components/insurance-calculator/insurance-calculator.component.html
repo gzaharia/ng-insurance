@@ -152,6 +152,30 @@
               >
             </div>
           </div>
+          <div class="row mt-3">
+            <div class="col">
+              <label for="emailInput">E-mail</label>
+              <input type="email"
+                     name="emailInput"
+                     id="emailInput"
+                     class="form-control"
+                     placeholder="E-mail"
+                     [(ngModel)]="order.email"
+              >
+            </div>
+
+            <div class="col">
+              <label for="phoneNumberInput">Numărul de telefon</label>
+              <input
+                type="text"
+                name="phoneNumberInput"
+                id="phoneNumberInput"
+                class="form-control"
+                placeholder="Numărul de telefon"
+                [(ngModel)]="order.phoneNo"
+              >
+            </div>
+          </div>
 
           <div class="row mt-3">
             <div class="col">

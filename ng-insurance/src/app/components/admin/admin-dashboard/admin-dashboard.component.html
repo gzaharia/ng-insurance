@@ -1,4 +1,4 @@
-<div class="container mt-3">
+  <div class="container mt-3">
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-pending-tab" data-toggle="tab" href="#nav-pending" role="tab"
        aria-controls="nav-pending" aria-selected="true">Pending orders</a>
@@ -22,6 +22,10 @@
             <dl class="row">
               <dt class="col">Prețul total:</dt>
               <dd class="col">{{order.price}}</dd>
+            </dl>
+            <dl class="row">
+              <dt class="col">Nr. de telefon:</dt>
+              <dd class="col">{{order.phoneNo}}</dd>
             </dl>
           </div>
 
@@ -68,6 +72,10 @@
                   <dt class="col">Prețul total:</dt>
                   <dd class="col">{{order.price}}</dd>
                 </dl>
+                <dl class="row">
+                  <dt class="col">Nr. de telefon:</dt>
+                  <dd class="col">{{order.phoneNo}}</dd>
+                </dl>
               </div>
 
               <div class="card-footer mb-3" style="color: green">
@@ -104,6 +112,10 @@
                 <dl class="row">
                   <dt class="col">Prețul total:</dt>
                   <dd class="col">{{order.price}}</dd>
+                </dl>
+                <dl class="row">
+                  <dt class="col">Nr. de telefon:</dt>
+                  <dd class="col">{{order.phoneNo}}</dd>
                 </dl>
               </div>
 
@@ -149,6 +161,14 @@
           <dl class="row">
             <dt class="col">Persoana:</dt>
             <dd class="col">{{orderDetails.firstName}} {{orderDetails.lastName}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">Email:</dt>
+            <dd class="col">{{orderDetails.email}}</dd>
+          </dl>
+          <dl class="row">
+            <dt class="col">Nr. de telefon:</dt>
+            <dd class="col">{{orderDetails.phoneNo}}</dd>
           </dl>
           <dl class="row">
             <dt class="col">Nr. certificatului de înmatriculare:</dt>

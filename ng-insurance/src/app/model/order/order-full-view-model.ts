@@ -11,6 +11,8 @@ export interface OrderFullViewModel {
   firstName: string;
   lastName: string;
   rightOfPossesion: string;
+  email: string;
+  phoneNo: string;
   status?: OrderStatus;
   insurance: Insurance;
 }
