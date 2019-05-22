@@ -23,6 +23,8 @@ export class AdminDashboardComponent implements OnInit {
     firstName: '',
     lastName: '',
     rightOfPossesion: '',
+    email: '',
+    phoneNo: '',
     status: null,
     insurance: null
   };

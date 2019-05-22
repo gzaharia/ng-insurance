@@ -9,5 +9,7 @@ export interface OrderViewModel {
   firstName: string;
   lastName: string;
   rightOfPossesion: string;
+  email: string;
+  phoneNo: string;
   insurance: Insurance;
 }
