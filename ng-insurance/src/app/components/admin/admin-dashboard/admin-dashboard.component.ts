@@ -29,7 +29,8 @@ export class AdminDashboardComponent implements OnInit {
     phoneNo: '',
     status: null,
     insurance: null,
-    time_created: null
+    time_created: null,
+    time_updated: null
   };
 
   constructor(

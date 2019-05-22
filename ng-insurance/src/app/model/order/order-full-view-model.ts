@@ -16,4 +16,5 @@ export interface OrderFullViewModel {
   status?: OrderStatus;
   insurance: Insurance;
   time_created: Date;
+  time_updated: Date;
 }

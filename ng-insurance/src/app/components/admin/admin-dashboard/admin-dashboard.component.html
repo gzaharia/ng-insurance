@@ -192,7 +192,14 @@
           </dl>
           <dl class="row">
             <dt class="col">Status:</dt>
-            <dd class="col" [ngStyle]="getStatusStyle()">{{orderDetails.status}}</dd>
+            <dd class="col">
+              <div [ngStyle]="getStatusStyle()">
+                {{orderDetails.status}}
+              </div>
+              <small *ngIf="orderDetails.status !== 'PENDING'">
+                ({{orderDetails.status === 'APPROVED' ? 'Aproved' : 'Declined'}} on: {{orderDetails.time_updated | date: 'medium'}})
+              </small>
+            </dd>
           </dl>
         </div>
       </div>
