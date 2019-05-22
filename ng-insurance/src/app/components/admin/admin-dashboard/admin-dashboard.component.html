@@ -9,7 +9,7 @@
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
       <div class="d-flex flex-row flex-wrap">
-        <div class="card card-block col-md-4 my-2" *ngFor="let order of pendingOrders | paginate: config">
+        <div class="card card-block col-md-4 my-2" *ngFor="let order of pendingOrders | paginate: { itemsPerPage: 9, currentPage: p1, id: 'first' }">
           <div class="card-header mt-3">
             <div class="card-text">Nr. comenzii: {{order.id}}</div>
           </div>
@@ -45,7 +45,7 @@
         </div>
 
       </div>
-      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      <pagination-controls id="first" (pageChange)="p1 = $event"></pagination-controls>
     </div>
 
     <div class="tab-pane fade mt-3" id="nav-history" role="tabpanel" aria-labelledby="nav-history-tab">
@@ -58,7 +58,7 @@
       <div class="tab-content" id="nav-historyContent">
         <div class="tab-pane fade show active" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
           <div class="d-flex flex-row flex-wrap">
-            <div class="card card-block col-md-4 my-2" *ngFor="let order of approvedOrders | paginate: config">
+            <div class="card card-block col-md-4 my-2" *ngFor="let order of approvedOrders | paginate: { itemsPerPage: 9, currentPage: p2, id: 'second' }">
               <div class="card-header mt-3">
                 <div class="card-text">Nr. comenzii: {{order.id}}</div>
               </div>
@@ -94,12 +94,12 @@
             </div>
 
           </div>
-          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+          <pagination-controls id="second" (pageChange)="p2 = $event"></pagination-controls>
         </div>
 
         <div class="tab-pane fade" id="nav-declined" role="tabpanel" aria-labelledby="nav-declined-tab">
           <div class="d-flex flex-row flex-wrap">
-            <div class="card card-block col-md-4 my-2" *ngFor="let order of declinedOrders | paginate: config">
+            <div class="card card-block col-md-4 my-2" *ngFor="let order of declinedOrders | paginate: { itemsPerPage: 9, currentPage: p3, id: 'third' }">
               <div class="card-header mt-3">
                 <div class="card-text">Nr. comenzii: {{order.id}}</div>
               </div>
@@ -135,7 +135,7 @@
             </div>
 
           </div>
-          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+          <pagination-controls id="third" (pageChange)="p3 = $event"></pagination-controls>
         </div>
       </div>
     </div>

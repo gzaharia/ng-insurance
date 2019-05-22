@@ -10,7 +10,9 @@ import {OrderStatus} from '../../../model/order-status/order-status.enum';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit {
-  config: any;
+  p1: number;
+  p2: number;
+  p3: number;
   private pendingOrders: OrderFullViewModel[] = [];
   private approvedOrders: OrderFullViewModel[] = [];
   private declinedOrders: OrderFullViewModel[] = [];
@@ -38,16 +40,10 @@ export class AdminDashboardComponent implements OnInit {
     this.pendingOrders = this.activatedRoute.snapshot.data.orders.pending;
     this.approvedOrders = this.activatedRoute.snapshot.data.orders.approved;
     this.declinedOrders = this.activatedRoute.snapshot.data.orders.declined;
-
-    this.config = {
-      itemsPerPage: 9,
-      currentPage: 1,
-      totalItems: this.pendingOrders.length
-    };
   }
 
   pageChanged(event) {
-    this.config.currentPage = event;
+
   }
 
   getOrderDetails(id: number) {
