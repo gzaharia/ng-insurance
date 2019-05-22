@@ -28,6 +28,7 @@ export class CategoryComponent implements OnInit {
   private succes: string;
   private oldInsuranceTitle: string;
   private oldBasePrice: number;
+  private oldStatus: string;
 
   constructor(
     private insuranceService: InsuranceService,
@@ -50,6 +51,7 @@ export class CategoryComponent implements OnInit {
         this.oldInsuranceTitle = this.insurance.title;
         this.oldBasePrice = this.insurance.basePrice;
         this.insuranceBasePrice = this.insurance.basePrice;
+        this.oldStatus = this.insurance.status;
         for(let i = 0; i < this.insurance.categories.length; i++){
           console.log(this.insurance.categories[i].status);
             if (this.insurance.categories[i].status===("DELETED")){
@@ -104,11 +106,14 @@ export class CategoryComponent implements OnInit {
   }
 
   saveInsurance(){
-    if((this.insuranceTitle !== this.oldInsuranceTitle || this.insuranceBasePrice !== this.oldBasePrice) && this.insuranceTitle.trim().length > 0 && this.insuranceBasePrice >= 1){
+    if((this.insuranceTitle !== this.oldInsuranceTitle || this.insuranceBasePrice !== this.oldBasePrice || this.oldStatus !== this.insurance.status) && this.insuranceTitle.trim().length > 0 && this.insuranceBasePrice >= 1){
       this.insurance.title = this.insuranceTitle;
       this.insurance.basePrice = this.insuranceBasePrice;
       this.insuranceService.editOneInsurance(this.id, this.insurance).subscribe(res => {
         this.showSucces('SuccesInsurance');
+        this.oldInsuranceTitle = this.insurance.title;
+        this.oldBasePrice = this.insurance.basePrice;
+        this.oldStatus = this.insurance.status;
       }, 
       err => {
         this.error = "You data can't Update !";
