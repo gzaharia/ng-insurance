@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --ssl true --ssl-key /node_modules/browser-sync/certs/server.key --ssl-cert /node_modules/browser-sync/certs/server.crt",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "bootstrap": "^4.3.1",
+    "browser-sync": "^2.26.5",
     "core-js": "^2.5.4",
     "jquery": "^3.4.1",
     "mkdirp": "^0.5.1",
