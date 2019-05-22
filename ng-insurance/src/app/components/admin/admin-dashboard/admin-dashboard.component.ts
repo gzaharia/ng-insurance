@@ -30,20 +30,18 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private orderService: OrderService
-  ) {
-    this.config = {
-      itemsPerPage: 9,
-      currentPage: 1,
-      totalItems: this.pendingOrders.length
-    };
-  }
+  ) {}
 
   ngOnInit() {
     this.pendingOrders = this.activatedRoute.snapshot.data.orders.pending;
     this.approvedOrders = this.activatedRoute.snapshot.data.orders.approved;
     this.declinedOrders = this.activatedRoute.snapshot.data.orders.declined;
 
-    console.log(this.pendingOrders);
+    this.config = {
+      itemsPerPage: 9,
+      currentPage: 1,
+      totalItems: this.pendingOrders.length
+    };
   }
 
   pageChanged(event) {
