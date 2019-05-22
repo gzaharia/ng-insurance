@@ -3,7 +3,6 @@ import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
 import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
 import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
 import { Category } from 'src/app/model/category/category';
-import { CategoryService } from 'src/app/service/category/category.service';
 import { Location } from '@angular/common'
 
 @Component({
@@ -27,8 +26,11 @@ export class PropertyComponent implements OnInit {
   private changeCategory = false;
   private oldTitle = '';
 
-  constructor(private route: ActivatedRoute, private propertyService: CategoryPropertiesService,
-              private categoryService: CategoryService, private _location: Location) {
+  constructor(
+              private route: ActivatedRoute, 
+              private propertyService: CategoryPropertiesService,
+              private _location: Location) 
+  {
     this.categories = this.route.snapshot.data.categories;
   }
 
@@ -40,7 +42,6 @@ export class PropertyComponent implements OnInit {
   getProperty() {
     this.propertyService.getPropertyById(this.id).subscribe(res => {
       this.property = res;
-      console.log(this.property);
       this.oldTitle = this.property.title;
       this.title = this.property.title;
       this.coefficient = this.property.coefficient;
@@ -56,7 +57,8 @@ export class PropertyComponent implements OnInit {
       this.showCategory = true;
     },
     err => {
-      alert('error');
+      this.propertyError = 'Error to load data';
+      this.errorMessage();
     });
   }
 
@@ -69,28 +71,33 @@ export class PropertyComponent implements OnInit {
   updProperty() {
     if ((this.title.trim().length && this.coefficient >= 1)) {
       if(this.changeProperty || this.changeCategory ) {
-  this.property.coefficient = this.coefficient;
-  this.property.title = this.title;
+        this.property.coefficient = this.coefficient;
+        this.property.title = this.title;
 
-  this.propertyService.putProperty(this.property.id, this.property).subscribe(res => {
-      this._location.back();
-      this.changeProperty = false;
-      this.changeCategory = false;
-      this.succesPropertyUpdate();
-    },
-    err => {
-      alert('error');
-    });
-} else {
-  this.errorMessage();
-}}
+        this.propertyService.putProperty(this.property.id, this.property).subscribe(res => {
+            this._location.back();
+            this.changeProperty = false;
+            this.changeCategory = false;
+            this.succesPropertyUpdate();
+          },
+          err => {
+            this.propertyError = 'You data dono\' update !';
+            this.errorMessage();
+          });
+      } else 
+      {
+        this.propertyError = 'You have nothing to update !';
+        this.errorMessage();
+      }
+    }
   }
+
   errorMessage() {
-  this.propertyError = 'You have nothing to update !';
   document.getElementById('MessageError').style.display = 'block';
   setTimeout(function() {
       document.getElementById('MessageError').style.display = 'none'; }, 3000);
   }
+
   onChangeProperty() {
     this.changeProperty = true;
   }

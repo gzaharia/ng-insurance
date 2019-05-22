@@ -16,7 +16,6 @@ export class CategoryPropertiesComponent implements OnInit {
 
   title = '';
   coefficient: number;
-
   category: Category = {} as any ;
   property: CategoryProperties = {} as any;
   error = '';
@@ -98,10 +97,12 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.category = this.category;
     if (this.property.title.trim().length && this.property.coefficient >= 1) {
       this.propertyService.postProperty(this.property).subscribe(resp => {
-        this.property.id = resp.id;
-        this.category.properties.push(this.property);
+        this.category.properties.push(resp);
+        this.title = '';
+        this.coefficient = null;
       }, err => {
-        alert('could not save');
+        this.error = 'could not save';
+        this.clearAddError();
       });
     } else {
       this.error = 'You have nothing to add !';
