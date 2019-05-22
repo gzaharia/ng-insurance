@@ -179,7 +179,15 @@
 
           <div class="row mt-3">
             <div class="col">
-              <button class="btn btn-primary" (click)="postOrder()">Confirmă</button>
+              <button
+                (click)="postOrder()"
+                class="btn btn-primary"
+                data-target="#successModal"
+                data-toggle="modal"
+                type="button"
+              >
+                Confirmă
+              </button>
             </div>
           </div>
         </form>
@@ -188,7 +196,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Price Modal -->
 <div class="modal fade" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -210,6 +218,33 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="activeTab = 'order'">Următorul
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div aria-hidden="true" aria-labelledby="successModalLabel" class="modal fade" data-backdrop="static" id="successModal"
+     role="dialog" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Succes!</h5>
+      </div>
+      <div class="modal-body">
+        <div class="alert-success">
+          Comanda dumneavoastră a fost plasată cu succes!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          (click)="router.navigateByUrl('/')"
+          class="btn btn-primary btn-sm"
+          data-dismiss="modal"
+          type="button"
+        >
+          Înapoi la pagina principală
         </button>
       </div>
     </div>
