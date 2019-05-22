@@ -92,8 +92,6 @@
   <div id="SuccesCategory" style="display: none" class="alert alert-success col-12">{{succes}}</div>
 </div>
 
-  <div id="ErrorCategory" style="display: none" class="alert alert-danger">{{error}}</div>
-  </div>
 <div class="container" xmlns:odd="http://www.w3.org/1999/xhtml">
     <table class="table table-bordered table-hover table-sm table-striped mt-3">
       <thead>
@@ -108,7 +106,7 @@
       <tbody *ngIf=insurance?.categories>
       <tr *ngFor="let category of insurance.categories; let item=index">
         <td>{{item + 1 }}</td>
-        <td>{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span> </td>
+        <td>{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span> <br>#{{category.properties.length}}  </td>
         <td width="80" align="center">
           <button class="btn btn-primary btn-sm" title="edit category"
                   (click)="edit(category.id)">Edit</button>
