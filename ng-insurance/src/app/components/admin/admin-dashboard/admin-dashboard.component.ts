@@ -28,7 +28,8 @@ export class AdminDashboardComponent implements OnInit {
     email: '',
     phoneNo: '',
     status: null,
-    insurance: null
+    insurance: null,
+    time_created: null
   };
 
   constructor(
@@ -40,10 +41,6 @@ export class AdminDashboardComponent implements OnInit {
     this.pendingOrders = this.activatedRoute.snapshot.data.orders.pending;
     this.approvedOrders = this.activatedRoute.snapshot.data.orders.approved;
     this.declinedOrders = this.activatedRoute.snapshot.data.orders.declined;
-  }
-
-  pageChanged(event) {
-
   }
 
   getOrderDetails(id: number) {
