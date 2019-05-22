@@ -84,7 +84,6 @@ export class InsuranceCalculatorComponent implements OnInit {
     if (this.categories[0]) {
       this.displayedCategories.push(this.categories[0]);
     }
-  
   }
 
   arrToOrder(map) {
