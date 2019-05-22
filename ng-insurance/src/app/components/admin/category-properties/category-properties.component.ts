@@ -100,8 +100,11 @@ export class CategoryPropertiesComponent implements OnInit {
       this.propertyService.postProperty(this.property).subscribe(resp => {
         this.property.id = resp.id;
         this.category.properties.push(this.property);
+        this.title = '';
+        this.coefficient = null;
       }, err => {
-        alert('could not save');
+        this.error = 'could not save';
+        this.clearAddError();
       });
     } else {
       this.error = 'You have nothing to add !';
