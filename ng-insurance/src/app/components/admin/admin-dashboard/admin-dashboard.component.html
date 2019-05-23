@@ -57,7 +57,7 @@
 
       <div class="d-flex flex-row flex-wrap">
         <div
-          *ngFor="let order of (pendingOrders | paginate: { itemsPerPage: 9, currentPage: p1, id: 'first' } | filter: pendingSearchText)"
+          *ngFor="let order of (pendingOrders | filter: pendingSearchText | paginate: { itemsPerPage: 9, currentPage: p1, id: 'first' })"
           class="card card-block col-md-4 my-2">
           <div class="card-header mt-3">
             <div class="card-text float-left text-muted">#{{order.id}}</div>
@@ -157,7 +157,7 @@
 
           <div class="d-flex flex-row flex-wrap">
             <div
-              *ngFor="let order of (approvedOrders | paginate: { itemsPerPage: 9, currentPage: p2, id: 'second' } | filter: approvedSearchText )"
+              *ngFor="let order of (approvedOrders | filter: approvedSearchText | paginate: { itemsPerPage: 9, currentPage: p2, id: 'second' })"
               class="card card-block col-md-4 my-2">
               <div class="card-header mt-3">
                 <div class="card-text float-left text-muted">#{{order.id}}</div>
@@ -250,7 +250,7 @@
 
           <div class="d-flex flex-row flex-wrap">
             <div
-              *ngFor="let order of (declinedOrders | paginate: { itemsPerPage: 9, currentPage: p3, id: 'third'} | filter: declinedSearchText )"
+              *ngFor="let order of (declinedOrders | filter: declinedSearchText | paginate: { itemsPerPage: 9, currentPage: p3, id: 'third'})"
               class="card card-block col-md-4 my-2">
               <div class="card-header mt-3">
                 <div class="float-left text-muted">#{{order.id}}</div>
