@@ -98,7 +98,7 @@ export class InsuranceCalculatorComponent implements OnInit {
         categories: []
       }
     };
-    map.forEach(function (value) {
+    map.forEach(value => {
       order.properties.push({id: value.id});
     });
     return order;
