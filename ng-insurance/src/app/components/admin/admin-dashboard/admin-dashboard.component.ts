@@ -16,7 +16,6 @@ export class AdminDashboardComponent implements OnInit {
   private pendingOrders: OrderFullViewModel[] = [];
   private approvedOrders: OrderFullViewModel[] = [];
   private declinedOrders: OrderFullViewModel[] = [];
-  private insuranceTitle: string;
   private orderDetails: OrderFullViewModel = {
     id: null,
     properties: [],
@@ -29,7 +28,14 @@ export class AdminDashboardComponent implements OnInit {
     email: '',
     phoneNo: '',
     status: null,
-    insurance: null,
+    insurance: {
+      id: null,
+      title: '',
+      basePrice: null,
+      status: '',
+      deleted: false,
+      categories: []
+    },
     time_created: null,
     time_updated: null
   };
