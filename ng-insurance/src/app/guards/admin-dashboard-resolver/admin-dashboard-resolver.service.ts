@@ -9,7 +9,9 @@ import {map} from 'rxjs/operators';
 })
 export class AdminDashboardResolverService implements Resolve<any> {
 
-  constructor(private orderService: OrderService) { }
+  constructor(
+    private orderService: OrderService) {
+  }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return forkJoin([

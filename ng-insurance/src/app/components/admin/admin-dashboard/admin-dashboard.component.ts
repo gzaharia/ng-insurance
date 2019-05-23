@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {OrderFullViewModel} from '../../../model/order/order-full-view-model';
 import {OrderService} from '../../../service/order/order.service';
 import {OrderStatus} from '../../../model/order-status/order-status.enum';
+import {Insurance} from '../../../model/insurance/insurance';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -16,8 +17,21 @@ export class AdminDashboardComponent implements OnInit {
   private pendingOrders: OrderFullViewModel[] = [];
   private approvedOrders: OrderFullViewModel[] = [];
   private declinedOrders: OrderFullViewModel[] = [];
-  private orderDetails: OrderFullViewModel = {
+  private sortingMethod: string;
+  private orderMethod: string;
+  private pendingSearchText: string;
+  private approvedSearchText: string;
+  private declinedSearchText: string;
+  private selectedInsurance: Insurance = {
+    basePrice: 0,
+    categories: [],
+    deleted: false,
     id: null,
+    status: '',
+    title: ''
+  };
+  private orderDetails: OrderFullViewModel = {
+    id: 0,
     properties: [],
     docNumber: '',
     licensePlateNumber: '',
@@ -39,6 +53,14 @@ export class AdminDashboardComponent implements OnInit {
     time_created: null,
     time_updated: null
   };
+  private sampleInsurance: Insurance = {
+    basePrice: 0,
+    categories: [],
+    deleted: false,
+    id: 0,
+    status: '',
+    title: ''
+  };
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,12 +72,90 @@ export class AdminDashboardComponent implements OnInit {
     this.pendingOrders = this.activatedRoute.snapshot.data.orders.pending;
     this.approvedOrders = this.activatedRoute.snapshot.data.orders.approved;
     this.declinedOrders = this.activatedRoute.snapshot.data.orders.declined;
+
+    this.pendingOrders.forEach(order => {
+      order.insurance = this.sampleInsurance;
+    });
+
+    this.approvedOrders.forEach(order => {
+      order.insurance = this.sampleInsurance;
+    });
+
+    this.declinedOrders.forEach(order => {
+      order.insurance = this.sampleInsurance;
+    });
+
+    for (const order of this.pendingOrders) {
+      this.orderService.getInsurancefromOrder(order.id).subscribe(
+        result => {
+          order.insurance = result;
+
+          this.orderService.getInsurancefromOrder(order.id).subscribe(
+            result1 => {
+              order.insurance = result1;
+            },
+            error => {
+            }
+          );
+        },
+        error => {
+          alert('Could not get order insurance!');
+        }
+      );
+    }
+
+    for (const order of this.approvedOrders) {
+      this.orderService.getInsurancefromOrder(order.id).subscribe(
+        result => {
+          order.insurance = result;
+
+          this.orderService.getInsurancefromOrder(order.id).subscribe(
+            result1 => {
+              order.insurance = result1;
+            },
+            error => {
+            }
+          );
+        },
+        error => {
+          alert('Could not get order insurance!');
+        }
+      );
+    }
+
+    for (const order of this.declinedOrders) {
+      this.orderService.getInsurancefromOrder(order.id).subscribe(
+        result => {
+          order.insurance = result;
+
+          this.orderService.getInsurancefromOrder(order.id).subscribe(
+            result1 => {
+              order.insurance = result1;
+            },
+            error => {
+            }
+          );
+        },
+        error => {
+          alert('Could not get order insurance!');
+        }
+      );
+    }
   }
 
   getOrderDetails(id: number) {
     this.orderService.getOneOrder(id).subscribe(
       result => {
         this.orderDetails = result;
+
+        this.orderService.getInsurancefromOrder(this.orderDetails.id).subscribe(
+          result1 => {
+            this.orderDetails.insurance = result1;
+          },
+          error => {
+            alert('Could not get insurance!');
+          }
+        );
       },
       error => {
         alert('Could not get order details!');
@@ -80,7 +180,15 @@ export class AdminDashboardComponent implements OnInit {
           }
         }
 
-        this.approvedOrders.push(result);
+        this.orderService.getInsurancefromOrder(result.id).subscribe(
+          result1 => {
+            result.insurance = result1;
+
+            this.approvedOrders.push(result);
+          },
+          error => {
+          }
+        );
       },
       error => {
         alert('Could not approve order!');
@@ -105,7 +213,15 @@ export class AdminDashboardComponent implements OnInit {
           }
         }
 
-        this.declinedOrders.push(result);
+        this.orderService.getInsurancefromOrder(result.id).subscribe(
+          result1 => {
+            result.insurance = result1;
+
+            this.declinedOrders.push(result);
+          },
+          error => {
+          }
+        );
       },
       error => {
         alert('Could not decline order!');
@@ -121,6 +237,16 @@ export class AdminDashboardComponent implements OnInit {
       return {color: 'darkorange'};
     } else {
       return {color: 'red'};
+    }
+  }
+
+  dateSort(orders: OrderFullViewModel[]) {
+    if (this.sortingMethod === 'Date') {
+      if (this.orderMethod === 'Ascending') {
+        orders.sort((a, b) => new Date(a.time_created).getTime() - new Date(b.time_created).getTime());
+      } else {
+        orders.sort((a, b) => new Date(b.time_created).getTime() - new Date(a.time_created).getTime());
+      }
     }
   }
 }

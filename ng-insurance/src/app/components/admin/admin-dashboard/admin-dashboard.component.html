@@ -8,8 +8,57 @@
 
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+      <div class="d-flex">
+        <div class="mr-auto p-2 mt-2">
+          <form class="form-inline">
+            <label class="mr-2" for="pendingSearchInput">Search:</label>
+            <input
+              [(ngModel)]="pendingSearchText"
+              class="form-control"
+              id="pendingSearchInput"
+              name="pendingSearchInput"
+              placeholder="Insert any text"
+              type="text"
+            >
+          </form>
+        </div>
+
+        <div class="p-2 mt-2">
+          <form class="form-inline">
+            <div class="input-group">
+              <label class="mr-2" for="pendingOrdersSortBySelect">Sort by:</label>
+              <select
+                [(ngModel)]="sortingMethod"
+                class="form-control"
+                id="pendingOrdersSortBySelect"
+                name="sortBySelect"
+              >
+                <option>Date</option>
+              </select>
+            </div>
+
+            <div class="input-group mx-3">
+              <label class="mr-2" for="pendingOrdersOrderSelect">Order:</label>
+              <select
+                [(ngModel)]="orderMethod"
+                class="form-control"
+                id="pendingOrdersOrderSelect"
+                name="orderSelect"
+              >
+                <option>Ascending</option>
+                <option>Descending</option>
+              </select>
+            </div>
+
+            <button (click)="dateSort(pendingOrders)" class="btn btn-primary btn-sm">Sort</button>
+          </form>
+        </div>
+      </div>
+
       <div class="d-flex flex-row flex-wrap">
-        <div class="card card-block col-md-4 my-2" *ngFor="let order of pendingOrders | paginate: { itemsPerPage: 9, currentPage: p1, id: 'first' }">
+        <div
+          *ngFor="let order of (pendingOrders | paginate: { itemsPerPage: 9, currentPage: p1, id: 'first' } | filter: pendingSearchText)"
+          class="card card-block col-md-4 my-2">
           <div class="card-header mt-3">
             <div class="card-text float-left text-muted">#{{order.id}}</div>
             <div class="card-text float-right text-muted">{{order.time_created | date: 'medium'}}</div>
@@ -61,8 +110,55 @@
       </nav>
       <div class="tab-content" id="nav-historyContent">
         <div class="tab-pane fade show active" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
+          <div class="d-flex mt-2">
+            <div class="mr-auto p-2 mt-2">
+              <form class="form-inline">
+                <label class="mr-2" for="approvedSearchInput">Search:</label>
+                <input
+                  [(ngModel)]="approvedSearchText"
+                  class="form-control"
+                  id="approvedSearchInput"
+                  name="approvedSearchInput"
+                  placeholder="Insert any text"
+                  type="text"
+                >
+              </form>
+            </div>
+
+            <form class="form-inline">
+              <div class="input-group">
+                <label class="mr-2" for="approvedOrdersSortBySelect">Sort by:</label>
+                <select
+                  [(ngModel)]="sortingMethod"
+                  class="form-control"
+                  id="approvedOrdersSortBySelect"
+                  name="sortBySelect"
+                >
+                  <option>Date</option>
+                </select>
+              </div>
+
+              <div class="input-group mx-3">
+                <label class="mr-2" for="approvedOrdersOrderSelect">Order:</label>
+                <select
+                  [(ngModel)]="orderMethod"
+                  class="form-control"
+                  id="approvedOrdersOrderSelect"
+                  name="orderSelect"
+                >
+                  <option>Ascending</option>
+                  <option>Descending</option>
+                </select>
+              </div>
+
+              <button (click)="dateSort(approvedOrders)" class="btn btn-primary btn-sm">Sort</button>
+            </form>
+          </div>
+
           <div class="d-flex flex-row flex-wrap">
-            <div class="card card-block col-md-4 my-2" *ngFor="let order of approvedOrders | paginate: { itemsPerPage: 9, currentPage: p2, id: 'second' }">
+            <div
+              *ngFor="let order of (approvedOrders | paginate: { itemsPerPage: 9, currentPage: p2, id: 'second' } | filter: approvedSearchText )"
+              class="card card-block col-md-4 my-2">
               <div class="card-header mt-3">
                 <div class="card-text float-left text-muted">#{{order.id}}</div>
                 <div class="card-text float-right text-muted">{{order.time_created | date: 'medium'}}</div>
@@ -107,8 +203,55 @@
         </div>
 
         <div class="tab-pane fade" id="nav-declined" role="tabpanel" aria-labelledby="nav-declined-tab">
+          <div class="d-flex justify-content-end mt-2">
+            <div class="mr-auto p-2 mt-2">
+              <form class="form-inline">
+                <label class="mr-2" for="declinedSearchInput">Search:</label>
+                <input
+                  [(ngModel)]="declinedSearchText"
+                  class="form-control"
+                  id="declinedSearchInput"
+                  name="declinedSearchInput"
+                  placeholder="Insert any text"
+                  type="text"
+                >
+              </form>
+            </div>
+
+            <form class="form-inline">
+              <div class="input-group">
+                <label class="mr-2" for="declinedOrdersSortBySelect">Sort by:</label>
+                <select
+                  [(ngModel)]="sortingMethod"
+                  class="form-control"
+                  id="declinedOrdersSortBySelect"
+                  name="sortBySelect"
+                >
+                  <option>Date</option>
+                </select>
+              </div>
+
+              <div class="input-group mx-3">
+                <label class="mr-2" for="declinedOrdersOrderSelect">Order</label>
+                <select
+                  [(ngModel)]="orderMethod"
+                  class="form-control"
+                  id="declinedOrdersOrderSelect"
+                  name="orderSelect"
+                >
+                  <option>Ascending</option>
+                  <option>Descending</option>
+                </select>
+              </div>
+
+              <button (click)="dateSort(declinedOrders)" class="btn btn-primary btn-sm">Sort</button>
+            </form>
+          </div>
+
           <div class="d-flex flex-row flex-wrap">
-            <div class="card card-block col-md-4 my-2" *ngFor="let order of declinedOrders | paginate: { itemsPerPage: 9, currentPage: p3, id: 'third' }">
+            <div
+              *ngFor="let order of (declinedOrders | paginate: { itemsPerPage: 9, currentPage: p3, id: 'third'} | filter: declinedSearchText )"
+              class="card card-block col-md-4 my-2">
               <div class="card-header mt-3">
                 <div class="float-left text-muted">#{{order.id}}</div>
                 <div class="float-right text-muted">

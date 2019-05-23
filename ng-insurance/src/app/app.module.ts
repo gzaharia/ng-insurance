@@ -27,7 +27,8 @@ import {InsurancesComponent} from './components/admin/insurances/insurances.comp
 import {InsuranceHeaderComponent} from './components/admin/insurance-header/insurance-header.component';
 import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/admin-dashboard-resolver.service';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { HomeComponent } from './components/home/home.component';
+import {HomeComponent} from './components/home/home.component';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { HomeComponent } from './components/home/home.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
