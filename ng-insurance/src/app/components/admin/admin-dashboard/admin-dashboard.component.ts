@@ -16,6 +16,7 @@ export class AdminDashboardComponent implements OnInit {
   private pendingOrders: OrderFullViewModel[] = [];
   private approvedOrders: OrderFullViewModel[] = [];
   private declinedOrders: OrderFullViewModel[] = [];
+  private insuranceTitle: string;
   private orderDetails: OrderFullViewModel = {
     id: null,
     properties: [],
@@ -36,7 +37,8 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private orderService: OrderService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.pendingOrders = this.activatedRoute.snapshot.data.orders.pending;
