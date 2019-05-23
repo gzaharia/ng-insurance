@@ -98,7 +98,7 @@ export class InsuranceCalculatorComponent implements OnInit {
         categories: []
       }
     };
-    map.forEach(function (value) {
+    map.forEach(value => {
       order.properties.push({id: value.id});
     });
     return order;
@@ -132,7 +132,8 @@ export class InsuranceCalculatorComponent implements OnInit {
     } else {
       this.visible = true;
     }
-
+    setTimeout(function(){
+    window.scrollBy(0, document.body.scrollHeight)}, 1);
   }
 
   postOrder() {
