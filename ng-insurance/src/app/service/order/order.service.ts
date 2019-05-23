@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Order} from '../../model/order/order';
 import {OrderViewModel} from '../../model/order/orderViewModel';
 import {OrderFullViewModel} from '../../model/order/order-full-view-model';
+import {Insurance} from "../../model/insurance/insurance";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class OrderService {
   private GET_APPROVED_ORDERS = `${ApiService.BASE_URL}\\orders\\approved`;
   private GET_DECLINED_ORDERS = `${ApiService.BASE_URL}\\orders\\declined`;
   private UPDATE_ORDER_STATUS = `${ApiService.BASE_URL}\\orders\\edit\\status\\`;
+  private GET_INSURANCE_FROM_ORDER = `${ApiService.BASE_URL}\\orders\\insurance\\`;
 
   constructor(private http: HttpClient) { }
   priceOrder(order: Order): Observable<any> {
@@ -51,5 +53,9 @@ export class OrderService {
 
   updateOrderStatus(id: number, status: string): Observable<OrderFullViewModel> {
     return this.http.put<OrderFullViewModel>(this.UPDATE_ORDER_STATUS + id, status);
+  }
+
+  getInsurancefromOrder(orderId: number): Observable<Insurance> {
+    return this.http.get<Insurance>(this.GET_INSURANCE_FROM_ORDER + orderId);
   }
 }

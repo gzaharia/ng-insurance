@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
 import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
 import {Location} from '@angular/common';
+import { InsuranceService } from 'src/app/service/insurance/insurance.service';
+import { Insurance } from 'src/app/model/insurance/insurance';
 
 @Component({
   selector: 'app-property',
@@ -14,60 +16,88 @@ import {Location} from '@angular/common';
 export class CategoryPropertiesComponent implements OnInit {
 
 
-  title = '';
+  categoryId: number;
+  title: string = '';
   coefficient: number;
+  insurances: Insurance[] = [];
+  insurance: Insurance = {
+    id: null,
+    title: '',
+    basePrice: null,
+    status: '',
+    deleted: false,
+    categories: null
+  };
   category: Category = {} as any ;
   property: CategoryProperties = {} as any;
   error = '';
   succes = '';
-  initialValue = this.category.title;
-  updateFlag : boolean = false;
+  oldCategory: string;
+  oldStatus: string;
+  oldInsurance: string;
+  insuranceTitle: string = '';
 
-  constructor(private categoryService: CategoryService, private propertyService: CategoryPropertiesService,
-              private route: ActivatedRoute, private router: Router, private location: Location) {}
+  constructor(
+              private categoryService: CategoryService, 
+              private propertyService: CategoryPropertiesService,
+              private route: ActivatedRoute, 
+              private router: Router, 
+              private location: Location, 
+              private insuranceService: InsuranceService) {
+                this.categoryId = +this.route.snapshot.paramMap.get('id');
+              }
 
   ngOnInit() {
-    this.getCategory();
+    this.getInsurance();
   }
 
-  getCategory() {
-    this.title = '';
-    this.coefficient = null;
-    this.categoryService.getOneCategory(+this.route.snapshot.paramMap.get('id')).subscribe(result => {
-      this.category = result;
-     if (this.category.status === 'DELETED'){
-       this.category.deleted = true;
-     }
-      for(let i = 0; i < this.category.properties.length; i++){
-          if (this.category.properties[i].status === 'DELETED'){
-
-            this.category.properties[i].deleted = true;
-          } else {
-            this.category.properties[i].deleted = false;
+  getInsurance(){
+    this.insuranceService.getAllInsurances().subscribe(
+      res => {
+        this.insurances = res;
+        for(let insurance of this.insurances){
+          for (let category of insurance.categories){
+            if (category.id === this.categoryId){
+              this.insurance = insurance;
+              this.insuranceTitle = insurance.title;
+              this.oldInsurance = insurance.title;
+              this.category = category; 
+              this.category['insurance'] = insurance;        
+              this.oldCategory = category.title;
+              this.oldStatus = category.status;
+              console.log(this.category);
+              console.log(this.insurance);
+            }
+            if (this.category.status === 'DELETED'){
+              this.category.deleted = true;
+            }
           }
-      }
-    }, error => {
-      alert('Error to read category');
+        }
+      }, 
+      error => {
 
-    });
+      }
+    );
   }
 
   updCategory() {
-    console.log(this.category.title);
-    if (this.updateFlag && this.category.title.trim().length) {
-      this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
-        this.getCategory();
-        this.updateFlag = false;
+    console.log(this.category);
+    if ((this.oldStatus !== this.category.status || 
+          this.oldCategory !== this.category.title || 
+          this.oldInsurance !== this.insurance.title) && this.category.title.trim().length) {
+        this.category['insurance'] = this.insurance;
+        console.log(this.category);
+        this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
         this.successAlert();
       }, err => {
         alert('false');
       });
     } else {
-      this.clearError();
+      this.showError();
     }
   }
 
-  clearError() {
+  showError() {
     this.error = 'You have nothing to update !';
     document.getElementById('Error').style.display = 'block';
     setTimeout(function() {
@@ -75,19 +105,27 @@ export class CategoryPropertiesComponent implements OnInit {
   }
 
   successAlert() {
-    if(this.category.title.trim().length && this.category.title !== this.initialValue) {
+    if((this.oldCategory !== this.category.title || 
+      this.oldInsurance !== this.insurance.title || 
+      this.oldStatus !== this.category.status) && 
+      this.category.title.trim().length) {
       this.succes = 'Updated successfully !';
       document.getElementById('Success').style.display = 'block';
       setTimeout(function() {
       document.getElementById('Success').style.display = 'none'; }, 3000); }
   }
   onChangeCategory() {
-    this.updateFlag = true;
+    
   }
 
-  updStatus(status) {
+  changeStatus(status) {
     this.category.status = status;
-    this.updateFlag = true;
+  }
+
+  changeInsurance(insuranceId){
+    this.insuranceTitle = this.insurances[insuranceId].title;
+    this.insurance = this.insurances[insuranceId];
+    console.log(this.insurance);
   }
 
   saveProperty() {

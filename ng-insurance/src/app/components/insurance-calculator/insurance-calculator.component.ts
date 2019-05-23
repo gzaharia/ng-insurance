@@ -73,7 +73,7 @@ export class InsuranceCalculatorComponent implements OnInit {
       } else {
         for (let j = this.categories[i].properties.length - 1; j >= 0; j--) {
           if (this.categories[i].properties[j].status === 'DELETED') {
-              this.categories[i].properties.splice(j, 1);
+            this.categories[i].properties.splice(j, 1);
           }
         }
         if (this.categories[i].properties.length === 0) {
@@ -88,7 +88,15 @@ export class InsuranceCalculatorComponent implements OnInit {
 
   arrToOrder(map) {
     const order: Order = {
-      properties: []
+      properties: [],
+      insurance: {
+        id: null,
+        title: '',
+        basePrice: null,
+        status: '',
+        deleted: false,
+        categories: []
+      }
     };
     map.forEach(function (value) {
       order.properties.push({id: value.id});
@@ -98,6 +106,7 @@ export class InsuranceCalculatorComponent implements OnInit {
 
   getPrice() {
     const order: Order = this.arrToOrder(this.selectedProperties);
+    order.insurance = this.selectedInsurance;
     this.orderService.priceOrder(order).subscribe(res => {
       this.price = res;
       this.priceFlag = true;
@@ -129,8 +138,11 @@ export class InsuranceCalculatorComponent implements OnInit {
   postOrder() {
     this.order.insurance = this.selectedInsurance;
     this.order.properties = this.arrToOrder(this.selectedProperties).properties;
+
+    console.log(this.order);
     this.orderService.postOrder(this.order).subscribe(
-      result => {},
+      result => {
+      },
       error => {
         alert('Error while adding new order!');
       }

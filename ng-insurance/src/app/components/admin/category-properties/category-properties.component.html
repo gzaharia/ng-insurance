@@ -2,21 +2,28 @@
   <div class="form-row align-items-center my-3">
     <div class="col-md">
       <label class="sr-only" for="category.title">Category:</label>
-      <input type="text" class="form-control" (change)="onChangeCategory()"  [(ngModel)]="category['title']" id="category.title" placeholder="update ">
+      <input type="text" class="form-control" (change)="onChangeCategory()"  [(ngModel)]="category.title" id="category.title" placeholder="update ">
     </div>
 
     <div class="col-md">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ category.status }}
+          {{category.status}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="updStatus('ACTIVE')">ACTIVE</a>
-          <a class="dropdown-item" (click)="updStatus('DELETED')">DELETED</a>
+          <a class="dropdown-item" (click)="changeStatus('ACTIVE')">ACTIVE</a>
+          <a class="dropdown-item" (click)="changeStatus('DELETED')">DELETED</a>
         </div>
       </div>
-      <div class="valid-feedback">
-        Category update successfully!
+    </div>
+    <div class="col-md">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ insuranceTitle }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" *ngFor="let insurance of insurances; let id = index;" (click)="changeInsurance(id)">{{insurance.title}}</a>
+        </div>
       </div>
     </div>
     <div class="col-auto">
