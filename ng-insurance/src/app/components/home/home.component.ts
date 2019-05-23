@@ -18,11 +18,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.insurances = this.route.snapshot.data.insurances;
 
-    for (let j = this.insurances.length - 1; j >= 0; j--) {
-      if (this.insurances[j].status === 'DELETED') {
-        this.insurances.splice(j, 1);
-      }
-    }
+    // for (let j = this.insurances.length - 1; j >= 0; j--) {
+    //   if (this.insurances[j].status === 'DELETED') {
+    //     this.insurances.splice(j, 1);
+    //   }
+    // }
   }
 
 }

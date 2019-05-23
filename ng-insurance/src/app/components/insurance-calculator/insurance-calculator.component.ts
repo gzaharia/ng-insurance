@@ -132,7 +132,8 @@ export class InsuranceCalculatorComponent implements OnInit {
     } else {
       this.visible = true;
     }
-
+    setTimeout(function(){
+    window.scrollBy(0, document.body.scrollHeight)}, 1);
   }
 
   postOrder() {

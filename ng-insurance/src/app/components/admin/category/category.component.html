@@ -106,7 +106,7 @@
       <tbody *ngIf=insurance?.categories>
       <tr *ngFor="let category of insurance.categories; let item=index">
         <td>{{item + 1 }}</td>
-        <td>{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span> <br>#{{category.properties.length}}  </td>
+        <td>{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span> </td>
         <td width="80" align="center">
           <button class="btn btn-primary btn-sm" title="edit category"
                   (click)="edit(category.id)">Edit</button>

@@ -14,6 +14,6 @@ export class InsuranceCalculatorResolverService implements Resolve<Insurance[]> 
   ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Insurance[]> | Promise<Insurance[]> | Insurance[] {
-    return this.insuranceService.getAllInsurances();
+    return this.insuranceService.getAllActiveInsurances();
   }
 }
