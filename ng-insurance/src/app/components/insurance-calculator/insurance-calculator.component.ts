@@ -5,7 +5,7 @@ import {Order} from '../../model/order/order';
 import {RightOfPossesion} from '../../model/right-of-possession/right-of-possesion.enum';
 import {OrderViewModel} from '../../model/order/orderViewModel';
 import {InsuranceService} from '../../service/insurance/insurance.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Insurance} from '../../model/insurance/insurance';
 
 @Component({
@@ -45,7 +45,8 @@ export class InsuranceCalculatorComponent implements OnInit {
   constructor(
     private insuranceService: InsuranceService,
     private orderService: OrderService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -83,7 +84,6 @@ export class InsuranceCalculatorComponent implements OnInit {
     if (this.categories[0]) {
       this.displayedCategories.push(this.categories[0]);
     }
-  
   }
 
   arrToOrder(map) {

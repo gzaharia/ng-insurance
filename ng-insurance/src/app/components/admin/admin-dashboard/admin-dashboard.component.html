@@ -11,10 +11,14 @@
       <div class="d-flex flex-row flex-wrap">
         <div class="card card-block col-md-4 my-2" *ngFor="let order of pendingOrders | paginate: { itemsPerPage: 9, currentPage: p1, id: 'first' }">
           <div class="card-header mt-3">
-            <div class="card-text">Nr. comenzii: {{order.id}}</div>
+            <div class="card-text float-left text-muted">#{{order.id}}</div>
+            <div class="card-text float-right text-muted">{{order.time_created | date: 'medium'}}</div>
           </div>
-
           <div class="card-body">
+            <dl class="row">
+              <dt class="col">Tipul de asigurare:</dt>
+              <dd class="col">{{order.insurance.title}}</dd>
+            </dl>
             <dl class="row">
               <dt class="col">Persoana:</dt>
               <dd class="col">{{order.firstName}} {{order.lastName}}</dd>
@@ -60,10 +64,15 @@
           <div class="d-flex flex-row flex-wrap">
             <div class="card card-block col-md-4 my-2" *ngFor="let order of approvedOrders | paginate: { itemsPerPage: 9, currentPage: p2, id: 'second' }">
               <div class="card-header mt-3">
-                <div class="card-text">Nr. comenzii: {{order.id}}</div>
+                <div class="card-text float-left text-muted">#{{order.id}}</div>
+                <div class="card-text float-right text-muted">{{order.time_created | date: 'medium'}}</div>
               </div>
 
               <div class="card-body">
+                <dl class="row">
+                  <dt class="col">Tipul de asigurare:</dt>
+                  <dd class="col">{{order.insurance.title}}</dd>
+                </dl>
                 <dl class="row">
                   <dt class="col">Persoana:</dt>
                   <dd class="col">{{order.firstName}} {{order.lastName}}</dd>
@@ -101,10 +110,17 @@
           <div class="d-flex flex-row flex-wrap">
             <div class="card card-block col-md-4 my-2" *ngFor="let order of declinedOrders | paginate: { itemsPerPage: 9, currentPage: p3, id: 'third' }">
               <div class="card-header mt-3">
-                <div class="card-text">Nr. comenzii: {{order.id}}</div>
+                <div class="float-left text-muted">#{{order.id}}</div>
+                <div class="float-right text-muted">
+                  {{order.time_created | date: 'medium'}}
+                </div>
               </div>
 
               <div class="card-body">
+                <dl class="row">
+                  <dt class="col">Tipul de asigurare:</dt>
+                  <dd class="col">{{order.insurance.title}}</dd>
+                </dl>
                 <dl class="row">
                   <dt class="col">Persoana:</dt>
                   <dd class="col">{{order.firstName}} {{order.lastName}}</dd>
@@ -147,7 +163,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detalii despre comandă</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Comanda nr. {{orderDetails.id}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -155,8 +171,8 @@
       <div class="modal-body">
         <div>
           <dl class="row">
-            <dt class="col">Comanda nr:</dt>
-            <dd class="col">{{orderDetails.id}}</dd>
+            <dt class="col">Tipul de asigurare:</dt>
+            <dd class="col">{{orderDetails.insurance.title}}</dd>
           </dl>
           <dl class="row">
             <dt class="col">Persoana:</dt>
@@ -188,11 +204,19 @@
           </dl>
           <dl class="row">
             <dt class="col">Status:</dt>
-            <dd class="col" [ngStyle]="getStatusStyle()">{{orderDetails.status}}</dd>
+            <dd class="col">
+              <div [ngStyle]="getStatusStyle()">
+                {{orderDetails.status}}
+              </div>
+              <small *ngIf="orderDetails.status !== 'PENDING'">
+                ({{orderDetails.status === 'APPROVED' ? 'Aproved' : 'Declined'}} on: {{orderDetails.time_updated | date: 'medium'}})
+              </small>
+            </dd>
           </dl>
         </div>
       </div>
       <div class="modal-footer">
+        <div class="text-muted mr-auto">{{orderDetails.time_created | date: 'medium'}}</div>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button
           type="button"
