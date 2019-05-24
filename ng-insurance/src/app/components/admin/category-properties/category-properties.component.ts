@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/model/category/category';
-import { CategoryService } from 'src/app/service/category/category.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
-import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
+import {Component, OnInit} from '@angular/core';
+import {Category} from 'src/app/model/category/category';
+import {CategoryService} from 'src/app/service/category/category.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CategoryPropertiesService} from 'src/app/service/category-properties/category-properties.service';
 import {Location} from '@angular/common';
-import { InsuranceService } from 'src/app/service/insurance/insurance.service';
-import { Insurance } from 'src/app/model/insurance/insurance';
-import { CategoryPropertiesViewModel } from 'src/app/model/category-properties/category-propertiesViewModel';
-import { shortInsurance } from 'src/app/model/insurance/shortInsurance';
+import {InsuranceService} from 'src/app/service/insurance/insurance.service';
+import {Insurance} from 'src/app/model/insurance/insurance';
+import {CategoryPropertiesViewModel} from 'src/app/model/category-properties/category-propertiesViewModel';
+import {shortInsurance} from 'src/app/model/insurance/shortInsurance';
 
 @Component({
   selector: 'app-property',
@@ -80,7 +79,6 @@ export class CategoryPropertiesComponent implements OnInit {
   }
 
   updCategory() {
-    console.log(this.category);
     if ((this.oldStatus !== this.category.status || 
           this.oldCategory !== this.category.title || 
           this.oldInsurance !== this.insurance.title) && this.category.title.trim().length) {
