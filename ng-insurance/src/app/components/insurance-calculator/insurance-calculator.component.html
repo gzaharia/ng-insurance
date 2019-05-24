@@ -73,7 +73,13 @@
         role="tabpanel"
         aria-labelledby="nav-order-tab"
       >
-        <form class="mt-3">
+        <form
+          #orderForm="ngForm"
+          (ngSubmit)="orderForm.form.valid && postOrder()"
+          class="mt-3"
+          name="orderForm"
+          novalidate
+        >
           <div class="row">
             <div class="col">
               <label for="firstNameInput">Nume</label>
@@ -84,7 +90,33 @@
                 class="form-control"
                 placeholder="Nume"
                 [(ngModel)]="order.firstName"
+                #firstName="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && firstName.invalid }"
+                maxlength="25"
+                minlength="2"
+                pattern="([a-zA-Z]{2,25})"
+                required
               >
+              <div
+                *ngIf="orderForm.submitted && firstName.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="firstName.errors.required">
+                  Numele este necesar!
+                </div>
+
+                <div *ngIf="firstName.errors.minlength">
+                  Numele trebuie să conțină cel puțin 2 caractere!
+                </div>
+
+                <div *ngIf="firstName.errors.maxlength">
+                  Numele trebuie să conțină cel mult 25 de caractere!
+                </div>
+
+                <div *ngIf="firstName.errors.pattern">
+                  Nume incorect!
+                </div>
+              </div>
             </div>
 
             <div class="col">
@@ -96,7 +128,33 @@
                 class="form-control"
                 placeholder="Prenume"
                 [(ngModel)]="order.lastName"
+                #lastName="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && firstName.invalid }"
+                maxlength="25"
+                minlength="2"
+                pattern="([a-zA-Z]{2,25})"
+                required
+              />
+              <div
+                *ngIf="orderForm.submitted && lastName.invalid"
+                class="invalid-feedback"
               >
+                <div *ngIf="lastName.errors.required">
+                  Prenumele este necesar!
+                </div>
+
+                <div *ngIf="lastName.errors.minlength">
+                  Prenumele trebuie să conțină cel puțin 2 caractere!
+                </div>
+
+                <div *ngIf="lastName.errors.maxlength">
+                  Prenumele trebuie să conțină cel mult 25 de caractere!
+                </div>
+
+                <div *ngIf="lastName.errors.pattern">
+                  Prenume incorect!
+                </div>
+              </div>
             </div>
           </div>
 
@@ -110,7 +168,33 @@
                 class="form-control"
                 placeholder="IDNP"
                 [(ngModel)]="order.idnp"
+                #idnp="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && idnp.invalid }"
+                maxlength="13"
+                minlength="13"
+                pattern="([0-9]{13})"
+                required
               >
+              <div
+                *ngIf="orderForm.submitted && idnp.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="idnp.errors.required">
+                  IDNP este necesar!
+                </div>
+
+                <div *ngIf="idnp.errors.minlength">
+                  IDNP trebuie să conțină 13 cifre!
+                </div>
+
+                <div *ngIf="idnp.errors.maxlength">
+                  IDNP trebuie să conțină 13 cifre!
+                </div>
+
+                <div *ngIf="idnp.errors.pattern">
+                  IDNP incorect!
+                </div>
+              </div>
             </div>
 
             <div class="col">
@@ -120,24 +204,60 @@
                 id="rightOfPossesionInput"
                 class="form-control"
                 [(ngModel)]="order.rightOfPossesion"
+                #rightOfPossession="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && order.rightOfPossesion === '' }"
+                required
               >
-                <option *ngFor="let right of rightOfPossesionList">
+                <option hidden value="">Alegeți dreptul de posesiune</option>
+                <option *ngFor="let right of rightOfPossesionList" [ngValue]="right">
                   {{right}}
                 </option>
               </select>
+              <div
+                *ngIf="orderForm.submitted && order.rightOfPossesion === ''"
+                class="invalid-feedback"
+              >
+                Dreptul de posesiune este necesar!
+              </div>
             </div>
           </div>
 
           <div class="row mt-3">
             <div class="col">
               <label for="docNumberInput">Numărul certificatului de înmatriculare</label>
-              <input type="number"
+              <input #docNumber="ngModel"
                      name="docNumberInput"
                      id="docNumberInput"
                      class="form-control"
                      placeholder="Numărul certificatului de înmatriculare"
                      [(ngModel)]="order.docNumber"
+                     [ngClass]="{ 'is-invalid': orderForm.submitted && docNumber.invalid }"
+                     maxlength="9"
+                     minlength="9"
+                     pattern="([0-9]{9})"
+                     required
+                     type="text"
               >
+              <div
+                *ngIf="orderForm.submitted && docNumber.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="docNumber.errors.required">
+                  Numărul certificatului de înmatriculare este necesar!
+                </div>
+
+                <div *ngIf="docNumber.errors.minlength">
+                  Numărul certificatului de înmatriculare trebuie să conțină 9 cifre!
+                </div>
+
+                <div *ngIf="docNumber.errors.maxlength">
+                  Numărul certificatului de înmatriculare trebuie să conțină 9 cifre!
+                </div>
+
+                <div *ngIf="docNumber.errors.pattern">
+                  Numărul certificatului de înmatriculare este incorect!
+                </div>
+              </div>
             </div>
 
             <div class="col">
@@ -146,10 +266,36 @@
                 type="text"
                 name="licencePlateNumberInput"
                 id="licencePlateNumberInput"
-                class="form-control"
+                #licencePlateNumber="ngModel"
                 placeholder="Numărul de înmatriculare"
                 [(ngModel)]="order.licensePlateNumber"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && licencePlateNumber.invalid }"
+                class="form-control text-uppercase"
+                maxlength="8"
+                minlength="5"
+                pattern=""
+                required
               >
+              <div
+                *ngIf="orderForm.submitted && licencePlateNumber.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="licencePlateNumber.errors.required">
+                  Numărul de înmatriculare este necesar!
+                </div>
+
+                <div *ngIf="licencePlateNumber.errors.minlength">
+                  Numărul de înmatriculare trebuie să conțină cel puțin 5 caractere!
+                </div>
+
+                <div *ngIf="licencePlateNumber.errors.maxlength">
+                  Numărul de înmatriculare trebuie să conțină cel mult 8 caractere!
+                </div>
+
+                <div *ngIf="licencePlateNumber.errors.pattern">
+                  Numărul de înmatriculare este incorect!
+                </div>
+              </div>
             </div>
           </div>
           <div class="row mt-3">
@@ -161,7 +307,23 @@
                      class="form-control"
                      placeholder="E-mail"
                      [(ngModel)]="order.email"
+                     #email="ngModel"
+                     [ngClass]="{ 'is-invalid': orderForm.submitted && email.invalid }"
+                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                     required
               >
+              <div
+                *ngIf="orderForm.submitted && email.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="email.errors.required">
+                  E-mail este necesar!
+                </div>
+
+                <div *ngIf="email.errors.pattern">
+                  E-mail este incorect!
+                </div>
+              </div>
             </div>
 
             <div class="col">
@@ -173,21 +335,47 @@
                 class="form-control"
                 placeholder="Numărul de telefon"
                 [(ngModel)]="order.phoneNo"
+                #phoneNo="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && phoneNo.invalid }"
+                maxlength="9"
+                minlength="9"
+                pattern="([0])([2-3]|[5-9])([0-9]{7})"
+                required
               >
+              <div
+                *ngIf="orderForm.submitted && phoneNo.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="phoneNo.errors.required">
+                  Numărul de telefon este necesar!
+                </div>
+
+                <div *ngIf="phoneNo.errors.minlength">
+                  Numărul de telefon trebuie să conțină 9 cifre!
+                </div>
+
+                <div *ngIf="phoneNo.errors.maxlength">
+                  Numărul de telefon trebuie să conțină 9 cifre!
+                </div>
+
+                <div *ngIf="phoneNo.errors.pattern">
+                  Numărul de telefon este incorect!
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="row mt-3">
             <div class="col">
               <button
-                (click)="postOrder()"
+                [disabled]="ordered"
                 class="btn btn-primary"
-                data-target="#successModal"
-                data-toggle="modal"
-                type="button"
               >
                 Confirmă
               </button>
+              <div *ngIf="ordered" class="spinner-border ml-2" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
             </div>
           </div>
         </form>

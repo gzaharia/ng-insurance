@@ -22,6 +22,7 @@ export class InsuranceCalculatorComponent implements OnInit {
   private insurances: Insurance[] = [];
   private selectedInsuranceName: string;
   private selectedInsurance: Insurance;
+  private ordered = false;
   displayedCategories: Category[] = [];
   category: Category;
   selectedProperties;
@@ -137,15 +138,18 @@ export class InsuranceCalculatorComponent implements OnInit {
   }
 
   postOrder() {
+    this.ordered = true;
     this.order.insurance = this.selectedInsurance;
     this.order.properties = this.arrToOrder(this.selectedProperties).properties;
 
-    console.log(this.order);
     this.orderService.postOrder(this.order).subscribe(
-      result => {
+      () => {
       },
       error => {
         alert('Error while adding new order!');
+      },
+      () => {
+        this.router.navigate(['/'], {queryParams: {success: 'true'}});
       }
     );
   }
