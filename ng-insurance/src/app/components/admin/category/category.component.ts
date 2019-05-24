@@ -36,7 +36,7 @@ export class CategoryComponent implements OnInit {
     private router: Router, 
     private route: ActivatedRoute) {
 
-    this.id = +this.route.snapshot.paramMap.get('id')
+    this.id = +this.route.snapshot.paramMap.get('id');
    }
 
   ngOnInit() {

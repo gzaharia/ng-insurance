@@ -10,7 +10,8 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CategoryService {
-  private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all`;
+  // private GET_ALL_INSURANCES_CATEGORIES = '${ApiService.BASE_URL}\\categories\/all2';
+  private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all2`;
   private GET_ACTIVE_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
   private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\/`;
   private POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;

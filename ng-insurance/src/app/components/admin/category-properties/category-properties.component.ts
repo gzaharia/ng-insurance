@@ -51,12 +51,12 @@ export class CategoryPropertiesComponent implements OnInit {
     this.getInsurance();
   }
 
-  getInsurance(){
+  getInsurance() {
     this.insuranceService.getAllInsurances().subscribe(
       res => {
         this.insurances = res;
-        for(let insurance of this.insurances){
-          for (let category of insurance.categories){
+        for (const insurance of this.insurances) {
+          for (const category of insurance.categories) {
             if (category.id === this.categoryId){
               this.insurance = insurance;
               this.insuranceTitle = insurance.title;
@@ -134,13 +134,15 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.coefficient = this.coefficient;
     this.property.category = this.category;
     if (this.property.title.trim().length && this.property.coefficient >= 1) {
+      // delete(this.property.category.insuranceTitle);
+      console.log(this.property);
       this.propertyService.postProperty(this.property).subscribe(resp => {
         this.category.properties.push(resp);
         this.title = '';
         this.coefficient = null;
       }, err => {
-        this.error = 'could not save';
-        this.clearAddError();
+         this.error = 'could not save';
+         this.clearAddError();
       });
     } else {
       this.error = 'You have nothing to add !';

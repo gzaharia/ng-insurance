@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class InsuranceService {
-  
+
   private GET_ALL_INSURANCES_URL = `${ApiService.BASE_URL}\\insurances\\all`;
   private GET_ACTIVE_INSURANCE_URL = `${ApiService.BASE_URL}\\insurances\\`;
   private GET_ONE_INSURANCE_URL = `${ApiService.BASE_URL}\\insurances\\`;
