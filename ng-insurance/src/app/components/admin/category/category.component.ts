@@ -94,7 +94,7 @@ export class CategoryComponent implements OnInit {
 
   delete(id){
     this.insurance.categories[id].status = "DELETED";
-    this.categoryService.updateCategory(this.insurance.categories[id].id, this.insurance.categories[id]).subscribe(res => {
+    this.categoryService.deleteCategory(this.insurance.categories[id].id).subscribe(res => {
       this.insurance.categories[id].deleted = true;
     }, err => {
       alert('Delete FAIL');

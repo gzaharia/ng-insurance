@@ -8,6 +8,7 @@ import {Location} from '@angular/common';
 import { InsuranceService } from 'src/app/service/insurance/insurance.service';
 import { Insurance } from 'src/app/model/insurance/insurance';
 import { CategoryPropertiesViewModel } from 'src/app/model/category-properties/category-propertiesViewModel';
+import { shortInsurance } from 'src/app/model/insurance/shortInsurance';
 
 @Component({
   selector: 'app-property',
@@ -21,13 +22,9 @@ export class CategoryPropertiesComponent implements OnInit {
   title: string = '';
   coefficient: number;
   insurances: Insurance[] = [];
-  insurance: Insurance = {
+  insurance: shortInsurance = {
     id: null,
-    title: '',
-    basePrice: null,
-    status: '',
-    deleted: false,
-    categories: null
+    title: ''
   };
   category: Category = {} as any ;
   property: CategoryPropertiesViewModel = {} as any;
@@ -59,7 +56,8 @@ export class CategoryPropertiesComponent implements OnInit {
         for (const insurance of this.insurances) {
           for (const category of insurance.categories) {
             if (category.id === this.categoryId){
-              this.insurance = insurance;
+              this.insurance.id = insurance.id;
+              this.insurance.title = insurance.title;
               this.insuranceTitle = insurance.title;
               this.oldInsurance = insurance.title;
               this.category = category; 
@@ -87,8 +85,12 @@ export class CategoryPropertiesComponent implements OnInit {
           this.oldCategory !== this.category.title || 
           this.oldInsurance !== this.insurance.title) && this.category.title.trim().length) {
         this.category['insurance'] = this.insurance;
-        console.log(this.category);
+        this.oldStatus = this.category.status;
+        this.oldCategory = this.category.title;
+        this.oldInsurance = this.insurance.title;
         this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
+          this.category = res;
+          console.log(this.category);
         this.successAlert();
       }, err => {
         alert('false');
