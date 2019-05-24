@@ -7,6 +7,7 @@ import { CategoryProperties } from 'src/app/model/category-properties/category-p
 import {Location} from '@angular/common';
 import { InsuranceService } from 'src/app/service/insurance/insurance.service';
 import { Insurance } from 'src/app/model/insurance/insurance';
+import { CategoryPropertiesViewModel } from 'src/app/model/category-properties/category-propertiesViewModel';
 
 @Component({
   selector: 'app-property',
@@ -29,7 +30,7 @@ export class CategoryPropertiesComponent implements OnInit {
     categories: null
   };
   category: Category = {} as any ;
-  property: CategoryProperties = {} as any;
+  property: CategoryPropertiesViewModel = {} as any;
   error = '';
   succes = '';
   oldCategory: string;
@@ -132,7 +133,12 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.title = this.title;
     this.property.status = 'ACTIVE';
     this.property.coefficient = this.coefficient;
-    this.property.category = this.category;
+    console.log(this.property);
+    this.property.category = {
+      id: this.categoryId
+    };
+    delete(this.property.id);
+    console.log(this.property);
     if (this.property.title.trim().length && this.property.coefficient >= 1) {
       // delete(this.property.category.insuranceTitle);
       console.log(this.property);
