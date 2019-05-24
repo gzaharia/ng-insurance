@@ -10,8 +10,8 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CategoryService {
-  // private GET_ALL_INSURANCES_CATEGORIES = '${ApiService.BASE_URL}\\categories\/all2';
-  private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all2`;
+  private GET_ALL_INSURANCE_CATEGORIES = `${ApiService.BASE_URL}\\categories\/insurances`;
+  private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all`;
   private GET_ACTIVE_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
   private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\/`;
   private POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;
@@ -22,6 +22,12 @@ export class CategoryService {
 
   getAllCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.GET_ALL_CATEGORIES).pipe(
+      map((res: Category[]) => res)
+    );
+  }
+
+  getAllInsuranceCategories() : Observable<Category[]>{
+    return this.http.get<Category[]>(this.GET_ALL_INSURANCE_CATEGORIES).pipe(
       map((res: Category[]) => res)
     );
   }

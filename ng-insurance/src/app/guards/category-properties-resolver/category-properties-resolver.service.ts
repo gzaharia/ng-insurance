@@ -13,6 +13,6 @@ export class CategoryPropertiesResolverService implements Resolve<Category[]> {
     private categoryService: CategoryService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Category[]> {
-    return this.categoryService.getAllCategories();
+    return this.categoryService.getAllInsuranceCategories();
   }
 }
