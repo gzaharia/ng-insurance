@@ -29,6 +29,8 @@ import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/a
 import {NgxPaginationModule} from 'ngx-pagination';
 import {HomeComponent} from './components/home/home.component';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {ToastrModule} from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,6 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
     InsurancesComponent,
     InsuranceHeaderComponent,
     HomeComponent
-
   ],
   imports: [
     BrowserModule,
@@ -60,7 +61,9 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
     HttpClientModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
