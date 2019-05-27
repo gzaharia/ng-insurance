@@ -34,7 +34,7 @@
     </div>
   </div>
   <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
-  <div id="SuccessCategory" style="display: none" class="alert alert-success">{{succes}}</div>
+  <div id="SuccessCategory" *ngIf='showSuccesCategory === false' class="alert alert-success">{{succes}}</div>
   <p>Add property:</p>
 </div>
 
@@ -54,7 +54,7 @@
     </div>
   </div>
   <div id="AddError" style="display: none" class="alert alert-danger">{{error}}</div>
-  <div id="SuccessProperty" style="display: none" class="alert alert-success">{{succes}}</div>
+  <div id="SuccessProperty" *ngIf='!showSuccesProperty' class="alert alert-success">{{succes}}</div>
 </div>
 <div class="container">
   <div class="row">

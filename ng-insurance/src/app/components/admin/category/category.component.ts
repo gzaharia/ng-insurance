@@ -53,7 +53,6 @@ export class CategoryComponent implements OnInit {
         this.oldStatus = this.insurance.status;
         this.insuranceBasePrice = this.insurance.basePrice;
         for(let i = 0; i < this.insurance.categories.length; i++){
-          console.log(this.insurance.categories[i].status);
             if (this.insurance.categories[i].status===("DELETED")){
               this.insurance.categories[i].deleted = true;
             }else{

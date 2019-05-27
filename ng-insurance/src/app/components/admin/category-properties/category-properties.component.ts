@@ -33,7 +33,8 @@ export class CategoryPropertiesComponent implements OnInit {
   oldStatus: string;
   oldInsurance: string;
   insuranceTitle: string = '';
-
+  showSuccesCategory: boolean = true;
+  showSuccesProperty: boolean = true;
   constructor(
               private categoryService: CategoryService, 
               private propertyService: CategoryPropertiesService,
@@ -86,10 +87,11 @@ export class CategoryPropertiesComponent implements OnInit {
         this.oldInsurance = this.insurance.title;
         this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
           this.category = res;
-        this.successAlert('SuccesCategory');
-      }, err => {
+          this.succes = 'Updated successfully !';
+          this.successAlert('SuccesCategory');
+        }, err => {
         alert('false');
-      });
+        });
     } else {
       this.showError();
     }
@@ -102,17 +104,23 @@ export class CategoryPropertiesComponent implements OnInit {
     document.getElementById('Error').style.display = 'none'; }, 3000);
   }
 
-  successAlert(tagName) {
-    if((this.oldCategory !== this.category.title || 
-      this.oldInsurance !== this.insurance.title || 
-      this.oldStatus !== this.category.status) && 
-      this.category.title.trim().length) {
-      this.succes = 'Updated successfully !';
-      document.getElementById(tagName).style.display = 'block';
-      setTimeout(function() {
-      document.getElementById(tagName).style.display = 'none'; }, 3000); }
+  hiddeSucces(whatHide){
+    setTimeout(function() {
+      console.log(whatHide);
+      whatHide = true;
+      console.log(whatHide);
+    }, 
+  3000); 
   }
-  onChangeCategory() {
+
+  successAlert(tagName) {
+    if (tagName === 'SuccesCategory'){
+      this.showSuccesCategory = false;
+      this.hiddeSucces(this.showSuccesCategory);
+    } else {
+      this.showSuccesProperty = false;
+      this.hiddeSucces(this.showSuccesProperty);
+    }
     
   }
 
@@ -135,12 +143,12 @@ export class CategoryPropertiesComponent implements OnInit {
     };
     delete(this.property.id);
     if (this.property.title.trim().length && this.property.coefficient >= 1) {
-      // delete(this.property.category.insuranceTitle);
       this.propertyService.postProperty(this.property).subscribe(resp => {
         this.category.properties.push(resp);
         this.title = '';
         this.coefficient = null;
-        this.successAlert('SuccesCategory');
+        this.succes = 'Save property';
+        this.successAlert('SuccesProperty');
       }, err => {
          this.error = 'could not save';
          this.clearAddError();
