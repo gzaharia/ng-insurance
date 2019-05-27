@@ -1,4 +1,4 @@
-<div class="container" xmlns:odd="http://www.w3.org/1999/xhtml">
+<div class="container">
   <div class="card my-3">
       <div class="card-header">
         {{ operation }} insurance product
@@ -74,6 +74,11 @@
       </thead>
 
       <tbody *ngIf=insurances>
+      <tr *ngIf="insurances === undefined || insurances.length === 0">
+        <td class="text-center" colspan="5">
+          No insurances.
+        </td>
+      </tr>
       <tr *ngFor="let insurance of insurances; let item=index">
         <td>{{item + 1 }}</td>
         <td>{{ insurance.title }} <span *ngIf=insurance.deleted class="deleted">DELETED</span> </td>

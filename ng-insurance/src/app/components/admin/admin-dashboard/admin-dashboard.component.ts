@@ -141,6 +141,10 @@ export class AdminDashboardComponent implements OnInit {
         }
       );
     }
+
+    this.pendingOrders.sort((a, b) => new Date(b.time_created).getTime() - new Date(a.time_created).getTime());
+    this.approvedOrders.sort((a, b) => new Date(b.time_created).getTime() - new Date(a.time_created).getTime());
+    this.declinedOrders.sort((a, b) => new Date(b.time_created).getTime() - new Date(a.time_created).getTime());
   }
 
   getOrderDetails(id: number) {

@@ -60,6 +60,9 @@
       </div>
 
       <div class="d-flex flex-row flex-wrap">
+        <div *ngIf="pendingOrders === undefined || pendingOrders.length === 0" class="mx-5 my-3">
+          No orders.
+        </div>
         <div
           *ngFor="let order of (pendingOrders | filter: pendingSearchText | paginate: { itemsPerPage: 9, currentPage: p1, id: 'first' })"
           class="card card-block col-md-4 my-2">
@@ -164,6 +167,9 @@
           </div>
 
           <div class="d-flex flex-row flex-wrap">
+            <div *ngIf="approvedOrders === undefined || approvedOrders.length === 0" class="mx-5 my-3">
+              No orders.
+            </div>
             <div
               *ngFor="let order of (approvedOrders | filter: approvedSearchText | paginate: { itemsPerPage: 9, currentPage: p2, id: 'second' })"
               class="card card-block col-md-4 my-2">
@@ -261,6 +267,9 @@
           </div>
 
           <div class="d-flex flex-row flex-wrap">
+            <div *ngIf="declinedOrders === undefined || declinedOrders.length === 0" class="mx-5 my-3">
+              No orders.
+            </div>
             <div
               *ngFor="let order of (declinedOrders | filter: declinedSearchText | paginate: { itemsPerPage: 9, currentPage: p3, id: 'third'})"
               class="card card-block col-md-4 my-2">
