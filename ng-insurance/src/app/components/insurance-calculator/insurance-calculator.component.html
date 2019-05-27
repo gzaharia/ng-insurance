@@ -272,8 +272,8 @@
                 [ngClass]="{ 'is-invalid': orderForm.submitted && licencePlateNumber.invalid }"
                 class="form-control text-uppercase"
                 maxlength="8"
-                minlength="5"
-                pattern=""
+                minlength="3"
+                pattern="[a-z]{2,4} [0-9]{3,4}"
                 required
               >
               <div
