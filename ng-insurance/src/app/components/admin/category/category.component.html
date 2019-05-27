@@ -1,98 +1,113 @@
 <div class="container">
 
-    <div class="card my-3">
-        <div class="card-header">
-          {{ operation }} insurance product
-        </div>
-    
-        <div class="card-body">
-          <form class="my-3">
-            <div class="row">
-              <div class="col-5">
-                <input
-                  class="form-control"
-                  type="text"
-                  placeholder="new insurance"
-                  name="newInsurance"
-                  id="newInsurance"
-                  [(ngModel)]="insuranceTitle"
-                />          
-              </div>
-              <div class="col-3">
-                <input
-                  class="form-control"
-                  type="number"
-                  placeholder="Base price"
-                  name="basePriceInput"
-                  id="basePriceInput"
-                  [(ngModel)]="insuranceBasePrice"
-                />
-              </div>
-              <div class="col-2">
-                <button 
-                  class="form-control btn btn-secondary dropdown-toggle" 
-                  type="button" 
-                  id="dropdownMenuButton" 
-                  data-toggle="dropdown" 
-                  aria-haspopup="true" 
-                  aria-expanded="false" 
-                  name="statusInput" 
-                  id="statusInput" >
-                  {{insurance?.status}}
-                </button>
-                <div 
-                  class="dropdown-menu" 
-                  aria-labelledby="dropdownMenuButton">
-                  <a 
-                    class="dropdown-item" 
-                    (click)="updStatusInsurance('ACTIVE')">
-                    ACTIVE
-                  </a>
-                  <a 
-                    class="dropdown-item" 
-                    (click)="updStatusInsurance('DELETED')">
-                    DELETED
-                  </a>
-                </div>
-              </div>
-              <div 
-                class="col-2">
-                <button
-                  class="form-control btn btn-primary btn-sm"
-                  (click)="saveInsurance()" >
-                  {{ action }}
-                </button>
-              </div>
-              <div 
-                id="ErrorInsurance" 
-                style="display: none" 
-                class="alert alert-danger col-12">
-                {{error}}
-              </div>
-              <div 
-                id="SuccesInsurance" 
-                style="display: none" 
-                class="alert alert-success col-12">
-                {{succes}}
-              </div>
-            </div>
-          </form>
-        </div>
+  <div class="card my-3">
+    <div class="card-header">
+      {{ operation }} insurance product
     </div>
-  
-<div class="row">
-  <div class="col-11">
-    <label class="sr-only" for="inlineFormInput">Name</label>
-    <input type="text" class="form-control" data-toggle="tooltip" title="Enter the category" [(ngModel)]="title" id="inlineFormInput" placeholder="Category name">
-  </div>
-  <div class="col-1">
-    <button type="submit" class="btn btn-primary" (click)=saveCategory()>Add</button>
-  </div>
-  <div id="ErrorCategory" style="display: none" class="alert alert-danger col-12">{{error}}</div>
-  <div id="SuccesCategory" style="display: none" class="alert alert-success col-12">{{succes}}</div>
-</div>
 
-<div class="container" xmlns:odd="http://www.w3.org/1999/xhtml">
+    <div class="card-body">
+      <form>
+        <div class="row">
+          <div class="col-4">
+            <input
+              [(ngModel)]="insuranceTitle"
+              class="form-control"
+              id="newInsurance"
+              name="newInsurance"
+              placeholder="new insurance"
+              type="text"
+            />
+          </div>
+          <div class="col-3">
+            <input
+              [(ngModel)]="insuranceBasePrice"
+              class="form-control"
+              id="basePriceInput"
+              name="basePriceInput"
+              placeholder="Base price"
+              type="number"
+            />
+          </div>
+          <div class="col-2">
+            <button
+              aria-expanded="false"
+              aria-haspopup="true"
+              class="form-control btn btn-secondary dropdown-toggle"
+              data-toggle="dropdown"
+              id="dropdownMenuButton"
+              id="statusInput"
+              name="statusInput"
+              type="button">
+              {{insurance?.status}}
+            </button>
+            <div
+              aria-labelledby="dropdownMenuButton"
+              class="dropdown-menu">
+              <a
+                (click)="updStatusInsurance('ACTIVE')"
+                class="dropdown-item">
+                ACTIVE
+              </a>
+              <a
+                (click)="updStatusInsurance('DELETED')"
+                class="dropdown-item">
+                DELETED
+              </a>
+            </div>
+          </div>
+          <div class="col">
+            <button (click)="router.navigateByUrl('/admin/insurances')" class="btn btn-secondary">
+              Back
+            </button>
+          </div>
+          <div
+            class="col">
+            <button
+              (click)="saveInsurance()"
+              class="form-control btn btn-primary">
+              {{ action }}
+            </button>
+          </div>
+          <div
+            class="alert alert-danger col-12"
+            id="ErrorInsurance"
+            style="display: none">
+            {{error}}
+          </div>
+          <div
+            class="alert alert-success col-12"
+            id="SuccesInsurance"
+            style="display: none">
+            {{succes}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      Add a new category
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-11">
+          <label class="sr-only" for="inlineFormInput">Name</label>
+          <input [(ngModel)]="title" class="form-control" data-toggle="tooltip" id="inlineFormInput"
+                 placeholder="Category name"
+                 title="Enter the category" type="text">
+        </div>
+        <div class="col-1">
+          <button (click)=saveCategory() class="btn btn-primary" type="submit">Add</button>
+        </div>
+        <div class="alert alert-danger col-12" id="ErrorCategory" style="display: none">{{error}}</div>
+        <div class="alert alert-success col-12" id="SuccesCategory" style="display: none">{{succes}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
     <table class="table table-bordered table-hover table-sm table-striped mt-3">
       <thead>
       <tr>
@@ -104,18 +119,25 @@
       </thead>
 
       <tbody *ngIf=insurance?.categories>
+      <tr *ngIf="insurance.categories === undefined || insurance.categories.length === 0">
+        <td class="text-center" colspan="4">
+          No categories.
+        </td>
+      </tr>
       <tr *ngFor="let category of insurance.categories; let item=index">
         <td>{{item + 1 }}</td>
-        <td>{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span> </td>
+        <td>{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span></td>
         <td width="80" align="center">
           <button class="btn btn-primary btn-sm" title="edit category"
-                  (click)="edit(category.id)">Edit</button>
+                  (click)="edit(category.id)">Edit
+          </button>
         </td>
         <td width="100" align="center">
           <button class="btn btn-danger btn-sm" title="delete category"
-          (click)="delete(item)">Delete</button>
+                  (click)="delete(item)">Delete
+          </button>
         </td>
       </tr>
       </tbody>
     </table>
-</div>
+  </div>
