@@ -88,7 +88,7 @@ export class CategoryPropertiesComponent implements OnInit {
         this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
           this.category = res;
           this.succes = 'Updated successfully !';
-          this.successAlert('SuccesCategory');
+          this.successAlert('SuccessCategory');
         }, err => {
         alert('false');
         });
@@ -104,22 +104,17 @@ export class CategoryPropertiesComponent implements OnInit {
     document.getElementById('Error').style.display = 'none'; }, 3000);
   }
 
-  hiddeSucces(whatHide){
-    setTimeout(function() {
-      console.log(whatHide);
-      whatHide = true;
-      console.log(whatHide);
-    }, 
-  3000); 
-  }
-
   successAlert(tagName) {
-    if (tagName === 'SuccesCategory'){
+    if (tagName === 'SuccessCategory') {
       this.showSuccesCategory = false;
-      this.hiddeSucces(this.showSuccesCategory);
+      setTimeout(() => {
+        this.showSuccesCategory = true;
+      }, 3000);
     } else {
       this.showSuccesProperty = false;
-      this.hiddeSucces(this.showSuccesProperty);
+      setTimeout(() => {
+        this.showSuccesProperty = true;
+      }, 3000);
     }
     
   }
@@ -147,8 +142,8 @@ export class CategoryPropertiesComponent implements OnInit {
         this.category.properties.push(resp);
         this.title = '';
         this.coefficient = null;
-        this.succes = 'Save property';
-        this.successAlert('SuccesProperty');
+        this.succes = 'Property added successfully!';
+        this.successAlert('SuccessProperty');
       }, err => {
          this.error = 'could not save';
          this.clearAddError();

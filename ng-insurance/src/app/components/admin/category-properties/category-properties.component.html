@@ -8,7 +8,7 @@
       <div class="form-row align-items-center">
         <div class="col-md">
           <label class="sr-only" for="category.title">Category:</label>
-          <input (change)="onChangeCategory()" [(ngModel)]="category.title" class="form-control" id="category.title"
+          <input [(ngModel)]="category.title" class="form-control" id="category.title"
                  placeholder="update " type="text">
         </div>
 
@@ -46,7 +46,6 @@
       <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
       <div id="SuccessCategory" *ngIf='showSuccesCategory === false' class="alert alert-success">{{succes}}</div>
     </div>
-    </div>
   </div>
 </div>
 
@@ -73,7 +72,7 @@
         </div>
       </div>
       <div id="AddError" style="display: none" class="alert alert-danger">{{error}}</div>
-      <div id="SuccessProperty" *ngIf='!showSuccesProperty' class="alert alert-success">{{succes}}</div>
+      <div *ngIf='showSuccesProperty === false' class="alert alert-success" id="SuccessProperty">{{succes}}</div>
     </div>
   </div>
 </div>
@@ -102,11 +101,13 @@
       <td>{{property.coefficient}}</td>
       <td width="80" align="center">
         <button class="btn btn-primary btn-sm" title="edit property"
-                (click)="edit(property.id)">Edit</button>
+                (click)="edit(property.id)">Edit
+        </button>
       </td>
       <td width="100" align="center">
         <button class="btn btn-danger btn-sm" title="delete property"
-                (click)="delete(id)">Delete</button>
+                (click)="delete(id)">Delete
+        </button>
       </td>
     </tr>
     </tbody>
