@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/model/category/category';
-import { CategoryService } from 'src/app/service/category/category.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
-import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
+import {Component, OnInit} from '@angular/core';
+import {Category} from 'src/app/model/category/category';
+import {CategoryService} from 'src/app/service/category/category.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CategoryPropertiesService} from 'src/app/service/category-properties/category-properties.service';
 import {Location} from '@angular/common';
-import { InsuranceService } from 'src/app/service/insurance/insurance.service';
-import { Insurance } from 'src/app/model/insurance/insurance';
-import { CategoryPropertiesViewModel } from 'src/app/model/category-properties/category-propertiesViewModel';
-import { shortInsurance } from 'src/app/model/insurance/shortInsurance';
+import {InsuranceService} from 'src/app/service/insurance/insurance.service';
+import {Insurance} from 'src/app/model/insurance/insurance';
+import {CategoryPropertiesViewModel} from 'src/app/model/category-properties/category-propertiesViewModel';
+import {shortInsurance} from 'src/app/model/insurance/shortInsurance';
 
 @Component({
   selector: 'app-property',
@@ -34,7 +33,8 @@ export class CategoryPropertiesComponent implements OnInit {
   oldStatus: string;
   oldInsurance: string;
   insuranceTitle: string = '';
-
+  showSuccesCategory: boolean = true;
+  showSuccesProperty: boolean = true;
   constructor(
               private categoryService: CategoryService, 
               private propertyService: CategoryPropertiesService,
@@ -64,8 +64,6 @@ export class CategoryPropertiesComponent implements OnInit {
               this.category['insurance'] = insurance;        
               this.oldCategory = category.title;
               this.oldStatus = category.status;
-              console.log(this.category);
-              console.log(this.insurance);
             }
             if (this.category.status === 'DELETED'){
               this.category.deleted = true;
@@ -80,7 +78,6 @@ export class CategoryPropertiesComponent implements OnInit {
   }
 
   updCategory() {
-    console.log(this.category);
     if ((this.oldStatus !== this.category.status || 
           this.oldCategory !== this.category.title || 
           this.oldInsurance !== this.insurance.title) && this.category.title.trim().length) {
@@ -90,11 +87,11 @@ export class CategoryPropertiesComponent implements OnInit {
         this.oldInsurance = this.insurance.title;
         this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
           this.category = res;
-          console.log(this.category);
-        this.successAlert();
-      }, err => {
+          this.succes = 'Updated successfully !';
+          this.successAlert('SuccessCategory');
+        }, err => {
         alert('false');
-      });
+        });
     } else {
       this.showError();
     }
@@ -107,17 +104,18 @@ export class CategoryPropertiesComponent implements OnInit {
     document.getElementById('Error').style.display = 'none'; }, 3000);
   }
 
-  successAlert() {
-    if((this.oldCategory !== this.category.title || 
-      this.oldInsurance !== this.insurance.title || 
-      this.oldStatus !== this.category.status) && 
-      this.category.title.trim().length) {
-      this.succes = 'Updated successfully !';
-      document.getElementById('Success').style.display = 'block';
-      setTimeout(function() {
-      document.getElementById('Success').style.display = 'none'; }, 3000); }
-  }
-  onChangeCategory() {
+  successAlert(tagName) {
+    if (tagName === 'SuccessCategory') {
+      this.showSuccesCategory = false;
+      setTimeout(() => {
+        this.showSuccesCategory = true;
+      }, 3000);
+    } else {
+      this.showSuccesProperty = false;
+      setTimeout(() => {
+        this.showSuccesProperty = true;
+      }, 3000);
+    }
     
   }
 
@@ -127,27 +125,25 @@ export class CategoryPropertiesComponent implements OnInit {
 
   changeInsurance(insuranceId){
     this.insuranceTitle = this.insurances[insuranceId].title;
-    this.insurance = this.insurances[insuranceId];
-    console.log(this.insurance);
+    this.insurance = this.insurances[insuranceId];    
   }
 
   saveProperty() {
     this.property.title = this.title;
     this.property.status = 'ACTIVE';
     this.property.coefficient = this.coefficient;
-    console.log(this.property);
+  
     this.property.category = {
       id: this.categoryId
     };
     delete(this.property.id);
-    console.log(this.property);
     if (this.property.title.trim().length && this.property.coefficient >= 1) {
-      // delete(this.property.category.insuranceTitle);
-      console.log(this.property);
       this.propertyService.postProperty(this.property).subscribe(resp => {
         this.category.properties.push(resp);
         this.title = '';
         this.coefficient = null;
+        this.succes = 'Property added successfully!';
+        this.successAlert('SuccessProperty');
       }, err => {
          this.error = 'could not save';
          this.clearAddError();

@@ -1,65 +1,83 @@
 <div class="container">
-  <div class="form-row align-items-center my-3">
-    <div class="col-md">
-      <label class="sr-only" for="category.title">Category:</label>
-      <input type="text" class="form-control" (change)="onChangeCategory()"  [(ngModel)]="category.title" id="category.title" placeholder="update ">
+  <div class="card my-3">
+    <div class="card-header">
+      Edit category
     </div>
 
-    <div class="col-md">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{category.status}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="changeStatus('ACTIVE')">ACTIVE</a>
-          <a class="dropdown-item" (click)="changeStatus('DELETED')">DELETED</a>
+    <div class="card-body">
+      <div class="form-row align-items-center">
+        <div class="col-md">
+          <label class="sr-only" for="category.title">Category:</label>
+          <input [(ngModel)]="category.title" class="form-control" id="category.title"
+                 placeholder="update " type="text">
+        </div>
+
+        <div class="col-md">
+          <div class="dropdown">
+            <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
+                    data-toggle="dropdown" id="dropdownMenuButton" type="button">
+              {{category.status}}
+            </button>
+            <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+              <a (click)="changeStatus('ACTIVE')" class="dropdown-item">ACTIVE</a>
+              <a (click)="changeStatus('DELETED')" class="dropdown-item">DELETED</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="dropdown">
+            <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
+                    data-toggle="dropdown" id="dropdownMenuButton" type="button">
+              {{ insuranceTitle }}
+            </button>
+            <div aria-labelledby="dropdownMenuButton" class="dropdown-menu">
+              <a (click)="changeInsurance(id)" *ngFor="let insurance of insurances; let id = index;"
+                 class="dropdown-item">{{insurance.title}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <button (click)="location.back()" class="btn btn-secondary" type="submit">Cancel</button>
+        </div>
+        <div class="col-auto">
+          <button (click)=updCategory() class="btn btn-primary" id="updateButton" type="submit">Update</button>
         </div>
       </div>
-    </div>
-    <div class="col-md">
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ insuranceTitle }}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" *ngFor="let insurance of insurances; let id = index;" (click)="changeInsurance(id)">{{insurance.title}}</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-secondary mb-2" (click)="location.back()">Cancel</button>
-    </div>
-    <div class="col-auto">
-      <button type="submit" id="updateButton" class="btn btn-primary mb-2" (click)=updCategory()>Update</button>
+      <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
+      <div id="SuccessCategory" *ngIf='showSuccesCategory === false' class="alert alert-success">{{succes}}</div>
     </div>
   </div>
-  <div id="Error" style="display: none" class="alert alert-danger">{{error}}</div>
-  <div id="Success" style="display: none" class="alert alert-success">{{succes}}</div>
-  <p>Add property:</p>
 </div>
 
 
 <div class="container">
-  <div class="form-row align-items-center">
-    <div class="col-md">
-      <label class="sr-only" for="titleInput">Title</label>
-      <input type="text" class="form-control mb-2" [(ngModel)]="title" id="titleInput" placeholder="Property name">
+  <div class="card">
+    <div class="card-header">
+      Add a new property
     </div>
-    <div class="col-md">
-      <label class="sr-only" for="coefficientInput">Coefficient</label>
-      <input type="number" class="form-control mb-2" [(ngModel)]="coefficient" id="coefficientInput" placeholder="coefficient value">
-    </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-2" (click)=saveProperty()>Add</button>
+
+    <div class="card-body">
+      <div class="form-row align-items-center">
+        <div class="col-md">
+          <label class="sr-only" for="titleInput">Title</label>
+          <input [(ngModel)]="title" class="form-control" id="titleInput" placeholder="Property name" type="text">
+        </div>
+        <div class="col-md">
+          <label class="sr-only" for="coefficientInput">Coefficient</label>
+          <input [(ngModel)]="coefficient" class="form-control" id="coefficientInput" placeholder="coefficient value"
+                 type="number">
+        </div>
+        <div class="col-auto">
+          <button (click)=saveProperty() class="btn btn-primary" type="submit">Add</button>
+        </div>
+      </div>
+      <div id="AddError" style="display: none" class="alert alert-danger">{{error}}</div>
+      <div *ngIf='showSuccesProperty === false' class="alert alert-success" id="SuccessProperty">{{succes}}</div>
     </div>
   </div>
-  <div id="AddError" style="display: none" class="alert alert-danger">{{error}}</div>
 </div>
-<div class="container">
-  <div class="row">
-  </div>
-</div>
-<div class="container my-3" xmlns:odd="http://www.w3.org/1999/xhtml" *ngIf="category.properties?.length > 0" >
+
+<div class="container my-3">
   <table class="table table-bordered table-hover table-sm table-striped">
     <thead>
     <tr>
@@ -72,21 +90,26 @@
     </thead>
 
     <tbody>
+    <tr *ngIf="category.properties === undefined || category.properties.length === 0">
+      <td class="text-center" colspan="5">
+        No properties.
+      </td>
+    </tr>
     <tr *ngFor="let property of category.properties; let id = index">
       <td>{{id + 1 }}</td>
       <td>{{ property.title }}<span *ngIf="property.deleted" style="color:red"> DELETED </span></td>
       <td>{{property.coefficient}}</td>
       <td width="80" align="center">
         <button class="btn btn-primary btn-sm" title="edit property"
-                (click)="edit(property.id)">Edit</button>
+                (click)="edit(property.id)">Edit
+        </button>
       </td>
       <td width="100" align="center">
         <button class="btn btn-danger btn-sm" title="delete property"
-                (click)="delete(id)">Delete</button>
+                (click)="delete(id)">Delete
+        </button>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
-
-

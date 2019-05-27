@@ -1,7 +1,7 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
-import { Insurance } from 'src/app/model/insurance/insurance';
-import { InsuranceService } from 'src/app/service/insurance/insurance.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Insurance} from 'src/app/model/insurance/insurance';
+import {InsuranceService} from 'src/app/service/insurance/insurance.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-insurances',
@@ -93,14 +93,14 @@ export class InsurancesComponent implements OnInit {
   }
 
   showError() {
-    this.error = 'You have nothing to save!';
+    this.error = 'You have nothing to add!';
     document.getElementById('Error').style.display = 'block';
     setTimeout(function() {
     document.getElementById('Error').style.display = 'none'; }, 3000);
   }
 
   showSucces() {
-    this.succes = 'You save data !';
+    this.succes = 'Insurance successfully added!';
     document.getElementById('Succes').style.display = 'block';
     setTimeout(function() {
     document.getElementById('Succes').style.display = 'none'; }, 3000);
