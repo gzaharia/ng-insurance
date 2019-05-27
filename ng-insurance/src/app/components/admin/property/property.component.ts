@@ -27,9 +27,9 @@ export class PropertyComponent implements OnInit {
   private oldTitle = '';
 
   constructor(
-              private route: ActivatedRoute, 
+              private route: ActivatedRoute,
               private propertyService: CategoryPropertiesService,
-              private _location: Location) 
+              private _location: Location)
   {
     this.categories = this.route.snapshot.data.categories;
   }
@@ -49,7 +49,8 @@ export class PropertyComponent implements OnInit {
       for(let category of this.categories){
         for(let property of category.properties){
           if (property.id == this.id){
-            this.selectedCategory = category.title;
+            this.selectedCategory = category.title  +  ' | ' + category.insuranceTitle;
+
             this.property.category = category;
           }
         }
@@ -84,7 +85,7 @@ export class PropertyComponent implements OnInit {
             this.propertyError = 'You data dono\' update !';
             this.errorMessage();
           });
-      } else 
+      } else
       {
         this.propertyError = 'You have nothing to update !';
         this.errorMessage();
@@ -113,7 +114,7 @@ export class PropertyComponent implements OnInit {
 
   updCategory(id) {
     this.changeCategory = true;
-    this.selectedCategory = this.categories[id].title;
+    this.selectedCategory = this.categories[id].title + " | " + this.categories[id].insuranceTitle;
     this.property.category = this.categories[id];
   }
 }
