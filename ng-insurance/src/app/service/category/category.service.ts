@@ -20,11 +20,11 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.GET_ALL_CATEGORIES).pipe(
-      map((res: Category[]) => res)
-    );
-  }
+  // getAllCategories(): Observable<Category[]> {
+  //   return this.http.get<Category[]>(this.GET_ALL_CATEGORIES).pipe(
+  //     map((res: Category[]) => res)
+  //   );
+  // }
 
   getAllInsuranceCategories() : Observable<Category[]>{
     return this.http.get<Category[]>(this.GET_ALL_INSURANCE_CATEGORIES).pipe(
