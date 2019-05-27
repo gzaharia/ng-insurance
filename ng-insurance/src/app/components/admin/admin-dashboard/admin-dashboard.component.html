@@ -23,6 +23,10 @@
           </form>
         </div>
 
+        <div class="mr-auto p-2 align-items-center mt-sm-2">
+          <pagination-controls (pageChange)="p1 = $event" id="first"></pagination-controls>
+        </div>
+
         <div class="p-2 mt-2">
           <form class="form-inline">
             <div class="input-group">
@@ -125,6 +129,10 @@
               </form>
             </div>
 
+            <div class="mr-auto p-2 align-items-center mt-sm-2">
+              <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
+            </div>
+
             <form class="form-inline">
               <div class="input-group">
                 <label class="mr-2" for="approvedOrdersSortBySelect">Sort by:</label>
@@ -216,6 +224,10 @@
                   type="text"
                 >
               </form>
+            </div>
+
+            <div class="mr-auto p-2 align-items-center mt-sm-2">
+              <pagination-controls (pageChange)="p3 = $event" id="third"></pagination-controls>
             </div>
 
             <form class="form-inline">
