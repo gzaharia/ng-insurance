@@ -86,7 +86,7 @@ export class CategoryPropertiesComponent implements OnInit {
         this.oldInsurance = this.insurance.title;
         this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
           this.category = res;
-        this.successAlert();
+        this.successAlert('SuccesCategory');
       }, err => {
         alert('false');
       });
@@ -102,15 +102,15 @@ export class CategoryPropertiesComponent implements OnInit {
     document.getElementById('Error').style.display = 'none'; }, 3000);
   }
 
-  successAlert() {
+  successAlert(tagName) {
     if((this.oldCategory !== this.category.title || 
       this.oldInsurance !== this.insurance.title || 
       this.oldStatus !== this.category.status) && 
       this.category.title.trim().length) {
       this.succes = 'Updated successfully !';
-      document.getElementById('Success').style.display = 'block';
+      document.getElementById(tagName).style.display = 'block';
       setTimeout(function() {
-      document.getElementById('Success').style.display = 'none'; }, 3000); }
+      document.getElementById(tagName).style.display = 'none'; }, 3000); }
   }
   onChangeCategory() {
     
@@ -140,6 +140,7 @@ export class CategoryPropertiesComponent implements OnInit {
         this.category.properties.push(resp);
         this.title = '';
         this.coefficient = null;
+        this.successAlert('SuccesCategory');
       }, err => {
          this.error = 'could not save';
          this.clearAddError();
