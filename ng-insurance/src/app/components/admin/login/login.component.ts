@@ -17,11 +17,12 @@ export class LoginComponent implements OnInit {
   error = '';
 
   constructor(
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) { }
+    public formBuilder: FormBuilder,
+    public route: ActivatedRoute,
+    public router: Router,
+    public authenticationService: AuthenticationService
+  ) {
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -37,7 +38,9 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onSubmit() {
     this.submitted = true;

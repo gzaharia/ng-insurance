@@ -10,7 +10,8 @@ import {CategoryService} from '../../service/category/category.service';
 export class CategoryPropertiesResolverService implements Resolve<Category[]> {
 
   constructor(
-    private categoryService: CategoryService) { }
+    public categoryService: CategoryService) {
+  }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Category[]> {
     return this.categoryService.getAllInsuranceCategories();

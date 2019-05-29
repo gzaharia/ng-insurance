@@ -11,7 +11,7 @@ import {RoleViewModel} from '../../../../model/role/role-view-model';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  private user: EmployeeViewModel = {
+  user: EmployeeViewModel = {
     id: null,
     userName: '',
     password: '',
@@ -20,13 +20,14 @@ export class AddUserComponent implements OnInit {
     roles: [],
     status: null,
   };
-  private roles: RoleViewModel[] = [];
+  roles: RoleViewModel[] = [];
 
   constructor(
-    private userService: UserService,
-    private roleService: RoleService,
-    private router: Router
-  ) {}
+    public userService: UserService,
+    public roleService: RoleService,
+    public router: Router
+  ) {
+  }
 
   ngOnInit() {
     this.roleService.getAllRoles().subscribe(

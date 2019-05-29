@@ -5,24 +5,26 @@ import {Observable} from 'rxjs';
 import {Order} from '../../model/order/order';
 import {OrderViewModel} from '../../model/order/orderViewModel';
 import {OrderFullViewModel} from '../../model/order/order-full-view-model';
-import {Insurance} from "../../model/insurance/insurance";
+import {Insurance} from '../../model/insurance/insurance';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  private POST_ORDER = `${ApiService.BASE_URL}\\orders\\add`;
-  private PRICE_ORDER = `${ApiService.BASE_URL}\\orders\\price`;
-  private GET_ORDERS = `${ApiService.BASE_URL}\\orders`;
-  private GET_ONE_ORDER = `${ApiService.BASE_URL}\\orders\\`;
-  private GET_PENDING_ORDERS = `${ApiService.BASE_URL}\\orders\\pending`;
-  private GET_APPROVED_ORDERS = `${ApiService.BASE_URL}\\orders\\approved`;
-  private GET_DECLINED_ORDERS = `${ApiService.BASE_URL}\\orders\\declined`;
-  private UPDATE_ORDER_STATUS = `${ApiService.BASE_URL}\\orders\\edit\\status\\`;
-  private GET_INSURANCE_FROM_ORDER = `${ApiService.BASE_URL}\\orders\\insurance\\`;
+  POST_ORDER = `${ApiService.BASE_URL}\\orders\\add`;
+  PRICE_ORDER = `${ApiService.BASE_URL}\\orders\\price`;
+  GET_ORDERS = `${ApiService.BASE_URL}\\orders`;
+  GET_ONE_ORDER = `${ApiService.BASE_URL}\\orders\\`;
+  GET_PENDING_ORDERS = `${ApiService.BASE_URL}\\orders\\pending`;
+  GET_APPROVED_ORDERS = `${ApiService.BASE_URL}\\orders\\approved`;
+  GET_DECLINED_ORDERS = `${ApiService.BASE_URL}\\orders\\declined`;
+  UPDATE_ORDER_STATUS = `${ApiService.BASE_URL}\\orders\\edit\\status\\`;
+  GET_INSURANCE_FROM_ORDER = `${ApiService.BASE_URL}\\orders\\insurance\\`;
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) {
+  }
+
   priceOrder(order: Order): Observable<any> {
     return this.http.post(this.PRICE_ORDER, order);
   }

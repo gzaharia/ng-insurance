@@ -10,8 +10,9 @@ import {InsuranceService} from '../../service/insurance/insurance.service';
 export class InsuranceCalculatorResolverService implements Resolve<Insurance[]> {
 
   constructor(
-    private insuranceService: InsuranceService
-  ) { }
+    public insuranceService: InsuranceService
+  ) {
+  }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Insurance[]> | Promise<Insurance[]> | Insurance[] {
     return this.insuranceService.getAllActiveInsurances();

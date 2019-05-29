@@ -14,15 +14,15 @@ export class AdminDashboardComponent implements OnInit {
   p1: number;
   p2: number;
   p3: number;
-  private pendingOrders: OrderFullViewModel[] = [];
-  private approvedOrders: OrderFullViewModel[] = [];
-  private declinedOrders: OrderFullViewModel[] = [];
-  private sortingMethod: string;
-  private orderMethod: string;
-  private pendingSearchText: string;
-  private approvedSearchText: string;
-  private declinedSearchText: string;
-  private selectedInsurance: Insurance = {
+  pendingOrders: OrderFullViewModel[] = [];
+  approvedOrders: OrderFullViewModel[] = [];
+  declinedOrders: OrderFullViewModel[] = [];
+  sortingMethod: string;
+  orderMethod: string;
+  pendingSearchText: string;
+  approvedSearchText: string;
+  declinedSearchText: string;
+  selectedInsurance: Insurance = {
     basePrice: 0,
     categories: [],
     deleted: false,
@@ -30,7 +30,7 @@ export class AdminDashboardComponent implements OnInit {
     status: '',
     title: ''
   };
-  private orderDetails: OrderFullViewModel = {
+  orderDetails: OrderFullViewModel = {
     id: 0,
     properties: [],
     docNumber: '',
@@ -53,7 +53,7 @@ export class AdminDashboardComponent implements OnInit {
     time_created: null,
     time_updated: null
   };
-  private sampleInsurance: Insurance = {
+  sampleInsurance: Insurance = {
     basePrice: 0,
     categories: [],
     deleted: false,
@@ -63,8 +63,8 @@ export class AdminDashboardComponent implements OnInit {
   };
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private orderService: OrderService
+    public activatedRoute: ActivatedRoute,
+    public orderService: OrderService
   ) {
   }
 

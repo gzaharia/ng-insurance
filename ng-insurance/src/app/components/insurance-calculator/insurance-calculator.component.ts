@@ -15,14 +15,14 @@ import {Insurance} from '../../model/insurance/insurance';
 })
 export class InsuranceCalculatorComponent implements OnInit {
   categories: Category[];
-  public visible = false;
-  public showFlag = true;
-  public priceFlag = false;
-  private price: number;
-  private insurances: Insurance[] = [];
-  private selectedInsuranceName: string;
-  private selectedInsurance: Insurance;
-  private ordered = false;
+  visible = false;
+  showFlag = true;
+  priceFlag = false;
+  price: number;
+  insurances: Insurance[] = [];
+  selectedInsuranceName: string;
+  selectedInsurance: Insurance;
+  ordered = false;
   displayedCategories: Category[] = [];
   category: Category;
   selectedProperties;
@@ -44,10 +44,10 @@ export class InsuranceCalculatorComponent implements OnInit {
   };
 
   constructor(
-    private insuranceService: InsuranceService,
-    private orderService: OrderService,
-    private route: ActivatedRoute,
-    private router: Router
+    public insuranceService: InsuranceService,
+    public orderService: OrderService,
+    public route: ActivatedRoute,
+    public router: Router
   ) {
   }
 
@@ -133,8 +133,9 @@ export class InsuranceCalculatorComponent implements OnInit {
     } else {
       this.visible = true;
     }
-    setTimeout(function(){
-    window.scrollBy(0, document.body.scrollHeight)}, 1);
+    setTimeout(function () {
+      window.scrollBy(0, document.body.scrollHeight)
+    }, 1);
   }
 
   postOrder() {

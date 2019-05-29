@@ -9,13 +9,14 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private insurances: Insurance[] = [];
+  insurances: Insurance[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private toast: ToastrService
-  ) { }
+    public route: ActivatedRoute,
+    public router: Router,
+    public toast: ToastrService
+  ) {
+  }
 
   ngOnInit() {
     this.insurances = this.route.snapshot.data.insurances;
@@ -24,12 +25,6 @@ export class HomeComponent implements OnInit {
         this.toast.success('Comanda dumneavoastră a fost plasată cu succes!', 'Succes!');
       }
     });
-
-    // for (let j = this.insurances.length - 1; j >= 0; j--) {
-    //   if (this.insurances[j].status === 'DELETED') {
-    //     this.insurances.splice(j, 1);
-    //   }
-    // }
   }
 
 }

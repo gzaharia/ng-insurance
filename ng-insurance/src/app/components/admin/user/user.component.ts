@@ -11,8 +11,8 @@ import {Employee} from '../../../model/employee/employee';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private employees: EmployeeViewModel[] = [];
-  private currentUser: Employee = {
+  employees: EmployeeViewModel[] = [];
+  currentUser: Employee = {
     id: null,
     username: '',
     password: '',
@@ -21,10 +21,11 @@ export class UserComponent implements OnInit {
   };
 
   constructor(
-    private userService: UserService,
-    private router: Router,
-    private auth: AuthenticationService
-  ) {}
+    public userService: UserService,
+    public router: Router,
+    public auth: AuthenticationService
+  ) {
+  }
 
   ngOnInit() {
     this.getAllEmployees();

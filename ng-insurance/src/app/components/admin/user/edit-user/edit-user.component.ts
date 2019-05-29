@@ -11,14 +11,14 @@ import {RoleService} from '../../../../service/role/role.service';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  private user: EmployeeViewModel;
-  private roles: RoleViewModel[] = [];
+  user: EmployeeViewModel;
+  roles: RoleViewModel[] = [];
 
   constructor(
-    private userService: UserService,
-    private roleService: RoleService,
-    private route: ActivatedRoute,
-    private router: Router
+    public userService: UserService,
+    public roleService: RoleService,
+    public route: ActivatedRoute,
+    public router: Router
   ) {
   }
 
@@ -53,7 +53,7 @@ export class EditUserComponent implements OnInit {
   }
 
   updateEmployee() {
-    const selectedRoles = this.roles.filter( (role) => role.checked );
+    const selectedRoles = this.roles.filter((role) => role.checked);
     this.user.roles = selectedRoles;
 
     this.userService.updateEmployee(this.user.id, this.user).subscribe(

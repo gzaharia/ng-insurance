@@ -3,21 +3,21 @@ import {ApiService} from '../shared/api.service';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EmployeeViewModel} from '../../model/employee/employee-view-model';
-import {Employee} from '../../model/employee/employee';
-import {map} from "rxjs/operators";
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private GET_ALL_USERS_URL = `${ApiService.BASE_URL}\\admin\\users`;
-  private GET_ONE_USER_BY_ID = `${ApiService.BASE_URL}\\admin\\users\\`;
-  private GET_ONE_USER_BY_USERNAME = `${ApiService.BASE_URL}\\admin\\users\\name\\`;
-  private POST_USER = `${ApiService.BASE_URL}\\admin\\users\\add`;
-  private PUT_USER_URL = `${ApiService.BASE_URL}\\admin\\users\\edit\\`;
-  private DELETE_USER_URL = `${ApiService.BASE_URL}\\admin\\users\\delete\\`;
+  GET_ALL_USERS_URL = `${ApiService.BASE_URL}\\admin\\users`;
+  GET_ONE_USER_BY_ID = `${ApiService.BASE_URL}\\admin\\users\\`;
+  GET_ONE_USER_BY_USERNAME = `${ApiService.BASE_URL}\\admin\\users\\name\\`;
+  POST_USER = `${ApiService.BASE_URL}\\admin\\users\\add`;
+  PUT_USER_URL = `${ApiService.BASE_URL}\\admin\\users\\edit\\`;
+  DELETE_USER_URL = `${ApiService.BASE_URL}\\admin\\users\\delete\\`;
 
-  constructor(private http: HttpClient) {}
+  constructor(public http: HttpClient) {
+  }
 
   getAllUsers(): Observable<EmployeeViewModel[]> {
     return this.http.get<EmployeeViewModel[]>(this.GET_ALL_USERS_URL).pipe(

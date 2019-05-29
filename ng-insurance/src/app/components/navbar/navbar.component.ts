@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
 import {Employee} from '../../model/employee/employee';
 import {Router} from '@angular/router';
-import { InsuranceService } from 'src/app/service/insurance/insurance.service';
+import {InsuranceService} from 'src/app/service/insurance/insurance.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,12 +11,12 @@ import { InsuranceService } from 'src/app/service/insurance/insurance.service';
 })
 export class NavbarComponent implements OnInit {
   currentUser: Employee;
-  private listOfInsurances = [];
+  listOfInsurances = [];
 
   constructor(
-    private auth: AuthenticationService,
-    private router: Router,
-    private insuranceService: InsuranceService
+    public auth: AuthenticationService,
+    public router: Router,
+    public insuranceService: InsuranceService
   ) {
     auth.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
       this.listOfInsurances = result;
     }, error => {
       alert('Fail');
-    } );
+    });
   }
 
 

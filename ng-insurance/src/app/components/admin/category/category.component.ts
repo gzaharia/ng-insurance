@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/service/category/category.service';
-import { Category } from 'src/app/model/category/category';
-import { CategoryViewModel } from 'src/app/model/category/CategoryViewModel';
-import { Router, ActivatedRoute } from '@angular/router';
-import { InsuranceService } from 'src/app/service/insurance/insurance.service';
-import { Insurance } from 'src/app/model/insurance/insurance';
-import { clearOverrides } from '@angular/core/src/view';
+import {Component, OnInit} from '@angular/core';
+import {CategoryService} from 'src/app/service/category/category.service';
+import {CategoryViewModel} from 'src/app/model/category/CategoryViewModel';
+import {ActivatedRoute, Router} from '@angular/router';
+import {InsuranceService} from 'src/app/service/insurance/insurance.service';
+import {Insurance} from 'src/app/model/insurance/insurance';
 
 
 @Component({
@@ -15,26 +13,26 @@ import { clearOverrides } from '@angular/core/src/view';
 })
 export class CategoryComponent implements OnInit {
 
-  private title: string = '';
-  private insurance: Insurance;
-  private category: CategoryViewModel = <any>{};
-  private error: string = '';
-  private id: number = null;
-  private insuranceTitle: string;
-  private insuranceBasePrice: number;
-  private operation: string = "Update";
-  private action:string = "Update";
-  private isSuccesVisible: boolean = false;
-  private succes: string;
-  private oldInsuranceTitle: string;
-  private oldBasePrice: number;
-  private oldStatus : string;
+  title: string = '';
+  insurance: Insurance;
+  category: CategoryViewModel = <any>{};
+  error: string = '';
+  id: number = null;
+  insuranceTitle: string;
+  insuranceBasePrice: number;
+  operation: string = "Update";
+  action:string = "Update";
+  isSuccesVisible: boolean = false;
+  succes: string;
+  oldInsuranceTitle: string;
+  oldBasePrice: number;
+  oldStatus : string;
 
   constructor(
-    private insuranceService: InsuranceService,
-    private categoryService: CategoryService, 
-    private router: Router, 
-    private route: ActivatedRoute) {
+    public insuranceService: InsuranceService,
+    public categoryService: CategoryService,
+    public router: Router,
+    public route: ActivatedRoute) {
 
     this.id = +this.route.snapshot.paramMap.get('id');
    }
