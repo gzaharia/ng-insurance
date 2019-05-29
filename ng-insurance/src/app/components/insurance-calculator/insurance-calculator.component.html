@@ -130,7 +130,7 @@
                 placeholder="Prenume"
                 [(ngModel)]="order.lastName"
                 #lastName="ngModel"
-                [ngClass]="{ 'is-invalid': orderForm.submitted && firstName.invalid }"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && lastName.invalid }"
                 maxlength="25"
                 minlength="2"
                 pattern="([a-zA-Z]{2,25})"
