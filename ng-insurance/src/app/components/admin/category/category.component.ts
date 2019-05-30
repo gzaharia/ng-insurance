@@ -4,6 +4,8 @@ import {CategoryViewModel} from 'src/app/model/category/CategoryViewModel';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InsuranceService} from 'src/app/service/insurance/insurance.service';
 import {Insurance} from 'src/app/model/insurance/insurance';
+import {InputTypeService} from '../../../service/input-type/input-type.service';
+import {InputTypes} from '../../../model/input-types/input-types.enum';
 
 @Component({
   selector: 'app-category',
@@ -22,16 +24,19 @@ export class CategoryComponent implements OnInit {
   operation: string = 'Update';
   action: string = 'Update';
   isSuccesVisible: boolean = false;
+  selectedInputType = InputTypes.RADIO;
   succes: string;
   oldInsuranceTitle: string;
   oldBasePrice: number;
   oldStatus: string;
+  inputTypes;
 
   constructor(
     public insuranceService: InsuranceService,
     public categoryService: CategoryService,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public inputTypeService: InputTypeService
   ) {
 
     this.id = +this.route.snapshot.paramMap.get('id');
@@ -39,6 +44,8 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.getAllCategories();
+
+    this.inputTypes = this.inputTypeService.getAllInputTypes();
   }
 
   getAllCategories() {
@@ -70,6 +77,7 @@ export class CategoryComponent implements OnInit {
     this.title = '';
     this.category.status = 'ACTIVE';
     this.category.insurance = this.insurance;
+    this.category.inputType = this.selectedInputType;
     if (this.category.title.trim().length) {
       this.categoryService.postCategory(this.category).subscribe(respon => {
           this.showSucces('SuccesCategory');

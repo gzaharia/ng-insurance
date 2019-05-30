@@ -33,11 +33,12 @@ export class CategoryPropertiesComponent implements OnInit {
   oldCategory: string;
   oldStatus: string;
   oldInsurance: string;
-  oldInputType = 'Input type';
   inputTypes;
   insuranceTitle: string = '';
   showSuccesCategory: boolean = true;
   showSuccesProperty: boolean = true;
+  selectedInputType;
+  oldInputType;
 
   constructor(
     public categoryService: CategoryService,
@@ -69,6 +70,8 @@ export class CategoryPropertiesComponent implements OnInit {
               this.insuranceTitle = insurance.title;
               this.oldInsurance = insurance.title;
               this.category = category;
+              this.selectedInputType = category.inputType;
+              this.oldInputType = this.selectedInputType;
               this.category['insurance'] = insurance;
               this.oldCategory = category.title;
               this.oldStatus = category.status;
@@ -88,11 +91,13 @@ export class CategoryPropertiesComponent implements OnInit {
   updCategory() {
     if ((this.oldStatus !== this.category.status ||
       this.oldCategory !== this.category.title ||
-      this.oldInsurance !== this.insurance.title) && this.category.title.trim().length) {
+      this.oldInsurance !== this.insurance.title ||
+    this.selectedInputType !== undefined) && this.category.title.trim().length) {
       this.category['insurance'] = this.insurance;
       this.oldStatus = this.category.status;
       this.oldCategory = this.category.title;
       this.oldInsurance = this.insurance.title;
+      this.category.inputType = this.selectedInputType;
       this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
         this.category = res;
         this.succes = 'Updated successfully !';

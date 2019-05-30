@@ -1,4 +1,5 @@
 import { CategoryProperties } from '../category-properties/category-properties';
+import {InputTypes} from '../input-types/input-types.enum';
 
 export interface Category {
   id: number;
@@ -7,4 +8,5 @@ export interface Category {
   status: string;
   deleted: boolean;
   insuranceTitle: string;
+  inputType: InputTypes;
 }
