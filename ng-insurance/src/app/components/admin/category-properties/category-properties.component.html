@@ -25,6 +25,12 @@
           </div>
         </div>
         <div class="col-md">
+          <select class="custom-select">
+            <option selected hidden disabled>Input type</option>
+            <option *ngFor="let input of inputTypes | async">{{input}}</option>
+          </select>
+        </div>
+        <div class="col-md">
           <div class="dropdown">
             <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
                     data-toggle="dropdown" id="dropdownMenuButton" type="button">

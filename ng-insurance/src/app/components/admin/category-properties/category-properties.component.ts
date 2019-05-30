@@ -8,6 +8,7 @@ import {InsuranceService} from 'src/app/service/insurance/insurance.service';
 import {Insurance} from 'src/app/model/insurance/insurance';
 import {CategoryPropertiesViewModel} from 'src/app/model/category-properties/category-propertiesViewModel';
 import {shortInsurance} from 'src/app/model/insurance/shortInsurance';
+import {InputTypeService} from '../../../service/input-type/input-type.service';
 
 @Component({
   selector: 'app-property',
@@ -32,6 +33,8 @@ export class CategoryPropertiesComponent implements OnInit {
   oldCategory: string;
   oldStatus: string;
   oldInsurance: string;
+  oldInputType = 'Input type';
+  inputTypes;
   insuranceTitle: string = '';
   showSuccesCategory: boolean = true;
   showSuccesProperty: boolean = true;
@@ -42,12 +45,16 @@ export class CategoryPropertiesComponent implements OnInit {
     public route: ActivatedRoute,
     public router: Router,
     public location: Location,
-    public insuranceService: InsuranceService) {
+    public insuranceService: InsuranceService,
+    public inputTypeService: InputTypeService
+  ) {
     this.categoryId = +this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
     this.getInsurance();
+
+    this.inputTypes = this.inputTypeService.getAllInputTypes();
   }
 
   getInsurance() {
