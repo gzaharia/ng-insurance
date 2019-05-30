@@ -8,6 +8,7 @@ import {InsuranceService} from 'src/app/service/insurance/insurance.service';
 import {Insurance} from 'src/app/model/insurance/insurance';
 import {CategoryPropertiesViewModel} from 'src/app/model/category-properties/category-propertiesViewModel';
 import {shortInsurance} from 'src/app/model/insurance/shortInsurance';
+import {InputTypeService} from '../../../service/input-type/input-type.service';
 
 @Component({
   selector: 'app-property',
@@ -25,28 +26,36 @@ export class CategoryPropertiesComponent implements OnInit {
     id: null,
     title: ''
   };
-  category: Category = {} as any ;
+  category: Category = {} as any;
   property: CategoryPropertiesViewModel = {} as any;
   error = '';
   succes = '';
   oldCategory: string;
   oldStatus: string;
   oldInsurance: string;
+  inputTypes;
   insuranceTitle: string = '';
   showSuccesCategory: boolean = true;
   showSuccesProperty: boolean = true;
+  selectedInputType;
+  oldInputType;
+
   constructor(
-              private categoryService: CategoryService, 
-              private propertyService: CategoryPropertiesService,
-              private route: ActivatedRoute, 
-              private router: Router, 
-              private location: Location, 
-              private insuranceService: InsuranceService) {
-                this.categoryId = +this.route.snapshot.paramMap.get('id');
-              }
+    public categoryService: CategoryService,
+    public propertyService: CategoryPropertiesService,
+    public route: ActivatedRoute,
+    public router: Router,
+    public location: Location,
+    public insuranceService: InsuranceService,
+    public inputTypeService: InputTypeService
+  ) {
+    this.categoryId = +this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit() {
     this.getInsurance();
+
+    this.inputTypes = this.inputTypeService.getAllInputTypes();
   }
 
   getInsurance() {
@@ -55,22 +64,24 @@ export class CategoryPropertiesComponent implements OnInit {
         this.insurances = res;
         for (const insurance of this.insurances) {
           for (const category of insurance.categories) {
-            if (category.id === this.categoryId){
+            if (category.id === this.categoryId) {
               this.insurance.id = insurance.id;
               this.insurance.title = insurance.title;
               this.insuranceTitle = insurance.title;
               this.oldInsurance = insurance.title;
-              this.category = category; 
-              this.category['insurance'] = insurance;        
+              this.category = category;
+              this.selectedInputType = category.inputType;
+              this.oldInputType = this.selectedInputType;
+              this.category['insurance'] = insurance;
               this.oldCategory = category.title;
               this.oldStatus = category.status;
             }
-            if (this.category.status === 'DELETED'){
+            if (this.category.status === 'DELETED') {
               this.category.deleted = true;
             }
           }
         }
-      }, 
+      },
       error => {
 
       }
@@ -78,20 +89,22 @@ export class CategoryPropertiesComponent implements OnInit {
   }
 
   updCategory() {
-    if ((this.oldStatus !== this.category.status || 
-          this.oldCategory !== this.category.title || 
-          this.oldInsurance !== this.insurance.title) && this.category.title.trim().length) {
-        this.category['insurance'] = this.insurance;
-        this.oldStatus = this.category.status;
-        this.oldCategory = this.category.title;
-        this.oldInsurance = this.insurance.title;
-        this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
-          this.category = res;
-          this.succes = 'Updated successfully !';
-          this.successAlert('SuccessCategory');
-        }, err => {
+    if ((this.oldStatus !== this.category.status ||
+      this.oldCategory !== this.category.title ||
+      this.oldInsurance !== this.insurance.title ||
+    this.selectedInputType !== undefined) && this.category.title.trim().length) {
+      this.category['insurance'] = this.insurance;
+      this.oldStatus = this.category.status;
+      this.oldCategory = this.category.title;
+      this.oldInsurance = this.insurance.title;
+      this.category.inputType = this.selectedInputType;
+      this.categoryService.updateCategory(this.category.id, this.category).subscribe(res => {
+        this.category = res;
+        this.succes = 'Updated successfully !';
+        this.successAlert('SuccessCategory');
+      }, err => {
         alert('false');
-        });
+      });
     } else {
       this.showError();
     }
@@ -100,8 +113,9 @@ export class CategoryPropertiesComponent implements OnInit {
   showError() {
     this.error = 'You have nothing to update !';
     document.getElementById('Error').style.display = 'block';
-    setTimeout(function() {
-    document.getElementById('Error').style.display = 'none'; }, 3000);
+    setTimeout(function () {
+      document.getElementById('Error').style.display = 'none';
+    }, 3000);
   }
 
   successAlert(tagName) {
@@ -116,27 +130,27 @@ export class CategoryPropertiesComponent implements OnInit {
         this.showSuccesProperty = true;
       }, 3000);
     }
-    
+
   }
 
   changeStatus(status) {
     this.category.status = status;
   }
 
-  changeInsurance(insuranceId){
+  changeInsurance(insuranceId) {
     this.insuranceTitle = this.insurances[insuranceId].title;
-    this.insurance = this.insurances[insuranceId];    
+    this.insurance = this.insurances[insuranceId];
   }
 
   saveProperty() {
     this.property.title = this.title;
     this.property.status = 'ACTIVE';
     this.property.coefficient = this.coefficient;
-  
+
     this.property.category = {
       id: this.categoryId
     };
-    delete(this.property.id);
+    delete (this.property.id);
     if (this.property.title.trim().length && this.property.coefficient >= 1) {
       this.propertyService.postProperty(this.property).subscribe(resp => {
         this.category.properties.push(resp);
@@ -145,8 +159,8 @@ export class CategoryPropertiesComponent implements OnInit {
         this.succes = 'Property added successfully!';
         this.successAlert('SuccessProperty');
       }, err => {
-         this.error = 'could not save';
-         this.clearAddError();
+        this.error = 'could not save';
+        this.clearAddError();
       });
     } else {
       this.error = 'You have nothing to add !';
@@ -156,8 +170,9 @@ export class CategoryPropertiesComponent implements OnInit {
 
   clearAddError() {
     document.getElementById('AddError').style.display = 'block';
-    setTimeout(function() {
-    document.getElementById('AddError').style.display = 'none'; }, 3000);
+    setTimeout(function () {
+      document.getElementById('AddError').style.display = 'none';
+    }, 3000);
   }
 
   edit(id) {
@@ -171,14 +186,14 @@ export class CategoryPropertiesComponent implements OnInit {
     this.property.category = this.category;
     this.property.status = 'DELETED';
     this.propertyService.deleteProperty(this.category.properties[id].id).subscribe(resp => {
-      this.category.properties[id].status = resp.status;
-      if (resp.status==='DELETED'){
-        this.category.properties[id].deleted = true;
-      }
-    }, err => {
+        this.category.properties[id].status = resp.status;
+        if (resp.status === 'DELETED') {
+          this.category.properties[id].deleted = true;
+        }
+      }, err => {
         alert('could not save');
 
-    }
+      }
     );
   }
 }

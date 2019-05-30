@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ApiService} from '../shared/api.service';
 import {Observable} from 'rxjs';
 import {Category} from '../../model/category/category';
-import { CategoryViewModel } from '../../model/category/CategoryViewModel';
+import {CategoryViewModel} from '../../model/category/CategoryViewModel';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 
@@ -10,23 +10,24 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CategoryService {
-  private GET_ALL_INSURANCE_CATEGORIES = `${ApiService.BASE_URL}\\categories\/insurances`;
-  private GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all`;
-  private GET_ACTIVE_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
-  private GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\/`;
-  private POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;
-  private UPDATE_CATEGORY = `${ApiService.BASE_URL}\/categories\/edit\/`;
-  private DELETE_CATEGORY = `${ApiService.BASE_URL}\/categories\/delete\/`;
+  GET_ALL_INSURANCE_CATEGORIES = `${ApiService.BASE_URL}\\categories\/insurances`;
+  GET_ALL_CATEGORIES = `${ApiService.BASE_URL}\\categories\/all`;
+  GET_ACTIVE_CATEGORIES = `${ApiService.BASE_URL}\\categories`;
+  GET_ONE_CATEGORY = `${ApiService.BASE_URL}\\categories\/`;
+  POST_CATEGORY = `${ApiService.BASE_URL}\/categories\/add`;
+  UPDATE_CATEGORY = `${ApiService.BASE_URL}\/categories\/edit\/`;
+  DELETE_CATEGORY = `${ApiService.BASE_URL}\/categories\/delete\/`;
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient) {
+  }
 
-  // getAllCategories(): Observable<Category[]> {
-  //   return this.http.get<Category[]>(this.GET_ALL_CATEGORIES).pipe(
-  //     map((res: Category[]) => res)
-  //   );
-  // }
+  getAllCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.GET_ALL_CATEGORIES).pipe(
+      map((res: Category[]) => res)
+    );
+  }
 
-  getAllInsuranceCategories() : Observable<Category[]>{
+  getAllInsuranceCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.GET_ALL_INSURANCE_CATEGORIES).pipe(
       map((res: Category[]) => res)
     );

@@ -24,7 +24,6 @@ import {AddUserComponent} from './components/admin/user/add-user/add-user.compon
 import {CategoryPropertiesResolverService} from './guards/category-properties-resolver/category-properties-resolver.service';
 import {BasePriceComponent} from './components/admin/category/base-price/base-price.component';
 import {InsurancesComponent} from './components/admin/insurances/insurances.component';
-import {InsuranceHeaderComponent} from './components/admin/insurance-header/insurance-header.component';
 import {AdminDashboardResolverService} from './guards/admin-dashboard-resolver/admin-dashboard-resolver.service';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {HomeComponent} from './components/home/home.component';
@@ -52,7 +51,6 @@ import { Ng5SliderModule } from 'ng5-slider';
     AddUserComponent,
     BasePriceComponent,
     InsurancesComponent,
-    InsuranceHeaderComponent,
     HomeComponent
   ],
   imports: [

@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class InsurancesComponent implements OnInit {
 
-  private insurance: Insurance = {
+  insurance: Insurance = {
     id: null,
     title: '',
     status: 'ACTIVE',
@@ -18,92 +18,94 @@ export class InsurancesComponent implements OnInit {
     categories: null,
     deleted: false
   };
-  private status: string = "ACTIVE";
-  private insurances: Insurance[] = [];
-  private title: string = '';
-  private basePrice: number;
-  public operation: string = 'Add new';
-  public action: string = 'Add'
-  private error:string = '';
-  private succes:string = '';
+  status: string = "ACTIVE";
+  insurances: Insurance[] = [];
+  title: string = '';
+  basePrice: number;
+  operation: string = 'Add new';
+  action: string = 'Add'
+  error: string = '';
+  succes: string = '';
 
   constructor(
-    private insuranceService: InsuranceService, 
-    private router: Router) {}
+    public insuranceService: InsuranceService,
+    public router: Router) {
+  }
 
   ngOnInit() {
     this.getAllInsurance();
   }
 
-  saveInsurance(){
-    if(this.title.trim().length > 0 && +this.basePrice > 0){
+  saveInsurance() {
+    if (this.title.trim().length > 0 && +this.basePrice > 0) {
       this.insurance.title = this.title;
       this.insurance.basePrice = this.basePrice;
-      this.insuranceService.postInsurance(this.insurance).subscribe(res =>{
+      this.insuranceService.postInsurance(this.insurance).subscribe(res => {
         this.insurance = res;
-          if (this.insurance.status === 'DELETED'){
-            this.insurance.deleted = true;
-          }
-          this.insurances.push(this.insurance);
-          this.showSucces();
+        if (this.insurance.status === 'DELETED') {
+          this.insurance.deleted = true;
+        }
+        this.insurances.push(this.insurance);
+        this.showSucces();
       }, err => {
-          this.showError();
+        this.showError();
       });
-    }
-    else{
+    } else {
       this.showError();
     }
   }
 
-  getAllInsurance(){
+  getAllInsurance() {
     this.insuranceService.getAllInsurances().subscribe(res => {
-        this.insurances = res;
-        for(let insurance of this.insurances){
-          if (insurance.status==="DELETED"){
-            insurance.deleted = true;
-          }
+      this.insurances = res;
+      for (let insurance of this.insurances) {
+        if (insurance.status === "DELETED") {
+          insurance.deleted = true;
         }
+      }
     }, err => {
       alert('error');
     });
   }
 
-  deleteInsurance(id){
+  deleteInsurance(id) {
     this.insuranceService.deleteInsurance(this.insurances[id].id).subscribe(res => {
-      this.insurances[id].deleted = true;
-      console.log(this.insurances);
-    },
-       err => {
+        this.insurances[id].deleted = true;
+        console.log(this.insurances);
+      },
+      err => {
         this.showError()
-    });
+      });
 
   }
 
-  editInsurance(id){
+  editInsurance(id) {
     this.router.navigateByUrl('admin/insurance/' + this.insurances[id].id);
   }
 
-  updStatus(status){
+  updStatus(status) {
     this.status = status;
     this.insurance.status = status;
   }
 
-  getStatus(){
+  getStatus() {
     return this.status;
   }
 
   showError() {
     this.error = 'You have nothing to add!';
     document.getElementById('Error').style.display = 'block';
-    setTimeout(function() {
-    document.getElementById('Error').style.display = 'none'; }, 3000);
+    setTimeout(function () {
+      document.getElementById('Error').style.display = 'none';
+    }, 3000);
   }
 
   showSucces() {
     this.succes = 'Insurance successfully added!';
     document.getElementById('Succes').style.display = 'block';
-    setTimeout(function() {
-    document.getElementById('Succes').style.display = 'none'; }, 3000);
+    setTimeout(function () {
+      document.getElementById('Succes').style.display = 'none';
+    }, 3000);
   }
 
 }

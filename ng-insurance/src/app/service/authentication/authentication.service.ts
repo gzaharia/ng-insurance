@@ -7,13 +7,13 @@ import {ApiService} from '../shared/api.service';
 import {Role} from '../../model/role/role.enum';
 import {JwtDecoder} from '../../helpers/jwt-decoder/jwt-decoder';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<Employee>;
-  public currentUser: Observable<Employee>;
+  currentUserSubject: BehaviorSubject<Employee>;
+  currentUser: Observable<Employee>;
 
   constructor(
-    private http: HttpClient
+    public http: HttpClient
   ) {
     this.currentUserSubject = new BehaviorSubject<Employee>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -24,7 +24,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`${ApiService.BASE_URL}/auth/login`, { username, password })
+    return this.http.post<any>(`${ApiService.BASE_URL}/auth/login`, {username, password})
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.token) {

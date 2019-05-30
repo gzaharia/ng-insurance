@@ -1,31 +1,32 @@
+
 <div class="container">
   <div class="m-3 align-self-center">
 
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a
+          class="nav-item nav-link"
           (click)="activeTab='calculator'"
           [ngClass]="{'active':activeTab==='calculator'}"
-          aria-controls="nav-calculator"
-          aria-selected="true"
-          class="nav-item nav-link"
+          id="nav-calculator-tab"
           data-toggle="tab"
           href="#nav-calculator"
-          id="nav-calculator-tab"
           role="tab"
+          aria-controls="nav-calculator"
+          aria-selected="true"
         >
           Calculator
         </a>
         <a
           *ngIf="calculated"
-          [ngClass]="{'active':activeTab==='order'}"
-          aria-controls="nav-order"
-          aria-selected="false"
           class="nav-item nav-link"
+          [ngClass]="{'active':activeTab==='order'}"
+          id="nav-order-tab"
           data-toggle="tab"
           href="#nav-order"
-          id="nav-order-tab"
           role="tab"
+          aria-controls="nav-order"
+          aria-selected="false"
         >
           Finalizarea
         </a>
@@ -34,21 +35,21 @@
 
     <!-- Tab content -->
     <div class="tab-content" id="nav-tabContent">
-      <div [ngClass]="{'show active':activeTab==='calculator'}" aria-labelledby="nav-calculator-tab" class="tab-pane fade"
-           id="nav-calculator" role="tabpanel">
+      <div class="tab-pane fade" [ngClass]="{'show active':activeTab==='calculator'}" id="nav-calculator"
+           role="tabpanel" aria-labelledby="nav-calculator-tab">
         <form (ngSubmit)="getPrice()">
           <div *ngFor="let category of displayedCategories; index as i" class="card-footer mt-3 form-group">
             <div *ngIf="showFlag">
               <div class="row">{{category.title}}
               </div>
-              <div *ngIf="category.inputType === 'RADIO'" class="btn-group-toggle row" data-toggle="buttons"
+              <div *ngIf="category.inputType === InputTypes[InputTypes.RADIO]" class="btn-group-toggle row" data-toggle="buttons"
                    role="group">
                 <label (click)="nextElement(i, pId)" *ngFor="let property of category.properties; index as pId"
                        class="btn btn-secondary">
                   <input name="{{property.id}}" type="radio">{{property.title}}
                 </label>
               </div>
-              <div *ngIf="category.inputType === 'DROPDOWN'" class="btn-group-toggle row">
+              <div *ngIf="category.inputType === InputTypes[InputTypes.DROPDOWN]" class="btn-group-toggle row">
                 <label>
                   <select #selectComponent class="selectpicker" (change)="nextElement(i, selectComponent.selectedIndex - 1)" data-live-search="true">
                     <option selected hidden>Alegeți o opțiune</option>
@@ -58,7 +59,7 @@
                     </select>
                 </label>
               </div>
-              <div  *ngIf="category.inputType === 'RANGE'" class="btn-group-toggle row" role="group">
+              <div  *ngIf="category.inputType === InputTypes[InputTypes.RANGE]" class="btn-group-toggle row" role="group">
                 <ng5-slider #sliderComponent (userChangeEnd)="nextElement(i, getLegendFromSliderOption(sliderComponent.value, i))" [(value)]="sliderValue[i]" [options]="sliderOptions[i]"></ng5-slider>
               </div>
             </div>
@@ -66,12 +67,12 @@
           <div class="row">
             <div class="col">
               <button
-                (click)="calculated = true"
                 *ngIf="visible"
-                class="btn btn-secondary row mb-3"
-                data-target="#priceModal"
-                data-toggle="modal"
                 type="submit"
+                class="btn btn-secondary row mb-3"
+                data-toggle="modal"
+                data-target="#priceModal"
+                (click)="calculated = true"
               >
                 Calculează
               </button>
@@ -81,11 +82,11 @@
       </div>
 
       <div
-        [ngClass]="{'show active':activeTab==='order'}"
-        aria-labelledby="nav-order-tab"
         class="tab-pane fade"
+        [ngClass]="{'show active':activeTab==='order'}"
         id="nav-order"
         role="tabpanel"
+        aria-labelledby="nav-order-tab"
       >
         <form
           #orderForm="ngForm"
@@ -98,18 +99,18 @@
             <div class="col">
               <label for="firstNameInput">Nume</label>
               <input
-                #firstName="ngModel"
-                [(ngModel)]="order.firstName"
-                [ngClass]="{ 'is-invalid': orderForm.submitted && firstName.invalid }"
-                class="form-control"
+                type="text"
+                name="firstNameInput"
                 id="firstNameInput"
+                class="form-control"
+                placeholder="Nume"
+                [(ngModel)]="order.firstName"
+                #firstName="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && firstName.invalid }"
                 maxlength="25"
                 minlength="2"
-                name="firstNameInput"
                 pattern="([a-zA-Z]{2,25})"
-                placeholder="Nume"
                 required
-                type="text"
               >
               <div
                 *ngIf="orderForm.submitted && firstName.invalid"
@@ -136,18 +137,18 @@
             <div class="col">
               <label for="lastNameInput">Prenume</label>
               <input
-                #lastName="ngModel"
-                [(ngModel)]="order.lastName"
-                [ngClass]="{ 'is-invalid': orderForm.submitted && firstName.invalid }"
-                class="form-control"
+                type="text"
+                name="lastNameInput"
                 id="lastNameInput"
+                class="form-control"
+                placeholder="Prenume"
+                [(ngModel)]="order.lastName"
+                #lastName="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && lastName.invalid }"
                 maxlength="25"
                 minlength="2"
-                name="lastNameInput"
                 pattern="([a-zA-Z]{2,25})"
-                placeholder="Prenume"
                 required
-                type="text"
               />
               <div
                 *ngIf="orderForm.submitted && lastName.invalid"
@@ -176,18 +177,18 @@
             <div class="col">
               <label for="idnpInput">IDNP</label>
               <input
-                #idnp="ngModel"
-                [(ngModel)]="order.idnp"
-                [ngClass]="{ 'is-invalid': orderForm.submitted && idnp.invalid }"
-                class="form-control"
+                type="text"
+                name="idnpInput"
                 id="idnpInput"
+                class="form-control"
+                placeholder="IDNP"
+                [(ngModel)]="order.idnp"
+                #idnp="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && idnp.invalid }"
                 maxlength="13"
                 minlength="13"
-                name="idnpInput"
                 pattern="([0-9]{13})"
-                placeholder="IDNP"
                 required
-                type="text"
               >
               <div
                 *ngIf="orderForm.submitted && idnp.invalid"
@@ -214,12 +215,12 @@
             <div class="col">
               <label for="rightOfPossesionInput">Dreptul de posesiune al autovehiculului</label>
               <select
-                #rightOfPossession="ngModel"
-                [(ngModel)]="order.rightOfPossesion"
-                [ngClass]="{ 'is-invalid': orderForm.submitted && order.rightOfPossesion === '' }"
-                class="form-control"
-                id="rightOfPossesionInput"
                 name="rightOfPossesionInput"
+                id="rightOfPossesionInput"
+                class="form-control"
+                [(ngModel)]="order.rightOfPossesion"
+                #rightOfPossession="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && order.rightOfPossesion === '' }"
                 required
               >
                 <option hidden value="">Alegeți dreptul de posesiune</option>
@@ -240,15 +241,15 @@
             <div class="col">
               <label for="docNumberInput">Numărul certificatului de înmatriculare</label>
               <input #docNumber="ngModel"
+                     name="docNumberInput"
+                     id="docNumberInput"
+                     class="form-control"
+                     placeholder="Numărul certificatului de înmatriculare"
                      [(ngModel)]="order.docNumber"
                      [ngClass]="{ 'is-invalid': orderForm.submitted && docNumber.invalid }"
-                     class="form-control"
-                     id="docNumberInput"
                      maxlength="9"
                      minlength="9"
-                     name="docNumberInput"
                      pattern="([0-9]{9})"
-                     placeholder="Numărul certificatului de înmatriculare"
                      required
                      type="text"
               >
@@ -277,18 +278,18 @@
             <div class="col">
               <label for="licencePlateNumberInput">Numărul de înmatriculare</label>
               <input
+                type="text"
+                name="licencePlateNumberInput"
+                id="licencePlateNumberInput"
                 #licencePlateNumber="ngModel"
+                placeholder="Numărul de înmatriculare"
                 [(ngModel)]="order.licensePlateNumber"
                 [ngClass]="{ 'is-invalid': orderForm.submitted && licencePlateNumber.invalid }"
                 class="form-control text-uppercase"
-                id="licencePlateNumberInput"
                 maxlength="8"
                 minlength="3"
-                name="licencePlateNumberInput"
                 pattern="[a-z]{2,4} [0-9]{3,4}"
-                placeholder="Numărul de înmatriculare"
                 required
-                type="text"
               >
               <div
                 *ngIf="orderForm.submitted && licencePlateNumber.invalid"
@@ -315,16 +316,16 @@
           <div class="row mt-3">
             <div class="col">
               <label for="emailInput">E-mail</label>
-              <input #email="ngModel"
-                     [(ngModel)]="order.email"
-                     [ngClass]="{ 'is-invalid': orderForm.submitted && email.invalid }"
-                     class="form-control"
-                     id="emailInput"
+              <input type="email"
                      name="emailInput"
-                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                     id="emailInput"
+                     class="form-control"
                      placeholder="E-mail"
+                     [(ngModel)]="order.email"
+                     #email="ngModel"
+                     [ngClass]="{ 'is-invalid': orderForm.submitted && email.invalid }"
+                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                      required
-                     type="email"
               >
               <div
                 *ngIf="orderForm.submitted && email.invalid"
@@ -343,18 +344,18 @@
             <div class="col">
               <label for="phoneNumberInput">Numărul de telefon</label>
               <input
-                #phoneNo="ngModel"
-                [(ngModel)]="order.phoneNo"
-                [ngClass]="{ 'is-invalid': orderForm.submitted && phoneNo.invalid }"
-                class="form-control"
+                type="text"
+                name="phoneNumberInput"
                 id="phoneNumberInput"
+                class="form-control"
+                placeholder="Numărul de telefon"
+                [(ngModel)]="order.phoneNo"
+                #phoneNo="ngModel"
+                [ngClass]="{ 'is-invalid': orderForm.submitted && phoneNo.invalid }"
                 maxlength="9"
                 minlength="9"
-                name="phoneNumberInput"
                 pattern="([0])([2-3]|[5-9])([0-9]{7})"
-                placeholder="Numărul de telefon"
                 required
-                type="text"
               >
               <div
                 *ngIf="orderForm.submitted && phoneNo.invalid"
@@ -399,27 +400,27 @@
 </div>
 
 <!-- Price Modal -->
-<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="priceModal" role="dialog"
-     tabindex="-1">
+<div class="modal fade" id="priceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">Prețul total</h3>
-        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div *ngIf="priceFlag"
-             class="badge badge-primary text-wrap"
+        <div class="badge badge-primary text-wrap"
+             *ngIf="priceFlag"
              style="width: 100%; font-size: 72px;"
         >
           {{price}}
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-secondary" data-dismiss="modal" type="button">Închide</button>
-        <button (click)="activeTab = 'order'" class="btn btn-primary" data-dismiss="modal" type="button">Următorul
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="activeTab = 'order'">Următorul
         </button>
       </div>
     </div>

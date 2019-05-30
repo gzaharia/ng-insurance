@@ -1,4 +1,4 @@
-import {AfterContentChecked, AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterContentChecked, Component, OnInit} from '@angular/core';
 import {Category} from '../../model/category/category';
 import {OrderService} from '../../service/order/order.service';
 import {Order} from '../../model/order/order';
@@ -8,6 +8,7 @@ import {InsuranceService} from '../../service/insurance/insurance.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Insurance} from '../../model/insurance/insurance';
 import {Options} from 'ng5-slider';
+import {InputTypes} from '../../model/input-types/input-types.enum';
 declare var $: any;
 
 @Component({
@@ -17,14 +18,19 @@ declare var $: any;
 })
 export class InsuranceCalculatorComponent implements OnInit, AfterContentChecked {
   categories: Category[];
+  InputTypes = InputTypes;
   public visible = false;
   public showFlag = true;
   public priceFlag = false;
+  price: number;
+  insurances: Insurance[] = [];
+  selectedInsuranceName: string;
+  selectedInsurance: Insurance;
+  ordered = false;
   displayedCategories: Category[] = [];
   category: Category;
   selectedProperties;
   nextIndex = 1;
-  sliderIndex = 0;
   calculated = false;
   activeTab = 'calculator';
   sliderValue: number[] = [];
@@ -42,17 +48,12 @@ export class InsuranceCalculatorComponent implements OnInit, AfterContentChecked
     phoneNo: '',
     insurance: null
   };
-  private price: number;
-  private insurances: Insurance[] = [];
-  private selectedInsuranceName: string;
-  private selectedInsurance: Insurance;
-  private ordered = false;
 
   constructor(
-    private insuranceService: InsuranceService,
-    private orderService: OrderService,
-    private route: ActivatedRoute,
-    private router: Router
+    public insuranceService: InsuranceService,
+    public orderService: OrderService,
+    public route: ActivatedRoute,
+    public router: Router
   ) {
   }
 

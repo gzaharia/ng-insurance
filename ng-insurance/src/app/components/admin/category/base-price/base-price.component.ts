@@ -8,10 +8,10 @@ import {Insurance} from '../../../../model/insurance/insurance';
   styleUrls: ['./base-price.component.css']
 })
 export class BasePriceComponent implements OnInit {
-  private basePrice: number = null;
-  private insurances: Insurance[];
+  basePrice: number = null;
+  insurances: Insurance[];
 
-  constructor(private insuranceService: InsuranceService) {}
+  constructor(public insuranceService: InsuranceService) {}
 
   ngOnInit() {
     this.insuranceService.getAllInsurances().subscribe(

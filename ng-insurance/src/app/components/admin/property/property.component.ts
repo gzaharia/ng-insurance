@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ActivatedRouteSnapshot, Router} from '@angular/router';
-import { CategoryPropertiesService } from 'src/app/service/category-properties/category-properties.service';
-import { CategoryProperties } from 'src/app/model/category-properties/category-properties';
-import { Category } from 'src/app/model/category/category';
-import { Location } from '@angular/common'
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {CategoryPropertiesService} from 'src/app/service/category-properties/category-properties.service';
+import {CategoryProperties} from 'src/app/model/category-properties/category-properties';
+import {Category} from 'src/app/model/category/category';
+import {Location} from '@angular/common'
 
 @Component({
   selector: 'app-property',
@@ -12,25 +12,24 @@ import { Location } from '@angular/common'
 })
 export class PropertyComponent implements OnInit {
 
-  private property: CategoryProperties;
-  private categories: Category[] = [];
-  private title = '';
-  private coefficient: number;
-  private status: string = 'ACTIVE';
-  private showCategory = false;
-  private selectedCategory = '';
-  private id: number;
-  private changeProperty = false;
-  private propertyError = '';
-  private propertySuccess = '';
-  private changeCategory = false;
-  private oldTitle = '';
+  property: CategoryProperties;
+  categories: Category[] = [];
+  title = '';
+  coefficient: number;
+  status: string = 'ACTIVE';
+  showCategory = false;
+  selectedCategory = '';
+  id: number;
+  changeProperty = false;
+  propertyError = '';
+  propertySuccess = '';
+  changeCategory = false;
+  oldTitle = '';
 
   constructor(
-              private route: ActivatedRoute,
-              private propertyService: CategoryPropertiesService,
-              private _location: Location)
-  {
+    public route: ActivatedRoute,
+    public propertyService: CategoryPropertiesService,
+    public _location: Location) {
     this.categories = this.route.snapshot.data.categories;
   }
 
@@ -41,26 +40,26 @@ export class PropertyComponent implements OnInit {
 
   getProperty() {
     this.propertyService.getPropertyById(this.id).subscribe(res => {
-      this.property = res;
-      this.oldTitle = this.property.title;
-      this.title = this.property.title;
-      this.coefficient = this.property.coefficient;
-      this.status = this.property.status;
-      for(let category of this.categories){
-        for(let property of category.properties){
-          if (property.id == this.id){
-            this.selectedCategory = category.title  +  ' | ' + category.insuranceTitle;
+        this.property = res;
+        this.oldTitle = this.property.title;
+        this.title = this.property.title;
+        this.coefficient = this.property.coefficient;
+        this.status = this.property.status;
+        for (let category of this.categories) {
+          for (let property of category.properties) {
+            if (property.id == this.id) {
+              this.selectedCategory = category.title + ' | ' + category.insuranceTitle;
 
-            this.property.category = category;
+              this.property.category = category;
+            }
           }
         }
-      }
-      this.showCategory = true;
-    },
-    err => {
-      this.propertyError = 'Error to load data';
-      this.errorMessage();
-    });
+        this.showCategory = true;
+      },
+      err => {
+        this.propertyError = 'Error to load data';
+        this.errorMessage();
+      });
   }
 
   updStatus(id) {
@@ -71,7 +70,7 @@ export class PropertyComponent implements OnInit {
 
   updProperty() {
     if ((this.title.trim().length && this.coefficient >= 1)) {
-      if(this.changeProperty || this.changeCategory ) {
+      if (this.changeProperty || this.changeCategory) {
         this.property.coefficient = this.coefficient;
         this.property.title = this.title;
 
@@ -85,8 +84,7 @@ export class PropertyComponent implements OnInit {
             this.propertyError = 'You data dono\' update !';
             this.errorMessage();
           });
-      } else
-      {
+      } else {
         this.propertyError = 'You have nothing to update !';
         this.errorMessage();
       }
@@ -94,9 +92,10 @@ export class PropertyComponent implements OnInit {
   }
 
   errorMessage() {
-  document.getElementById('MessageError').style.display = 'block';
-  setTimeout(function() {
-      document.getElementById('MessageError').style.display = 'none'; }, 3000);
+    document.getElementById('MessageError').style.display = 'block';
+    setTimeout(function () {
+      document.getElementById('MessageError').style.display = 'none';
+    }, 3000);
   }
 
   onChangeProperty() {
@@ -108,8 +107,10 @@ export class PropertyComponent implements OnInit {
     if (this.property.title.trim().length && this.property.title) {
       this.propertySuccess = 'Updated successfully !';
       document.getElementById('MessageSuccess').style.display = 'block';
-      setTimeout(function() {
-        document.getElementById('MessageSuccess').style.display = 'none'; }, 3000); }
+      setTimeout(function () {
+        document.getElementById('MessageSuccess').style.display = 'none';
+      }, 3000);
+    }
   }
 
   updCategory(id) {

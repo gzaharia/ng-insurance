@@ -8,9 +8,10 @@ import {RoleViewModel} from '../../model/role/role-view-model';
   providedIn: 'root'
 })
 export class RoleService {
-  private GET_ALL_ROLES_URL = `${ApiService.BASE_URL}\\admin\\roles`;
+  GET_ALL_ROLES_URL = `${ApiService.BASE_URL}\\admin\\roles`;
 
-  constructor(private http: HttpClient) {}
+  constructor(public http: HttpClient) {
+  }
 
   getAllRoles(): Observable<RoleViewModel[]> {
     return this.http.get<RoleViewModel[]>(this.GET_ALL_ROLES_URL);

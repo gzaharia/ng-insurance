@@ -1,9 +1,10 @@
 import { Insurance } from '../insurance/insurance';
+import {InputTypes} from '../input-types/input-types.enum';
 
 export interface CategoryViewModel {
   id: number;
   title: string;
   status: string;
-  inputType: string;
   insurance: Insurance;
+  inputType: InputTypes;
 }

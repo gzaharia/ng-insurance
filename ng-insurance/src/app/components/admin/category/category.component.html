@@ -92,11 +92,17 @@
 
     <div class="card-body">
       <div class="row">
-        <div class="col-11">
+        <div class="col-9">
           <label class="sr-only" for="inlineFormInput">Name</label>
           <input [(ngModel)]="title" class="form-control" data-toggle="tooltip" id="inlineFormInput"
                  placeholder="Category name"
                  title="Enter the category" type="text">
+        </div>
+        <div class="col-2">
+          <select class="custom-select" [(ngModel)]="selectedInputType">
+            <option selected hidden disabled>Input type</option>
+            <option *ngFor="let input of inputTypes | async">{{input}}</option>
+          </select>
         </div>
         <div class="col-1">
           <button (click)=saveCategory() class="btn btn-primary" type="submit">Add</button>
@@ -113,6 +119,7 @@
       <tr>
         <th>Id</th>
         <th>Category</th>
+        <th>Input type</th>
         <th class="text-center">Edit</th>
         <th class="text-center">Delete</th>
       </tr>
@@ -127,6 +134,7 @@
       <tr *ngFor="let category of insurance.categories; let item=index">
         <td>{{item + 1 }}</td>
         <td>{{ category.title }} <span *ngIf=category.deleted class="deleted">DELETED</span></td>
+        <td width="100" align="center">{{category.inputType}}</td>
         <td width="80" align="center">
           <button class="btn btn-primary btn-sm" title="edit category"
                   (click)="edit(category.id)">Edit
@@ -141,3 +149,4 @@
       </tbody>
     </table>
   </div>
+</div>

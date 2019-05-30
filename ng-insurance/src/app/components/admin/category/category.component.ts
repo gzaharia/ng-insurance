@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/service/category/category.service';
-import { Category } from 'src/app/model/category/category';
-import { CategoryViewModel } from 'src/app/model/category/CategoryViewModel';
-import { Router, ActivatedRoute } from '@angular/router';
-import { InsuranceService } from 'src/app/service/insurance/insurance.service';
-import { Insurance } from 'src/app/model/insurance/insurance';
-import { clearOverrides } from '@angular/core/src/view';
-
+import {Component, OnInit} from '@angular/core';
+import {CategoryService} from 'src/app/service/category/category.service';
+import {CategoryViewModel} from 'src/app/model/category/CategoryViewModel';
+import {ActivatedRoute, Router} from '@angular/router';
+import {InsuranceService} from 'src/app/service/insurance/insurance.service';
+import {Insurance} from 'src/app/model/insurance/insurance';
+import {InputTypeService} from '../../../service/input-type/input-type.service';
+import {InputTypes} from '../../../model/input-types/input-types.enum';
 
 @Component({
   selector: 'app-category',
@@ -15,32 +14,38 @@ import { clearOverrides } from '@angular/core/src/view';
 })
 export class CategoryComponent implements OnInit {
 
-  private title: string = '';
-  private insurance: Insurance;
-  private category: CategoryViewModel = <any>{};
-  private error: string = '';
-  private id: number = null;
-  private insuranceTitle: string;
-  private insuranceBasePrice: number;
-  private operation: string = "Update";
-  private action:string = "Update";
-  private isSuccesVisible: boolean = false;
-  private succes: string;
-  private oldInsuranceTitle: string;
-  private oldBasePrice: number;
-  private oldStatus : string;
+  title: string = '';
+  insurance: Insurance;
+  category: CategoryViewModel = <any> {};
+  error: string = '';
+  id: number = null;
+  insuranceTitle: string;
+  insuranceBasePrice: number;
+  operation: string = 'Update';
+  action: string = 'Update';
+  isSuccesVisible: boolean = false;
+  selectedInputType = InputTypes.RADIO;
+  succes: string;
+  oldInsuranceTitle: string;
+  oldBasePrice: number;
+  oldStatus: string;
+  inputTypes;
 
   constructor(
-    private insuranceService: InsuranceService,
-    private categoryService: CategoryService, 
-    private router: Router, 
-    private route: ActivatedRoute) {
+    public insuranceService: InsuranceService,
+    public categoryService: CategoryService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public inputTypeService: InputTypeService
+  ) {
 
     this.id = +this.route.snapshot.paramMap.get('id');
-   }
+  }
 
   ngOnInit() {
     this.getAllCategories();
+
+    this.inputTypes = this.inputTypeService.getAllInputTypes();
   }
 
   getAllCategories() {
@@ -52,12 +57,12 @@ export class CategoryComponent implements OnInit {
         this.oldBasePrice = this.insurance.basePrice;
         this.oldStatus = this.insurance.status;
         this.insuranceBasePrice = this.insurance.basePrice;
-        for(let i = 0; i < this.insurance.categories.length; i++){
-            if (this.insurance.categories[i].status===("DELETED")){
-              this.insurance.categories[i].deleted = true;
-            }else{
-              this.insurance.categories[i].deleted = false;
-            } 
+        for (let i = 0; i < this.insurance.categories.length; i++) {
+          if (this.insurance.categories[i].status === ('DELETED')) {
+            this.insurance.categories[i].deleted = true;
+          } else {
+            this.insurance.categories[i].deleted = false;
+          }
         }
       },
       err => {
@@ -68,31 +73,31 @@ export class CategoryComponent implements OnInit {
   }
 
   saveCategory() {
-    this.category.title =this.title;
-    this.title ='';
-    this.category.status = "ACTIVE";
+    this.category.title = this.title;
+    this.title = '';
+    this.category.status = 'ACTIVE';
     this.category.insurance = this.insurance;
-    if(this.category.title.trim().length){
-      this.categoryService.postCategory( this.category).subscribe(respon => {
+    this.category.inputType = this.selectedInputType;
+    if (this.category.title.trim().length) {
+      this.categoryService.postCategory(this.category).subscribe(respon => {
           this.showSucces('SuccesCategory');
           this.insurance.categories.push(respon);
         },
         error => {
           alert('cannot execute!');
         });
-    }
-    else {
+    } else {
       this.error = 'You have nothing to add !';
       this.showError('ErrorCategory');
     }
   }
 
-  edit(id){
+  edit(id) {
     this.router.navigateByUrl('admin/category/' + id);
   }
 
-  delete(id){
-    this.insurance.categories[id].status = "DELETED";
+  delete(id) {
+    this.insurance.categories[id].status = 'DELETED';
     this.categoryService.deleteCategory(this.insurance.categories[id].id).subscribe(res => {
       this.insurance.categories[id].deleted = true;
     }, err => {
@@ -100,40 +105,43 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  updStatusInsurance(status){
+  updStatusInsurance(status) {
     this.insurance.status = status;
   }
 
-  saveInsurance(){
-    if((this.insuranceTitle !== this.oldInsuranceTitle || this.insuranceBasePrice !== this.oldBasePrice || this.oldStatus !== this.insurance.status) && this.insuranceTitle.trim().length > 0 && this.insuranceBasePrice >= 1){
+  saveInsurance() {
+    if ((this.insuranceTitle !== this.oldInsuranceTitle || this.insuranceBasePrice !== this.oldBasePrice || this.oldStatus !== this.insurance.status) && this.insuranceTitle.trim().length > 0 && this.insuranceBasePrice >= 1) {
       this.insurance.title = this.insuranceTitle;
       this.insurance.basePrice = this.insuranceBasePrice;
       this.insuranceService.editOneInsurance(this.id, this.insurance).subscribe(res => {
-        this.oldInsuranceTitle = this.insurance.title;
-        this.oldBasePrice = this.insurance.basePrice;
-        this.oldStatus = this.insurance.status;
-        this.showSucces('SuccesInsurance');
-      }, 
-      err => {
-        this.error = "You data can't Update !";
-        this.showError('ErrorInsurance');
-      });
-    }else{
-      this.error = "You have nothing to Update !";
-      this.showError('ErrorInsurance');;
+          this.oldInsuranceTitle = this.insurance.title;
+          this.oldBasePrice = this.insurance.basePrice;
+          this.oldStatus = this.insurance.status;
+          this.showSucces('SuccesInsurance');
+        },
+        err => {
+          this.error = 'You data can\'t Update !';
+          this.showError('ErrorInsurance');
+        });
+    } else {
+      this.error = 'You have nothing to Update !';
+      this.showError('ErrorInsurance');
+      ;
     }
   }
 
-  showError(tagId){
-    document.getElementById(tagId).style.display="block";
-    setTimeout(function(){
-      document.getElementById(tagId).style.display="none"},3000);
+  showError(tagId) {
+    document.getElementById(tagId).style.display = 'block';
+    setTimeout(function() {
+      document.getElementById(tagId).style.display = 'none';
+    }, 3000);
   }
 
-  showSucces(tagId){
-    document.getElementById(tagId).style.display="block";
-    this.succes = "You data have been saved !";
-    setTimeout(function(){
-      document.getElementById(tagId).style.display="none"},3000);
+  showSucces(tagId) {
+    document.getElementById(tagId).style.display = 'block';
+    this.succes = 'You data have been saved !';
+    setTimeout(function() {
+      document.getElementById(tagId).style.display = 'none';
+    }, 3000);
   }
 }

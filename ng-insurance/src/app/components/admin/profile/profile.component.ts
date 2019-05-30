@@ -11,14 +11,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  private currentUser: Employee = {
+  currentUser: Employee = {
     id: null,
     username: '',
     password: '',
     roles: [],
     token: ''
   };
-  private currentUserFromDb: EmployeeViewModel = {
+  currentUserFromDb: EmployeeViewModel = {
     id: null,
     userName: '',
     firstName: '',
@@ -27,13 +27,14 @@ export class ProfileComponent implements OnInit {
     roles: [],
     status: null
   };
-  private oldUsername: string;
+  oldUsername: string;
 
   constructor(
-    private auth: AuthenticationService,
-    private userService: UserService,
-    private router: Router
-  ) {}
+    public auth: AuthenticationService,
+    public userService: UserService,
+    public router: Router
+  ) {
+  }
 
   ngOnInit() {
     if (this.auth.currentUser) {
