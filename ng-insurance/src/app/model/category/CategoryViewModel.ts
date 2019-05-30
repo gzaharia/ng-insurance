@@ -4,5 +4,6 @@ export interface CategoryViewModel {
   id: number;
   title: string;
   status: string;
+  inputType: string;
   insurance: Insurance;
 }

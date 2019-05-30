@@ -6,5 +6,6 @@ export interface Category {
   properties: CategoryProperties[];
   status: string;
   deleted: boolean;
+  inputType: string;
   insuranceTitle: string;
 }

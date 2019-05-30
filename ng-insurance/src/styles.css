@@ -238,3 +238,13 @@ button.toast-close-button {
     width: 25em;
   }
 }
+.ng5-slider-tick-legend {
+  display: none !important;
+}
+.ng5-slider-tick-value {
+  font-weight: bold;
+}
+.bootstrap-select > .dropdown-toggle{
+  background-color: #ffffff;
+  border: 1px solid #c1c1c1;
+}
