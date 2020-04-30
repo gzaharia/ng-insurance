@@ -27,7 +27,7 @@
     "browser-sync": "^2.26.5",
     "core-js": "^2.5.4",
     "express": "^4.17.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mkdirp": "^0.5.1",
     "ng2-search-filter": "^0.5.1",
     "ng5-slider": "^1.1.14",
